@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:ptmose/view/splash.dart';
+import 'package:ptmose/constants/custom_colors.dart';
+import 'package:ptmose/route_generator.dart';
+import 'package:ptmose/view_model/login_view_model.dart';
+
+import 'Screens/splash.dart';
 
 void main() {
-  runApp(/*MultiProvider(
+  runApp(MultiProvider(
     providers: [
-      *//*ChangeNotifierProvider(
-        create: (context) => PostsNotifier(),
-      ),*//*
-    ],*/
-  /*  child:*/ MyApp(),
-/*  )*/);
+      ChangeNotifierProvider(
+        create: (_) => LoginViewModel(),
+      ),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -25,10 +30,21 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return MaterialApp(
+            theme: ThemeData(
+              textSelectionTheme: const TextSelectionThemeData(
+                cursorColor: CustomColors.purple, //<-- SEE HERE
+              ),
+              inputDecorationTheme:  InputDecorationTheme(
+                hintStyle: TextStyle(color: Colors.grey,fontSize: 18.sp, fontWeight: FontWeight.bold),
+                labelStyle: TextStyle(color: CustomColors.golden,fontSize: 15.sp, fontWeight: FontWeight.bold),
+                focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: CustomColors.purple)),
+              ),
+            ),
             debugShowCheckedModeBanner: false,
-            title: 'Welcome to Flutter',
-            home: Splash(),
-
+            title: 'Welcome to PTMOSE',
+            initialRoute: '/',
+            onGenerateRoute: RouteGenerator.generateRoute,
           );
         });
   }
