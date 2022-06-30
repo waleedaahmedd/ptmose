@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:ptmose/constants/custom_colors.dart';
 import 'package:ptmose/route_generator.dart';
+import 'package:ptmose/utils/custom_colors.dart';
 import 'package:ptmose/view_model/login_view_model.dart';
 
 import 'Screens/splash.dart';

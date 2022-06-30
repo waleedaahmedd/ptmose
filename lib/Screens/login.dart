@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:ptmose/view_model/login_view_model.dart';
 
-import '../constants/custom_colors.dart';
-import '../constants/custom_font_style.dart';
+import '../utils/custom_colors.dart';
+import '../utils/custom_font_style.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);

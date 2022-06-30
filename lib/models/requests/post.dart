@@ -1,22 +1,17 @@
-class Post {
-  int? id;
-  int? userId;
-  String? body;
-  String? title;
-  Post();
-  Post.fromMap(Map<String, dynamic> data) {
-    id = data['id'];
-    userId = data['userId'];
-    body = data['body'];
-    title = data['title'];
-  }
+class PostModel {
+  final int? id;
+  final int? userId;
+  final String? title;
+  final String? body;
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'userId': userId,
-      'body': body,
-      'title': title,
-    };
+  PostModel({this.id, this.userId, this.title, this.body});
+
+  factory PostModel.fromJson(Map<String, dynamic> json) {
+    return PostModel(
+      id: json['id'],
+      userId: json['userId'],
+      title: json['title'] ?? "",
+      body: json['body'] ?? "",
+    );
   }
 }
