@@ -7,6 +7,18 @@ import '../utils/CRUD_data_locally.dart';
 class LoginViewModel with ChangeNotifier {
 
   TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  bool _showPassword = false;
+
+  bool get getShowPassword => _showPassword;
+
+
+  void setShowPassword(bool value) {
+    _showPassword = value;
+    notifyListeners();
+  }
+
+
 
   PostModel post = PostModel();
   bool loading = false;

@@ -44,12 +44,49 @@ class LoginScreen extends StatelessWidget {
                         ),
                         Container(
                           padding: const EdgeInsets.all(10),
-                          child: TextField(
-                            controller: loginViewModel.nameController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'USER NAME',
-                            ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: loginViewModel.nameController,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    suffixIcon: Icon(
+                                    Icons.person,
+                                    ),
+                                    hintText: 'USER NAME',
+                                    // labelText: 'USER NAME',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: loginViewModel.passwordController,
+                                  obscureText: loginViewModel.getShowPassword,
+                                  decoration:  InputDecoration(
+                                    border: const OutlineInputBorder(),
+                                    suffixIcon: IconButton(
+                                       onPressed: (){
+                                         loginViewModel.setShowPassword(!loginViewModel.getShowPassword);
+                                       },
+                                      icon: const Icon(Icons.remove_red_eye,) ,
+                                    ),
+                                    hintText: 'PASSWORD',
+                                    // labelText: 'USER NAME',
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

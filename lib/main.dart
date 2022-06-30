@@ -31,12 +31,24 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return MaterialApp(
             theme: ThemeData(
+              colorScheme: ThemeData().colorScheme.copyWith(
+                    secondary: CustomColors.purple,
+                    primary: CustomColors.purple,
+                  ),
               textSelectionTheme: const TextSelectionThemeData(
                 cursorColor: CustomColors.purple, //<-- SEE HERE
               ),
-              inputDecorationTheme:  InputDecorationTheme(
-                hintStyle: TextStyle(color: Colors.grey,fontSize: 18.sp, fontWeight: FontWeight.bold),
-                labelStyle: TextStyle(color: CustomColors.golden,fontSize: 15.sp, fontWeight: FontWeight.bold),
+              inputDecorationTheme: InputDecorationTheme(
+                //suffixIconColor: CustomColors.purple,
+                focusColor: CustomColors.purple,
+                hintStyle: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold),
+                labelStyle: TextStyle(
+                    color: CustomColors.golden,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold),
                 focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: CustomColors.purple)),
               ),
