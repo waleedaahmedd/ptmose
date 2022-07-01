@@ -21,3 +21,20 @@ class Heading extends StatelessWidget {
     );
   }
 }
+
+class Heading2 extends StatelessWidget {
+  final String data;
+
+  const Heading2({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      data,
+      style: TextStyle(color: CustomColors.purple,fontWeight: FontWeight.bold),
+    );
+  }
+}

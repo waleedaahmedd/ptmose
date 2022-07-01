@@ -38,7 +38,7 @@ class _SplashState extends State<Splash> {
       });
     });
 
-    Future.delayed(const Duration(seconds: 10), () {
+    Future.delayed(const Duration(seconds: 9), () {
       Navigator.of(context).pushNamedAndRemoveUntil('/login',ModalRoute.withName('/'));
     });
   }
@@ -60,6 +60,7 @@ class _SplashState extends State<Splash> {
     );
   }
 
+/*
   _getBackgroundColor() {
     return Container(color: Colors.transparent //.withAlpha(120),
     );
@@ -71,6 +72,7 @@ class _SplashState extends State<Splash> {
       mainAxisAlignment: MainAxisAlignment.start,
     );
   }
+*/
 
   @override
   Widget build(BuildContext context) {

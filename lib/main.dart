@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:ptmose/route_generator.dart';
 import 'package:ptmose/utils/custom_colors.dart';
 import 'package:ptmose/view_model/login_view_model.dart';
+import 'package:ptmose/view_model/signup_view_model.dart';
 
 import 'Screens/splash.dart';
 
@@ -13,6 +14,9 @@ void main() {
     providers: [
       ChangeNotifierProvider(
         create: (_) => LoginViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => SignUpViewModel(),
       ),
     ],
     child: MyApp(),
@@ -31,6 +35,7 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return MaterialApp(
             theme: ThemeData(
+              primaryColor: CustomColors.purple,
               colorScheme: ThemeData().colorScheme.copyWith(
                     secondary: CustomColors.purple,
                     primary: CustomColors.purple,
@@ -43,11 +48,11 @@ class MyApp extends StatelessWidget {
                 focusColor: CustomColors.purple,
                 hintStyle: TextStyle(
                     color: Colors.grey,
-                    fontSize: 15.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.bold),
                 labelStyle: TextStyle(
                     color: CustomColors.golden,
-                    fontSize: 15.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.bold),
                 focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: CustomColors.purple)),
