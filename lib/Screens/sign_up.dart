@@ -110,7 +110,7 @@ class SignUpScreen extends StatelessWidget {
                       data: 'OR USE:',
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: 10.h,
                     ),
                     Row(
                       children: [
@@ -134,7 +134,7 @@ class SignUpScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 20.h,
                     ),
                     const Align(
                       alignment: Alignment.centerLeft,

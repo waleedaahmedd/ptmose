@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:ptmose/route_generator.dart';
 import 'package:ptmose/utils/custom_colors.dart';
+import 'package:ptmose/view_model/forget_password_view_model.dart';
 import 'package:ptmose/view_model/login_view_model.dart';
 import 'package:ptmose/view_model/signup_view_model.dart';
 
@@ -17,6 +18,9 @@ void main() {
       ),
       ChangeNotifierProvider(
         create: (_) => SignUpViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => ForgotPasswordViewModel(),
       ),
     ],
     child: MyApp(),
