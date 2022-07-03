@@ -94,6 +94,7 @@ class ShopScreen extends StatelessWidget {
                     SizedBox(width: 10.w,),
                     const NormalFontText2(data:'5:00 PM - 7:00 PM PST'),
                   ],
+
                 ),
                 SizedBox(height: 5.h,),
                 Row(
