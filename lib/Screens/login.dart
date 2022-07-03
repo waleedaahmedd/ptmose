@@ -7,7 +7,7 @@ import '../utils/custom_font_style.dart';
 import '../widgets/custom_button.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class LoginScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Heading(
+                        const GoogleFontText1(
                           data: 'Login',
                         ),
                         Column(
@@ -83,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                                     Navigator.of(context)
                                         .pushNamed('/forget_password');
                                   },
-                                  child: const Heading2(
+                                  child: const NormalFontText1(
                                     data: 'FORGOT PASSWORD?',
                                   ),
                                 )),
@@ -104,7 +104,7 @@ class LoginScreen extends StatelessWidget {
                             height: 10.h,
                           ),
                           const Center(
-                            child: Heading2(
+                            child: NormalFontText1(
                               data: 'OR USE:',
                             ),
                           ),
@@ -145,7 +145,7 @@ class LoginScreen extends StatelessWidget {
                           SizedBox(
                             height: 20.h,
                           ),
-                          Heading2(
+                          NormalFontText1(
                             data: 'NEW HERE?',
                           ),
                           TextButton(
@@ -155,7 +155,7 @@ class LoginScreen extends StatelessWidget {
                             onPressed: () {
                               Navigator.of(context).pushNamed('/sign_up');
                             },
-                            child: const Heading(
+                            child: const GoogleFontText1(
                               data: 'Sign Up >',
                             ),
                           ),

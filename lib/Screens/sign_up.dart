@@ -29,7 +29,7 @@ class SignUpScreen extends StatelessWidget {
                           vertical: 70, horizontal: 80),
                       child: Image.asset('assets/images/Logo2.png'),
                     ),
-                    const Heading(
+                    const GoogleFontText1(
                       data: 'Sign Up',
                     ),
                     SizedBox(
@@ -106,7 +106,7 @@ class SignUpScreen extends StatelessWidget {
                     SizedBox(
                       height: 20.h,
                     ),
-                    const Heading2(
+                    const NormalFontText1(
                       data: 'OR USE:',
                     ),
                     SizedBox(
@@ -138,7 +138,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     const Align(
                       alignment: Alignment.centerLeft,
-                      child: Heading2(
+                      child: NormalFontText1(
                         data: 'ALREADY HAVE AN ACCOUNT?',
                       ),
                     ),
@@ -150,7 +150,7 @@ class SignUpScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Heading(
+                      child: const GoogleFontText1(
                         data: 'Login >',
                       ),
                     ),

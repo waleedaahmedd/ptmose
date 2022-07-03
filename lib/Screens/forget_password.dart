@@ -40,7 +40,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
 
                           children: [
-                            const Heading(
+                            const GoogleFontText1(
                               data: 'Forgot Password?',
                             ),
                             SizedBox(
@@ -70,13 +70,13 @@ class ForgetPasswordScreen extends StatelessWidget {
                             SizedBox(
                               height: 10.h,
                             ),
-                            const Paragraph(data: 'If an account with the email address provided then a code will be sent. Please click on the link to reset your password.',),
+                            const NormalFontText4(data: 'If an account with the email address provided then a code will be sent. Please click on the link to reset your password.',),
                           ],
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Heading2(
+                            const NormalFontText1(
                               data: 'NEW HERE?',
                             ),
                             TextButton(
@@ -86,7 +86,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                               onPressed: () {
                                 Navigator.of(context).pushNamed('/sign_up');
                               },
-                              child: const Heading(
+                              child: const GoogleFontText1(
                                 data: 'Sign Up >',
                               ),
                             ),
