@@ -97,6 +97,7 @@ class ShopScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 5.h,),
                 Row(
+
                   children:  [
                     Icon(Icons.location_on_outlined,color: CustomColors.golden,size: 15.h,),
                     SizedBox(width: 10.w,),
