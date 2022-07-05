@@ -64,7 +64,7 @@ class BottomButtonsWidget extends StatelessWidget {
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/shop');
+
                   },
                   child: SizedBox(
                     width: double.infinity,

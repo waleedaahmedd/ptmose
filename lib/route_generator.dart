@@ -4,7 +4,7 @@ import 'package:ptmose/Screens/splash.dart';
 
 import 'Screens/forget_password.dart';
 import 'Screens/home.dart';
-import 'Screens/shop.dart';
+import 'Screens/winery_details.dart';
 import 'Screens/sign_up.dart';
 
 class RouteGenerator {
@@ -23,7 +23,7 @@ class RouteGenerator {
       case '/home':
         return MaterialPageRoute(builder: (_) =>  HomeScreen());
       case '/shop':
-        return MaterialPageRoute(builder: (_) =>  ShopScreen());
+        return MaterialPageRoute(builder: (_) =>  WineryDetailsScreen());
       default:
         return _errorRoute();
     }

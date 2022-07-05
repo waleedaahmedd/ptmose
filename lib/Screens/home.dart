@@ -1,23 +1,41 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:ptmose/utils/custom_font_style.dart';
 
 import '../utils/custom_colors.dart';
+import '../view_model/home_view_model.dart';
 import '../widget/app_bar_widget.dart';
 import '../widget/bottom_buttons_widget.dart';
 import '../widget/drawer_widget.dart';
-import '../widget/featured_testing_card_widget.dart';
+import '../widget/featured_testing_list_widget.dart';
 import '../widget/location_card_widget.dart';
-import '../widget/wineries_card_widget.dart';
+import '../widget/wineries_list_widget.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      Provider.of<HomeViewModel>(context, listen: false)
+          .callFeaturedTestingListApi();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Consumer<HomeViewModel>(builder: (_, homeViewModel, __) {
+      return Scaffold(
         appBar: const AppBarWidget(
           headings: true,
           cartButton: true,
@@ -67,9 +85,15 @@ class HomeScreen extends StatelessWidget {
                       height: 10.h,
                     ),
                     //TODO: call List
-                    const FeaturedTestingCardWidget(),
                     SizedBox(
-                      height: 20.h,
+                      height: 340.h,
+                      width: double.infinity,
+                      child: FeaturedTestingCardWidget(
+                          featuredTestingList:
+                              homeViewModel.getFeaturedTestingList),
+                    ),
+                    SizedBox(
+                      height: 5.h,
                     ),
                     const NormalFontText1(
                       data: 'WINERIES',
@@ -86,6 +110,7 @@ class HomeScreen extends StatelessWidget {
             const BottomButtonsWidget()
           ],
         ),
-        );
+      );
+    });
   }
 }
