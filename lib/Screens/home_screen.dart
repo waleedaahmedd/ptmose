@@ -11,9 +11,9 @@ import '../view_model/home_view_model.dart';
 import '../widget/app_bar_widget.dart';
 import '../widget/bottom_buttons_widget.dart';
 import '../widget/drawer_widget.dart';
-import '../widget/featured_testing_list_widget.dart';
+import '../widget/tasting_horizontal_list_widget.dart';
 import '../widget/location_card_widget.dart';
-import '../widget/wineries_list_widget.dart';
+import '../widget/wineries_vertical_list_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -27,8 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      Provider.of<HomeViewModel>(context, listen: false)
-          .callFeaturedTestingListApi();
+      Provider.of<HomeViewModel>(context, listen: false).callTestingListApi();
+      Provider.of<HomeViewModel>(context, listen: false).callWineriesList();
     });
   }
 
@@ -88,9 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 340.h,
                       width: double.infinity,
-                      child: FeaturedTestingCardWidget(
-                          featuredTestingList:
-                              homeViewModel.getFeaturedTestingList),
+                      child: TastingHorizontalListWidget(
+                          tastingList: homeViewModel.getTastingList),
                     ),
                     SizedBox(
                       height: 5.h,
@@ -102,7 +101,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 10.h,
                     ),
                     //TODO: call List
-                    const WineriesCardWidget(),
+                    WineriesVerticalListWidget(
+                        wineriesList: homeViewModel.getWineriesList),
+                    SizedBox(height: 60.h,)
                   ],
                 ),
               ),

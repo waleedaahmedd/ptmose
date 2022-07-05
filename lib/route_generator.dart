@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ptmose/Screens/login.dart';
-import 'package:ptmose/Screens/splash.dart';
+import 'package:ptmose/Screens/login_screen.dart';
+import 'package:ptmose/Screens/splash_screen.dart';
 
-import 'Screens/forget_password.dart';
-import 'Screens/home.dart';
-import 'Screens/winery_details.dart';
-import 'Screens/sign_up.dart';
+import 'Screens/forget_password_screen.dart';
+import 'Screens/home_screen.dart';
+import 'Screens/winery_details_screen.dart';
+import 'Screens/sign_up_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -22,7 +22,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) =>  SignUpScreen());
       case '/home':
         return MaterialPageRoute(builder: (_) =>  HomeScreen());
-      case '/shop':
+      case '/wineryDetails':
         return MaterialPageRoute(builder: (_) =>  WineryDetailsScreen());
       default:
         return _errorRoute();

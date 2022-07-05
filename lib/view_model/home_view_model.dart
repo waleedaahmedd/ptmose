@@ -1,23 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:ptmose/dummy_data.dart';
 
-import '../models/responses/featured_testing_model.dart';
+import '../models/responses/tasting_model.dart';
+import '../models/responses/wineries_model.dart';
 
-class HomeViewModel with ChangeNotifier{
+class HomeViewModel with ChangeNotifier {
+  final List<TastingModel> _tastingList = [];
+  final List<WineriesModel> _wineriesList = [];
 
-  final List<FeaturedTestingModel> _featuredTestingList = [];
+  List<WineriesModel> get getWineriesList => _wineriesList;
 
-  List<FeaturedTestingModel> get getFeaturedTestingList => _featuredTestingList;
+  List<TastingModel> get getTastingList => _tastingList;
 
-
-  void setFeaturedTestingList(List<FeaturedTestingModel> value) {
-    _featuredTestingList.addAll(value);
+  void setWineriesList(List<WineriesModel> value) {
+    _wineriesList.addAll(value);
     notifyListeners();
   }
 
-  callFeaturedTestingListApi(){
-    _featuredTestingList.clear();
-    setFeaturedTestingList(DummyData().featuredTestingList);
+  void setTestingList(List<TastingModel> value) {
+    _tastingList.addAll(value);
+    notifyListeners();
   }
 
+  callTestingListApi() {
+    _tastingList.clear();
+    setTestingList(DummyData().tastingList);
+  }
+
+  callWineriesList() {
+    _wineriesList.clear();
+    setWineriesList(DummyData().wineriesList);
+  }
 }

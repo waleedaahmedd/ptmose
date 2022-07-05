@@ -8,9 +8,11 @@ import 'package:ptmose/view_model/forget_password_view_model.dart';
 import 'package:ptmose/view_model/home_view_model.dart';
 import 'package:ptmose/view_model/login_view_model.dart';
 import 'package:ptmose/view_model/signup_view_model.dart';
+import 'package:ptmose/view_model/testing_list_view_model.dart';
+import 'package:ptmose/view_model/wineriesListViewModel.dart';
 import 'package:ptmose/view_model/winery_details_view_model.dart';
 
-import 'Screens/splash.dart';
+import 'Screens/splash_screen.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -32,6 +34,12 @@ void main() {
       ),
       ChangeNotifierProvider(
         create: (_) => WineryDetailsViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => TestingListViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => WineriesListViewModel(),
       ),
     ],
     child: const MyApp(),

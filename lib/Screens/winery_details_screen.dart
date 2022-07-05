@@ -9,7 +9,7 @@ import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
 import '../widget/app_bar_widget.dart';
 import '../widget/drawer_widget.dart';
-import '../widget/featured_testing_list_widget.dart';
+import '../widget/tasting_horizontal_list_widget.dart';
 
 class WineryDetailsScreen extends StatefulWidget {
   const WineryDetailsScreen({Key? key}) : super(key: key);
@@ -181,8 +181,8 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
                     SizedBox(
                       height: 340.h,
                       width: double.infinity,
-                      child: FeaturedTestingCardWidget(
-                          featuredTestingList:
+                      child: TastingHorizontalListWidget(
+                          tastingList:
                               wineryDetailsViewModel.getFeaturedTestingList),
                     ),
                   ],
