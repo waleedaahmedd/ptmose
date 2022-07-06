@@ -96,8 +96,9 @@ class LoginScreen extends StatelessWidget {
                           CustomButton(
                             text: 'SIGN IN',
                             onPressed: () {
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  '/home', ModalRoute.withName('/'));
+                              loginViewModel.getPostData(context);
+                             /* Navigator.of(context).pushNamedAndRemoveUntil(
+                                  '/home', ModalRoute.withName('/'));*/
                             },
                           ),
                           SizedBox(

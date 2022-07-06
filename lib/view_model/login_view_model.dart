@@ -8,6 +8,7 @@ class LoginViewModel with ChangeNotifier {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   bool _showPassword = false;
 
   bool get getShowPassword => _showPassword;
@@ -23,9 +24,18 @@ class LoginViewModel with ChangeNotifier {
   PostModel post = PostModel();
   bool loading = false;
 
-  getPostData(context) async {
+  /*getPostData(context) async {
     loading = true;
     post = await getSinglePostData(context);
+    CRUDDataLocally.saveTokenLocally('',post.id);
+    loading = false;
+
+    notifyListeners();
+  }*/
+
+  getPostData(context) async {
+    loading = true;
+    final response  = await callGraphApi();
     CRUDDataLocally.saveTokenLocally('',post.id);
     loading = false;
 
