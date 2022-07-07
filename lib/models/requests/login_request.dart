@@ -1,18 +1,12 @@
 class LoginRequest {
-  String? userName;
-  String? password;
 
-  LoginRequest({this.userName, this.password});
+  final String email;
+  final String? password;
 
-  LoginRequest.fromJson(Map<String, dynamic> json) {
-    userName = json['user_name'];
-    password = json['password'];
-  }
+  LoginRequest(this.email, this.password);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user_name'] = this.userName;
-    data['password'] = this.password;
-    return data;
+  generateQuery(){
+     String query = '''{"query":"query {\\n  loginUser(email: \\"$email\\", password: \\"$password\\") {\\n    status\\n    message\\n    data {\\n      id\\n      email\\n      firstName\\n    }\\n  }\\n}\\n","variables":{}}''';
+  return query;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:ptmose/route_generator.dart';
@@ -15,6 +16,8 @@ import 'package:ptmose/view_model/winery_details_view_model.dart';
 import 'Screens/splash_screen.dart';
 
 void main() {
+  configLoading();
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -45,6 +48,26 @@ void main() {
     child: const MyApp(),
   ));
 }
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.dualRing
+    ..loadingStyle = EasyLoadingStyle.custom
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = CustomColors.golden
+    ..backgroundColor = CustomColors.purple
+    ..indicatorColor = CustomColors.golden
+    ..textColor = CustomColors.golden
+    ..maskColor = Colors.black.withOpacity(0.5)
+    ..maskType = EasyLoadingMaskType.custom
+    ..userInteractions = false
+    ..toastPosition = EasyLoadingToastPosition.bottom
+    ..dismissOnTap = false;
+  // ..customAnimation = CustomAnimation();
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -85,6 +108,7 @@ class MyApp extends StatelessWidget {
             title: 'Welcome to PTMOSE',
             initialRoute: '/',
             onGenerateRoute: RouteGenerator.generateRoute,
+            builder: EasyLoading.init(),
           );
         });
   }

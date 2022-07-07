@@ -7,88 +7,26 @@ import '../models/requests/login_request.dart';
 import '../models/requests/post.dart';
 import '../models/responses/login_response.dart';
 
-var _baseURL = Uri.parse('https://example.com/whatsit/create');
+var _baseURL = 'https://howmuchbackend.herokuapp.com/';
 
-Future<PostModel> getSinglePostData(context) async {
-  PostModel? result;
-  try {
-    final response = await http.get(
-      _baseURL,
-      headers: {
-        HttpHeaders.contentTypeHeader: "application/json",
-      },
-    );
-    if (response.statusCode == 200) {
-      final item = json.decode(response.body);
-      result = PostModel.fromJson(item);
-    } else {
-      /* Toast.show("Data not found", context,
-          duration: 2, backgroundColor: Colors.redAccent);*/
-    }
-  } catch (e) {
-    print(e);
-  }
-  return result!;
-}
-
-/*Future<LoginResponse> userLogin() async {
-  LoginRequest? request;
-  LoginResponse? result;
-
-  var bodyData = json.encode(request!.toJson());
-  try {
-    final response = await http.post(
-      _baseURL,
-      headers: {
-        HttpHeaders.contentTypeHeader: "application/json",
-      },
-      body: bodyData
-    );
-    if (response.statusCode == 200) {
-      final item = json.decode(response.body);
-      result = LoginResponse.fromJson(item);
-    } else {
-      */ /* Toast.show("Data not found", context,
-          duration: 2, backgroundColor: Colors.redAccent);*/ /*
-    }
-  } catch (e) {
-    print(e);
-  }
-  return result!;
-}*/
-
-const String query =
-    'query {'
-    'loginUser(email: \\"Mudassir@gmail.com\\", password: \\"123456789\\") {\\n    status\\n    message\\n    data {\\n      id\\n      email\\n      firstName\\n    }\\n  }\\n}\\n';
-
-/*const String query = '''
-  query {
-  loginUser(email: "Mudassir@gmail.com", password: "123456789") {
-    status
-    message
-    data {
-      id
-      email
-      firstName
-    }
-  }
-}
-''';*/
-
-const String queryVariables = '''
-{}
-''';
-
-Future<String?> callGraphApi() async {
+Future<LoginResponse?> callGraphApi(LoginRequest loginRequest) async {
   var headers = {'Content-Type': 'application/json'};
-  var request = http.Request(
-      'POST', Uri.parse('https://howmuchbackend.herokuapp.com/graphql'));
-  request.body = '''{"query":"$query","variables": $queryVariables}''';
-
+  var request = http.Request('POST', Uri.parse('${_baseURL}graphql'));
+  request.body = loginRequest.generateQuery();
   request.headers.addAll(headers);
-
   http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    LoginResponse loginResponse =
+        LoginResponse.fromJson(json.decode(responseData.body));
 
+    return loginResponse;
+  } else {
+    print(response.reasonPhrase);
+    return null;
+  }
+
+/*
   if (response.statusCode == 200) {
     final sex = await http.Response.fromStream(response);
     print(sex.body);
@@ -98,5 +36,5 @@ Future<String?> callGraphApi() async {
     print(response.reasonPhrase);
 
     return null;
-  }
+  }*/
 }
