@@ -7,14 +7,15 @@ import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
 
 class WineriesVerticalListWidget extends StatelessWidget {
-  const WineriesVerticalListWidget({Key? key, required this.wineriesList})
+  const WineriesVerticalListWidget({Key? key, required this.wineriesList, required this.listScrollable})
       : super(key: key);
+  final bool listScrollable;
   final List<WineriesModel> wineriesList;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
+      physics: listScrollable == false? const NeverScrollableScrollPhysics() : null  ,
       itemCount: wineriesList.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {

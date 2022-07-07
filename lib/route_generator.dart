@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ptmose/Screens/login_screen.dart';
+import 'package:ptmose/Screens/my_reservation_screen.dart';
 import 'package:ptmose/Screens/splash_screen.dart';
+import 'package:ptmose/Screens/tasting_list_screen.dart';
 
 import 'Screens/forget_password_screen.dart';
 import 'Screens/home_screen.dart';
@@ -24,6 +26,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) =>  HomeScreen());
       case '/wineryDetails':
         return MaterialPageRoute(builder: (_) =>  WineryDetailsScreen());
+      case '/my_reservation':
+        return MaterialPageRoute(builder: (_) =>  MyReservationScreen());
+      case '/tasting_list':
+        return MaterialPageRoute(builder: (_) =>  TastingListScreen());
       default:
         return _errorRoute();
     }

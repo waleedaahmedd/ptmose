@@ -7,16 +7,17 @@ import 'package:ptmose/utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
 
 class TastingHorizontalListWidget extends StatelessWidget {
-  const TastingHorizontalListWidget({
-    Key? key,
-    required this.tastingList,
-  }) : super(key: key);
+  const TastingHorizontalListWidget(
+      {Key? key, required this.tastingList, required this.listScrollable})
+      : super(key: key);
   final List<TastingModel> tastingList;
+  final bool listScrollable;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      //physics: NeverScrollableScrollPhysics(),
+      physics:
+          listScrollable == false ? const NeverScrollableScrollPhysics() : null,
       shrinkWrap: true,
       padding: const EdgeInsets.only(bottom: 20),
       scrollDirection: Axis.horizontal,

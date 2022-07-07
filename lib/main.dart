@@ -8,6 +8,7 @@ import 'package:ptmose/view_model/app_bar_view_model.dart';
 import 'package:ptmose/view_model/forget_password_view_model.dart';
 import 'package:ptmose/view_model/home_view_model.dart';
 import 'package:ptmose/view_model/login_view_model.dart';
+import 'package:ptmose/view_model/my_reservation_view_model.dart';
 import 'package:ptmose/view_model/signup_view_model.dart';
 import 'package:ptmose/view_model/testing_list_view_model.dart';
 import 'package:ptmose/view_model/wineriesListViewModel.dart';
@@ -43,6 +44,9 @@ void main() {
       ),
       ChangeNotifierProvider(
         create: (_) => WineriesListViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => MyReservationViewModel(),
       ),
     ],
     child: const MyApp(),

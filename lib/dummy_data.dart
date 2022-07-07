@@ -5,7 +5,7 @@ class DummyData {
   List<TastingModel> tastingList = [
     TastingModel(
         id: 01,
-        image: 'assets/images/LocationBoxImg.png',
+        image: 'assets/images/EventsHeadPic.png',
         location: 'Vinous Reverie Wine Merchant',
         date: 'FEB 3',
         title: 'Alsace Grand Cru Riesling Tasting',
@@ -13,7 +13,7 @@ class DummyData {
         workingHours: '5:00 PM - 7:00 PM PST'),
     TastingModel(
         id: 01,
-        image: 'assets/images/LocationBoxImg.png',
+        image: 'assets/images/EventsHeadPic.png',
         location: 'Vinous Reverie Wine Merchant',
         date: 'FEB 3',
         title: 'Alsace Grand Cru Riesling Tasting',
@@ -21,7 +21,7 @@ class DummyData {
         workingHours: '5:00 PM - 7:00 PM PST'),
     TastingModel(
         id: 01,
-        image: 'assets/images/LocationBoxImg.png',
+        image: 'assets/images/EventsHeadPic.png',
         location: 'Vinous Reverie Wine Merchant',
         date: 'FEB 3',
         title: 'Alsace Grand Cru Riesling Tasting',
@@ -29,7 +29,7 @@ class DummyData {
         workingHours: '5:00 PM - 7:00 PM PST'),
     TastingModel(
         id: 01,
-        image: 'assets/images/LocationBoxImg.png',
+        image: 'assets/images/EventsHeadPic.png',
         location: 'Vinous Reverie Wine Merchant',
         date: 'FEB 3',
         title: 'Alsace Grand Cru Riesling Tasting',
@@ -37,7 +37,7 @@ class DummyData {
         workingHours: '5:00 PM - 7:00 PM PST'),
     TastingModel(
         id: 01,
-        image: 'assets/images/LocationBoxImg.png',
+        image: 'assets/images/EventsHeadPic.png',
         location: 'Vinous Reverie Wine Merchant',
         date: 'FEB 3',
         title: 'Alsace Grand Cru Riesling Tasting',
@@ -45,7 +45,7 @@ class DummyData {
         workingHours: '5:00 PM - 7:00 PM PST'),
     TastingModel(
         id: 01,
-        image: 'assets/images/LocationBoxImg.png',
+        image: 'assets/images/EventsHeadPic.png',
         location: 'Vinous Reverie Wine Merchant',
         date: 'FEB 3',
         title: 'Alsace Grand Cru Riesling Tasting',
@@ -53,7 +53,7 @@ class DummyData {
         workingHours: '5:00 PM - 7:00 PM PST'),
     TastingModel(
         id: 01,
-        image: 'assets/images/LocationBoxImg.png',
+        image: 'assets/images/EventsHeadPic.png',
         location: 'Vinous Reverie Wine Merchant',
         date: 'FEB 3',
         title: 'Alsace Grand Cru Riesling Tasting',
@@ -61,7 +61,7 @@ class DummyData {
         workingHours: '5:00 PM - 7:00 PM PST'),
     TastingModel(
         id: 01,
-        image: 'assets/images/LocationBoxImg.png',
+        image: 'assets/images/EventsHeadPic.png',
         location: 'Vinous Reverie Wine Merchant',
         date: 'FEB 3',
         title: 'Alsace Grand Cru Riesling Tasting',
@@ -69,7 +69,7 @@ class DummyData {
         workingHours: '5:00 PM - 7:00 PM PST'),
     TastingModel(
         id: 01,
-        image: 'assets/images/LocationBoxImg.png',
+        image: 'assets/images/EventsHeadPic.png',
         location: 'Vinous Reverie Wine Merchant',
         date: 'FEB 3',
         title: 'Alsace Grand Cru Riesling Tasting',

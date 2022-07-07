@@ -36,7 +36,6 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
         appBar: const AppBarWidget(
           homeButton: true,
         ),
-        drawer: const DrawerWidget(),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -183,7 +182,7 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
                       width: double.infinity,
                       child: TastingHorizontalListWidget(
                           tastingList:
-                              wineryDetailsViewModel.getFeaturedTestingList),
+                              wineryDetailsViewModel.getFeaturedTestingList, listScrollable: true,),
                     ),
                   ],
                 ),

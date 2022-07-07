@@ -72,12 +72,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        NormalFontText1(
+                      children:  [
+                        const NormalFontText1(
                           data: 'FEATURED TASTING',
                         ),
-                        NormalFontText2(
-                          data: 'SEE ALL >',
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.of(context).pushNamed('/tasting_list');
+
+                          },
+                          child: const NormalFontText2(
+                            data: 'SEE ALL >',
+                          ),
                         ),
                       ],
                     ),
@@ -89,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 340.h,
                       width: double.infinity,
                       child: TastingHorizontalListWidget(
-                          tastingList: homeViewModel.getTastingList),
+                          tastingList: homeViewModel.getTastingList,listScrollable: true,),
                     ),
                     SizedBox(
                       height: 5.h,
@@ -102,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     //TODO: call List
                     WineriesVerticalListWidget(
-                        wineriesList: homeViewModel.getWineriesList),
+                        wineriesList: homeViewModel.getWineriesList, listScrollable: false,),
                     SizedBox(height: 60.h,)
                   ],
                 ),

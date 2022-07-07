@@ -60,7 +60,7 @@ class DrawerWidget extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.ac_unit,
               color: CustomColors.golden,
             ),
@@ -69,6 +69,7 @@ class DrawerWidget extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
+              Navigator.of(context).pushNamed('/my_reservation');
             },
           ),
           ListTile(
@@ -129,7 +130,8 @@ class DrawerWidget extends StatelessWidget {
               data: 'LOGOUT',
             ),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/login', ModalRoute.withName('/'));
             },
           ),
           SizedBox(

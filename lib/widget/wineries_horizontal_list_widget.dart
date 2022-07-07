@@ -10,13 +10,15 @@ class WineriesHorizontalListWidget extends StatelessWidget {
   const WineriesHorizontalListWidget({
     Key? key,
     required this.wineriesList,
+   required this.listScrollable
   }) : super(key: key);
   final List<WineriesModel> wineriesList;
+  final bool listScrollable;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      //physics: NeverScrollableScrollPhysics(),
+      physics: listScrollable == false? const NeverScrollableScrollPhysics() : null,
       shrinkWrap: true,
       padding: const EdgeInsets.only(bottom: 20),
       scrollDirection: Axis.horizontal,
