@@ -29,7 +29,7 @@ class TastingHorizontalListWidget extends StatelessWidget {
             width: 300.w,
             child: GestureDetector(
               onTap: () {
-                //Navigator.of(context).pushNamed('/shop');
+                Navigator.of(context).pushNamed('/tasting_details');
                 /* : Navigator.of(context).pushReplacementNamed('/shop');*/
               },
               child: Card(

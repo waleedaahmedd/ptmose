@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children:  [
                         const NormalFontText1(
-                          data: 'FEATURED TASTING',
+                          data: 'FEATURED TASTINGS',
                         ),
                         GestureDetector(
                           onTap: (){
@@ -100,8 +100,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 5.h,
                     ),
-                    const NormalFontText1(
-                      data: 'WINERIES',
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children:  [
+                        const NormalFontText1(
+                          data: 'RECOMMENDED WINERIES',
+                        ),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.of(context).pushNamed('/wineries_list');
+
+                          },
+                          child: const NormalFontText2(
+                            data: 'SEE ALL >',
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 10.h,

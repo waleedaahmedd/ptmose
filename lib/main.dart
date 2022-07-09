@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:ptmose/Screens/tasting_details_screen.dart';
 import 'package:ptmose/route_generator.dart';
 import 'package:ptmose/utils/custom_colors.dart';
 import 'package:ptmose/view_model/app_bar_view_model.dart';
@@ -10,6 +11,7 @@ import 'package:ptmose/view_model/home_view_model.dart';
 import 'package:ptmose/view_model/login_view_model.dart';
 import 'package:ptmose/view_model/my_reservation_view_model.dart';
 import 'package:ptmose/view_model/signup_view_model.dart';
+import 'package:ptmose/view_model/tasting_details_view_model.dart';
 import 'package:ptmose/view_model/testing_list_view_model.dart';
 import 'package:ptmose/view_model/wineriesListViewModel.dart';
 import 'package:ptmose/view_model/winery_details_view_model.dart';
@@ -47,6 +49,9 @@ void main() {
       ),
       ChangeNotifierProvider(
         create: (_) => MyReservationViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => TastingDetailsViewModel(),
       ),
     ],
     child: const MyApp(),

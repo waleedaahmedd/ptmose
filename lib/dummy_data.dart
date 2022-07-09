@@ -1,5 +1,6 @@
 import 'models/responses/tasting_model.dart';
 import 'models/responses/wineries_model.dart';
+import 'models/responses/wines_model.dart';
 
 class DummyData {
   List<TastingModel> tastingList = [
@@ -82,26 +83,95 @@ class DummyData {
         id: 01,
         image: 'assets/images/LocationBoxImg.png',
         title: 'Vinous Reverie Wine Merchant',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry ',
+        description:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry ',
         closingTime: 'Closes 6:00 PM PST'),
     WineriesModel(
         id: 01,
         image: 'assets/images/LocationBoxImg.png',
         title: 'Vinous Reverie Wine Merchant',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry ',
+        description:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry ',
         closingTime: 'Closes 6:00 PM PST'),
     WineriesModel(
         id: 01,
         image: 'assets/images/LocationBoxImg.png',
         title: 'Vinous Reverie Wine Merchant',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry ',
+        description:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry ',
         closingTime: 'Closes 6:00 PM PST'),
     WineriesModel(
         id: 01,
         image: 'assets/images/LocationBoxImg.png',
         title: 'Vinous Reverie Wine Merchant',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry ',
+        description:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry ',
         closingTime: 'Closes 6:00 PM PST'),
+  ];
 
+  List<WinesModel> winesList = [
+    WinesModel(
+        id: 01,
+        image: 'assets/images/WineBottles/WineBottlePic1.png',
+        title: 'Cline Family Cellars \'Farmhouse Red\'',
+        description: 'Cline Family Winery',
+        year: '2008',
+        price: 46.20),
+    WinesModel(
+        id: 01,
+        image: 'assets/images/WineBottles/WineBottlePic1.png',
+        title: 'Cline Family Cellars \'Farmhouse Red\'',
+        description: 'Cline Family Winery',
+        year: '2008',
+        price: 46.20),
+    WinesModel(
+        id: 01,
+        image: 'assets/images/WineBottles/WineBottlePic1.png',
+        title: 'Cline Family Cellars \'Farmhouse Red\'',
+        description: 'Cline Family Winery',
+        year: '2008',
+        price: 46.20),
+    WinesModel(
+        id: 01,
+        image: 'assets/images/WineBottles/WineBottlePic1.png',
+        title: 'Cline Family Cellars \'Farmhouse Red\'',
+        description: 'Cline Family Winery',
+        year: '2008',
+        price: 46.20),
+    WinesModel(
+        id: 01,
+        image: 'assets/images/WineBottles/WineBottlePic1.png',
+        title: 'Cline Family Cellars \'Farmhouse Red\'',
+        description: 'Cline Family Winery',
+        year: '2008',
+        price: 46.20),
+    WinesModel(
+        id: 01,
+        image: 'assets/images/WineBottles/WineBottlePic1.png',
+        title: 'Cline Family Cellars \'Farmhouse Red\'',
+        description: 'Cline Family Winery',
+        year: '2008',
+        price: 46.20),
+    WinesModel(
+        id: 01,
+        image: 'assets/images/WineBottles/WineBottlePic1.png',
+        title: 'Cline Family Cellars \'Farmhouse Red\'',
+        description: 'Cline Family Winery',
+        year: '2008',
+        price: 46.20),
+    WinesModel(
+        id: 01,
+        image: 'assets/images/WineBottles/WineBottlePic1.png',
+        title: 'Cline Family Cellars \'Farmhouse Red\'',
+        description: 'Cline Family Winery',
+        year: '2008',
+        price: 46.20),
+    WinesModel(
+        id: 01,
+        image: 'assets/images/WineBottles/WineBottlePic1.png',
+        title: 'Cline Family Cellars \'Farmhouse Red\'',
+        description: 'Cline Family Winery',
+        year: '2008',
+        price: 46.20),
   ];
 }

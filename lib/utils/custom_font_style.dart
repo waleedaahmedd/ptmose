@@ -22,7 +22,7 @@ class GoogleFontText1 extends StatelessWidget {
           textStyle: TextStyle(
               fontSize: 30.sp,
               color: CustomColors.golden,
-              fontWeight: FontWeight.w500)),
+              fontWeight: FontWeight.w400)),
     );
   }
 }
@@ -84,6 +84,7 @@ class GoogleFontText4 extends StatelessWidget {
   }
 }
 
+
 //google font, color golden, size 25
 class GoogleFontText5 extends StatelessWidget {
   final String data;
@@ -99,6 +100,27 @@ class GoogleFontText5 extends StatelessWidget {
       data,
       style: GoogleFonts.montaguSlab(
           textStyle: TextStyle(fontSize: 25.sp, color: CustomColors.golden)),
+    );
+  }
+}
+
+
+//google font, color golden, size 14, align center
+class GoogleFontText6 extends StatelessWidget {
+  final String data;
+
+  const GoogleFontText6({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      data,
+      textAlign: TextAlign.center
+      ,style: GoogleFonts.montaguSlab(
+          textStyle: TextStyle(fontSize: 14.sp, color: CustomColors.golden,)),
     );
   }
 }
@@ -199,7 +221,7 @@ class NormalFontText5 extends StatelessWidget {
 }
 
 
-//normal font, color golden, size 15, bold
+//normal font, color golden, size 14, bold
 class NormalFontText6 extends StatelessWidget {
   final String data;
 
@@ -212,7 +234,25 @@ class NormalFontText6 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style:  TextStyle(color: CustomColors.golden, fontWeight: FontWeight.bold, fontSize: 15.sp),
+      style:  TextStyle(color: CustomColors.golden, fontWeight: FontWeight.bold, ),
+    );
+  }
+}
+
+//normal font, color white, size 14
+class NormalFontText7 extends StatelessWidget {
+  final String data;
+
+  const NormalFontText7({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      data,
+      style: const TextStyle(color: Colors.white),
     );
   }
 }

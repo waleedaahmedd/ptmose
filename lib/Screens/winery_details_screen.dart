@@ -10,6 +10,7 @@ import '../utils/custom_font_style.dart';
 import '../widget/app_bar_widget.dart';
 import '../widget/drawer_widget.dart';
 import '../widget/tasting_horizontal_list_widget.dart';
+import '../widget/wines_vertical_list_widget.dart';
 
 class WineryDetailsScreen extends StatefulWidget {
   const WineryDetailsScreen({Key? key}) : super(key: key);
@@ -19,12 +20,16 @@ class WineryDetailsScreen extends StatefulWidget {
 }
 
 class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
+  final dataKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Provider.of<WineryDetailsViewModel>(context, listen: false)
-          .callFeaturedTestingListApi();
+          .callTastingListApi();
+      Provider.of<WineryDetailsViewModel>(context, listen: false)
+          .callWinesListApi();
     });
   }
 
@@ -58,51 +63,57 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.all(20),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const GoogleFontText3(
-                                    data: 'Vinous Reverie Wine Merchant',
-                                  ),
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Card(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Scrollable.ensureVisible(
+                                      dataKey.currentContext!);
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const GoogleFontText3(
+                                      data: 'Vinous Reverie Wine Merchant',
+                                    ),
+                                    SizedBox(
+                                      height: 20.h,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Card(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              child: const Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 20.0),
+                                                child: Center(
+                                                    child: NormalFontText6(
+                                                  data: 'SHOP WINES',
+                                                )),
+                                              )),
+                                        ),
+                                        Card(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(10.0),
                                             ),
                                             child: const Padding(
                                               padding: EdgeInsets.symmetric(
+                                                  horizontal: 20.0,
                                                   vertical: 20.0),
                                               child: Center(
-                                                  child: NormalFontText6(
-                                                data: 'SHOP WINES',
+                                                  child: Icon(
+                                                Icons.calendar_today_outlined,
+                                                size: 15,
+                                                color: CustomColors.golden,
                                               )),
                                             )),
-                                      ),
-                                      Card(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                          ),
-                                          child: const Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 20.0,
-                                                vertical: 20.0),
-                                            child: Center(
-                                                child: Icon(
-                                              Icons.calendar_today_outlined,
-                                              size: 15,
-                                              color: CustomColors.golden,
-                                            )),
-                                          )),
-                                    ],
-                                  )
-                                ],
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -176,14 +187,28 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
                     SizedBox(
                       height: 10.h,
                     ),
-                    //TODO: call List
                     SizedBox(
                       height: 340.h,
                       width: double.infinity,
                       child: TastingHorizontalListWidget(
-                          tastingList:
-                              wineryDetailsViewModel.getFeaturedTestingList, listScrollable: true,),
+                        tastingList:
+                            wineryDetailsViewModel.getTastingList,
+                        listScrollable: true,
+                      ),
                     ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Container(
+                      key: dataKey,
+                      child: const GoogleFontText1(
+                        data: 'Shop Wines',
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                     WinesVerticalListWidget(listScrollable: false, winesList: wineryDetailsViewModel.getWinesList,)
                   ],
                 ),
               ),

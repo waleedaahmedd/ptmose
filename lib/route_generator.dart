@@ -6,6 +6,8 @@ import 'package:ptmose/Screens/tasting_list_screen.dart';
 
 import 'Screens/forget_password_screen.dart';
 import 'Screens/home_screen.dart';
+import 'Screens/tasting_details_screen.dart';
+import 'Screens/wineries_list_screen.dart';
 import 'Screens/winery_details_screen.dart';
 import 'Screens/sign_up_screen.dart';
 
@@ -30,6 +32,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) =>  MyReservationScreen());
       case '/tasting_list':
         return MaterialPageRoute(builder: (_) =>  TastingListScreen());
+      case '/wineries_list':
+        return MaterialPageRoute(builder: (_) =>  WineriesListScreen());
+      case '/tasting_details':
+        return MaterialPageRoute(builder: (_) =>  TastingDetailsScreen());
       default:
         return _errorRoute();
     }
