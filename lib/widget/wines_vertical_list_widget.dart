@@ -26,7 +26,7 @@ class WinesVerticalListWidget extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 10.0),
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed('/wineryDetails');
+              Navigator.of(context).pushNamed('/wines_details',arguments: false);
             },
             child: SizedBox(
               width: double.infinity,

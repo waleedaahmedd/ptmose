@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'custom_colors.dart';
 
 //google fonts
-//google font, color golden, size 30, w500
+//google font, color golden, size 30, w400
 class GoogleFontText1 extends StatelessWidget {
   final String data;
 
@@ -202,7 +202,7 @@ class NormalFontText4 extends StatelessWidget {
   }
 }
 
-//normal font, color purple, size 14, bold
+//normal font, color purple, size 14, w800
 class NormalFontText5 extends StatelessWidget {
   final String data;
 
@@ -215,7 +215,7 @@ class NormalFontText5 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style: const TextStyle(color: CustomColors.purple,fontWeight: FontWeight.bold),
+      style: const TextStyle(color: CustomColors.purple,fontWeight: FontWeight.w800),
     );
   }
 }

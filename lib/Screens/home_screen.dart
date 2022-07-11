@@ -12,7 +12,7 @@ import '../widget/app_bar_widget.dart';
 import '../widget/bottom_buttons_widget.dart';
 import '../widget/drawer_widget.dart';
 import '../widget/tasting_horizontal_list_widget.dart';
-import '../widget/location_card_widget.dart';
+import '../widget/location_widget.dart';
 import '../widget/wineries_vertical_list_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -49,21 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        NormalFontText1(
-                          data: 'LOCATION',
-                        ),
-                        NormalFontText2(
-                          data: 'CHANGE',
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    const LocationCardWidget(
+                    const LocationWidget(
                       name: 'Napa Country',
                       image: 'assets/images/LocationBoxImg.png',
                     ),
@@ -72,14 +58,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children:  [
+                      children: [
                         const NormalFontText1(
                           data: 'FEATURED TASTINGS',
                         ),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.of(context).pushNamed('/tasting_list');
-
                           },
                           child: const NormalFontText2(
                             data: 'SEE ALL >',
@@ -95,21 +80,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 340.h,
                       width: double.infinity,
                       child: TastingHorizontalListWidget(
-                          tastingList: homeViewModel.getTastingList,listScrollable: true,),
+                        tastingList: homeViewModel.getTastingList,
+                        listScrollable: true,
+                      ),
                     ),
                     SizedBox(
                       height: 5.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children:  [
+                      children: [
                         const NormalFontText1(
                           data: 'RECOMMENDED WINERIES',
                         ),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.of(context).pushNamed('/wineries_list');
-
                           },
                           child: const NormalFontText2(
                             data: 'SEE ALL >',
@@ -122,8 +108,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     //TODO: call List
                     WineriesVerticalListWidget(
-                        wineriesList: homeViewModel.getWineriesList, listScrollable: false,),
-                    SizedBox(height: 60.h,)
+                      wineriesList: homeViewModel.getWineriesList,
+                      listScrollable: false,
+                    ),
+                    SizedBox(
+                      height: 60.h,
+                    )
                   ],
                 ),
               ),

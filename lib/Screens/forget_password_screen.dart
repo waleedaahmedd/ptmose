@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../utils/custom_font_style.dart';
 import '../view_model/forget_password_view_model.dart';
-import '../widgets/custom_button.dart';
+import '../widget/custom_button_1.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({Key? key}) : super(key: key);
@@ -60,7 +60,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                             SizedBox(
                               height: 10.h,
                             ),
-                            CustomButton(
+                            CustomButton1(
                               text: 'SEND CODE',
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(

@@ -1,15 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:ptmose/utils/custom_colors.dart';
+import 'package:ptmose/view_model/auth_view_model.dart';
 
+import '../utils/shared_pref .dart';
 import '../utils/custom_font_style.dart';
+import '../view_model/home_view_model.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SharedPref sharedPref = SharedPref();
+
     return Drawer(
       backgroundColor: CustomColors.purple,
       child: Column(
@@ -23,9 +29,14 @@ class DrawerWidget extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Icon(
-                      Icons.close,
+                    IconButton(
                       color: CustomColors.golden,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.close,
+                      ),
                     ),
                     Expanded(
                         child: Center(
@@ -46,11 +57,11 @@ class DrawerWidget extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     GoogleFontText3(
-                      data: 'Paul Wilkins',
+                      data: Provider.of<AuthViewModel>(context, listen: false).getUserName,
                     ),
-                    Icon(
+                    const Icon(
                       Icons.mode_edit_outlined,
                       color: CustomColors.golden,
                     )
@@ -94,6 +105,7 @@ class DrawerWidget extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
+              Navigator.pushNamed(context, '/shop');
             },
           ),
           ListTile(
@@ -130,6 +142,7 @@ class DrawerWidget extends StatelessWidget {
               data: 'LOGOUT',
             ),
             onTap: () {
+              sharedPref.remove('userData');
               Navigator.of(context)
                   .pushNamedAndRemoveUntil('/login', ModalRoute.withName('/'));
             },

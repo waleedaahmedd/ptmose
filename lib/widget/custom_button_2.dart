@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ptmose/utils/custom_colors.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomButton2 extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const CustomButton({Key? key, required this.text, required this.onPressed})
+  const CustomButton2({Key? key, required this.text, required this.onPressed})
       : super(key: key);
 
   @override
@@ -15,12 +16,13 @@ class CustomButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+          primary: Colors.white,
           shape: RoundedRectangleBorder(
-              //to set border radius to button
+            //to set border radius to button
               borderRadius: BorderRadius.circular(10)),
         ),
         onPressed: onPressed,
-        child: Text(text),
+        child: Text(text,style: TextStyle(color: CustomColors.golden),),
       ),
     );
   }

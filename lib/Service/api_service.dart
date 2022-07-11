@@ -2,16 +2,17 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:ptmose/models/requests/auth_request/sign_up_request.dart';
+import 'package:ptmose/models/responses/auth_response/sign_up_response.dart';
 
-import '../models/requests/login_request.dart';
-import '../models/requests/post.dart';
-import '../models/responses/login_response.dart';
+import '../models/requests/auth_request/login_request.dart';
+import '../models/responses/auth_response/login_response.dart';
 
-var _baseURL = 'https://howmuchbackend.herokuapp.com/';
+var _baseURL = 'https://ptmose.herokuapp.com/';
 
-Future<LoginResponse?> callGraphApi(LoginRequest loginRequest) async {
+Future<LoginResponse?> LoginApi(LoginRequest loginRequest) async {
   var headers = {'Content-Type': 'application/json'};
-  var request = http.Request('POST', Uri.parse('${_baseURL}graphql'));
+  var request = http.Request('POST', Uri.parse(_baseURL));
   request.body = loginRequest.generateQuery();
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();
@@ -25,16 +26,22 @@ Future<LoginResponse?> callGraphApi(LoginRequest loginRequest) async {
     print(response.reasonPhrase);
     return null;
   }
+}
 
-/*
+Future<SignUpResponse?> SignUpApi(SignUpRequest signUpRequest) async {
+  var headers = {'Content-Type': 'application/json'};
+  var request = http.Request('POST', Uri.parse(_baseURL));
+  request.body = signUpRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
   if (response.statusCode == 200) {
-    final sex = await http.Response.fromStream(response);
-    print(sex.body);
+    final responseData = await http.Response.fromStream(response);
+    SignUpResponse signUpResponse =
+        SignUpResponse.fromJson(json.decode(responseData.body));
 
-    return sex.body;
+    return signUpResponse;
   } else {
     print(response.reasonPhrase);
-
     return null;
-  }*/
+  }
 }

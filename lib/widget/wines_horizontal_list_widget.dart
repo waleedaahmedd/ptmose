@@ -30,7 +30,7 @@ class WinesHorizontalListWidget extends StatelessWidget {
             width: 180.w,
             child: GestureDetector(
               onTap: () {
-                //Navigator.of(context).pushNamed('/shop');
+                Navigator.of(context).pushNamed('/wines_details',arguments: true);
                 /* : Navigator.of(context).pushReplacementNamed('/shop');*/
               },
               child: Card(

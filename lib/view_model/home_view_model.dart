@@ -3,6 +3,7 @@ import 'package:ptmose/dummy_data.dart';
 
 import '../models/responses/tasting_model.dart';
 import '../models/responses/wineries_model.dart';
+import '../utils/shared_pref .dart';
 
 class HomeViewModel with ChangeNotifier {
   final List<TastingModel> _tastingList = [];
@@ -31,4 +32,6 @@ class HomeViewModel with ChangeNotifier {
     _wineriesList.clear();
     setWineriesList(DummyData().wineriesList);
   }
+
+
 }

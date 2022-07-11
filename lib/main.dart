@@ -5,14 +5,15 @@ import 'package:provider/provider.dart';
 import 'package:ptmose/Screens/tasting_details_screen.dart';
 import 'package:ptmose/route_generator.dart';
 import 'package:ptmose/utils/custom_colors.dart';
-import 'package:ptmose/view_model/app_bar_view_model.dart';
+import 'package:ptmose/view_model/cart_view_model.dart';
 import 'package:ptmose/view_model/forget_password_view_model.dart';
 import 'package:ptmose/view_model/home_view_model.dart';
-import 'package:ptmose/view_model/login_view_model.dart';
+import 'package:ptmose/view_model/auth_view_model.dart';
 import 'package:ptmose/view_model/my_reservation_view_model.dart';
-import 'package:ptmose/view_model/signup_view_model.dart';
+import 'package:ptmose/view_model/shop_view_model.dart';
 import 'package:ptmose/view_model/tasting_details_view_model.dart';
 import 'package:ptmose/view_model/testing_list_view_model.dart';
+import 'package:ptmose/view_model/wine_review_view_model.dart';
 import 'package:ptmose/view_model/wineriesListViewModel.dart';
 import 'package:ptmose/view_model/winery_details_view_model.dart';
 
@@ -24,16 +25,10 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
-        create: (_) => LoginViewModel(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => SignUpViewModel(),
+        create: (_) => AuthViewModel(),
       ),
       ChangeNotifierProvider(
         create: (_) => ForgotPasswordViewModel(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => AppBarViewModel(),
       ),
       ChangeNotifierProvider(
         create: (_) => HomeViewModel(),
@@ -52,6 +47,15 @@ void main() {
       ),
       ChangeNotifierProvider(
         create: (_) => TastingDetailsViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => WineReviewViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => CartViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => ShopViewModel(),
       ),
     ],
     child: const MyApp(),
@@ -76,7 +80,6 @@ void configLoading() {
     ..dismissOnTap = false;
   // ..customAnimation = CustomAnimation();
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

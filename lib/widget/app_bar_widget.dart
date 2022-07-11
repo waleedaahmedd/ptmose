@@ -3,10 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:ptmose/view_model/cart_view_model.dart';
 
+import '../utils/shared_pref .dart';
 import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
-import '../view_model/app_bar_view_model.dart';
+import '../view_model/home_view_model.dart';
+import '../view_model/auth_view_model.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarWidget({
@@ -20,8 +23,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppBarViewModel>(
-      builder: (_, appBarViewModel, __) {
+    return Consumer<CartViewModel>(
+      builder: (_, cartViewModel, __) {
         return AppBar(
           actions: [
             Visibility(
@@ -29,11 +32,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               child: Badge(
                 position: BadgePosition.topEnd(top: 5, end: 4),
                 badgeContent: GoogleFontText2(
-                  data: appBarViewModel.cartCount,
+                  data: cartViewModel.getCartCount.toString(),
                 ),
                 child: IconButton(
                   padding: EdgeInsets.zero,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/cart');
+                  },
                   icon: const Icon(Icons.shopping_cart_outlined),
                 ),
               ),
@@ -42,13 +47,16 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               visible: homeButton?? false,
               child: IconButton(
                 padding: EdgeInsets.zero,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/home', ModalRoute.withName('/'));
+                },
                 icon: const Icon(Icons.home_outlined),
               ),
             ),
             const SizedBox(width: 15),
           ],
-          bottom: headings == null? null : const AppBarHeading(),
+          bottom: headings == null? null : AppBarHeading(),
           iconTheme: const IconThemeData(
             size: 20, //change size on your need
             color: CustomColors.purple, //change color on your need
@@ -71,8 +79,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class AppBarHeading extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarHeading({Key? key}) : super(key: key);
-
+  const AppBarHeading( {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -87,11 +94,11 @@ class AppBarHeading extends StatelessWidget implements PreferredSizeWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children:  [
               GoogleFontText1(
-                data: 'Paul Wilkins',
+                data: Provider.of<AuthViewModel>(context, listen: false).getUserName,
               ),
-              Icon(
+              const Icon(
                 Icons.search,
                 color: CustomColors.golden,
               )

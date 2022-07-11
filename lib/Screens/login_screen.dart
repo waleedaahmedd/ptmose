@@ -2,18 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
-import 'package:ptmose/view_model/login_view_model.dart';
+import 'package:ptmose/view_model/auth_view_model.dart';
+import '../utils/shared_pref .dart';
 import '../utils/custom_font_style.dart';
-import '../widgets/custom_button.dart';
+import '../widget/custom_button_1.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<LoginViewModel>(
-      builder: (_, loginViewModel, __) {
+    return Consumer<AuthViewModel>(
+      builder: (_, authViewModel, __) {
         return Scaffold(
           backgroundColor: Theme.of(context).primaryColor,
           body: SafeArea(
@@ -49,35 +51,43 @@ class LoginScreen extends StatelessWidget {
                               Column(
                                 children: [
                                   TextField(
-                                    controller: loginViewModel.nameController,
-                                    decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      suffixIcon: Icon(
-                                        Icons.person,
-                                      ),
-                                      hintText: 'USER NAME',
-                                    ),
+                                    controller: authViewModel.emailController,
+                                    decoration: InputDecoration(
+                                        border: const OutlineInputBorder(),
+                                        suffixIcon: const Icon(
+                                          Icons.alternate_email,
+                                        ),
+                                        hintText: 'EMAIL ADDRESS',
+                                        errorText: authViewModel
+                                                .getEmailValidateMessage.isEmpty
+                                            ? null
+                                            : authViewModel
+                                                .getEmailValidateMessage),
                                   ),
                                   SizedBox(
                                     height: 10.h,
                                   ),
                                   TextField(
                                     controller:
-                                        loginViewModel.passwordController,
-                                    obscureText: loginViewModel.getShowPassword,
+                                        authViewModel.passwordController,
+                                    obscureText: authViewModel.getShowPassword,
                                     decoration: InputDecoration(
-                                      border: const OutlineInputBorder(),
-                                      suffixIcon: IconButton(
-                                        onPressed: () {
-                                          loginViewModel.setShowPassword(
-                                              !loginViewModel.getShowPassword);
-                                        },
-                                        icon: const Icon(
-                                          Icons.remove_red_eye,
+                                        border: const OutlineInputBorder(),
+                                        suffixIcon: IconButton(
+                                          onPressed: () {
+                                            authViewModel.setShowPassword(
+                                                !authViewModel.getShowPassword);
+                                          },
+                                          icon: const Icon(
+                                            Icons.remove_red_eye,
+                                          ),
                                         ),
-                                      ),
-                                      hintText: 'PASSWORD',
-                                    ),
+                                        hintText: 'PASSWORD',
+                                        errorText: authViewModel
+                                                .getPasswordValidateMessage.isEmpty
+                                            ? null
+                                            : authViewModel
+                                                .getPasswordValidateMessage),
                                   ),
                                   Align(
                                       alignment: Alignment.centerRight,
@@ -98,29 +108,40 @@ class LoginScreen extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  CustomButton(
+                                  CustomButton1(
                                     text: 'SIGN IN',
                                     onPressed: () {
                                       FocusManager.instance.primaryFocus
                                           ?.unfocus();
-                                      loginViewModel
-                                          .callLoginApi(context)
-                                          .then((value) {
-                                        if (value == true) {
-                                          EasyLoading.showSuccess(loginViewModel.getLoginResponse
-                                              .data!.loginUser!.message!);
-                                          /*Fluttertoast.showToast(
-                                            msg: loginViewModel.getLoginResponse
-                                                .data!.loginUser!.message!,
-                                          );*/
-                                          Navigator.of(context)
-                                              .pushNamedAndRemoveUntil('/home',
-                                                  ModalRoute.withName('/'));
-                                        } else {
-                                          EasyLoading.showError(loginViewModel.getLoginResponse
-                                              .data!.loginUser!.message!);
-                                        }
-                                      });
+                                      if (authViewModel.logInValidation() ==
+                                          true) {
+                                        authViewModel
+                                            .callLoginApi(context)
+                                            .then((value) {
+                                          if (value == true) {
+                                            EasyLoading.showSuccess(
+                                                authViewModel
+                                                    .getLoginResponse
+                                                    .loginData!
+                                                    .loginUser!
+                                                    .message!);
+                                            authViewModel.setGuestUser(false);
+
+                                            authViewModel.callUserName();
+                                            Navigator.of(context)
+                                                .pushNamedAndRemoveUntil(
+                                                    '/home',
+                                                    ModalRoute.withName('/'));
+                                          } else {
+                                            EasyLoading.showError(authViewModel
+                                                .getLoginResponse
+                                                .loginData!
+                                                .loginUser!
+                                                .message!);
+                                          }
+                                        });
+                                      }
+
                                       /* Navigator.of(context).pushNamedAndRemoveUntil(
                                         '/home', ModalRoute.withName('/'));*/
                                     },
@@ -160,9 +181,12 @@ class LoginScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 10.h,
                                   ),
-                                  CustomButton(
+                                  CustomButton1(
                                     text: 'LOGIN AS GUEST',
                                     onPressed: () {
+                                      authViewModel.setGuestUser(true);
+
+                                      authViewModel.callUserName();
                                       Navigator.of(context)
                                           .pushNamedAndRemoveUntil('/home',
                                               ModalRoute.withName('/'));

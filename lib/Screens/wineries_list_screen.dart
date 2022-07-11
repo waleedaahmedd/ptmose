@@ -8,6 +8,7 @@ import 'package:ptmose/widget/wineries_vertical_list_widget.dart';
 import '../utils/custom_font_style.dart';
 import '../view_model/wineriesListViewModel.dart';
 import '../widget/app_bar_widget.dart';
+import '../widget/location_widget.dart';
 import '../widget/testing_vertical_list_widget.dart';
 
 class WineriesListScreen extends StatefulWidget {
@@ -39,7 +40,13 @@ class _WineriesListScreenState extends State<WineriesListScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
+              const LocationWidget(
+                name: 'Napa Country',
+                image: 'assets/images/LocationBoxImg.png',
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
               const GoogleFontText1(
                 data: 'Wineries',
               ),

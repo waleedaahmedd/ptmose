@@ -1,15 +1,20 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:ptmose/models/responses/auth_response/user_data_response.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 
+import '../models/responses/auth_response/login_response.dart';
+import '../utils/shared_pref .dart';
+import '../view_model/auth_view_model.dart';
 import 'login_screen.dart';
 
-
-
 class Splash extends StatefulWidget {
-  Splash({Key? key}) : super(key: key);
+  const Splash({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SplashState();
@@ -19,6 +24,8 @@ class _SplashState extends State<Splash> {
   late VideoPlayerController _controller;
   bool _visible = false;
 
+  SharedPref sharedPref = SharedPref();
+
   @override
   void initState() {
     super.initState();
@@ -27,10 +34,11 @@ class _SplashState extends State<Splash> {
       DeviceOrientation.portraitUp,
     ]);
 
-    _controller = VideoPlayerController.asset("assets/videos/splash-videos.mp4");
+    _controller =
+        VideoPlayerController.asset("assets/videos/splash-videos.mp4");
     _controller.initialize().then((_) {
       _controller.setLooping(true);
-      Timer(Duration(milliseconds: 100), () {
+      Timer(const Duration(milliseconds: 100), () {
         setState(() {
           _controller.play();
           _visible = true;
@@ -38,8 +46,18 @@ class _SplashState extends State<Splash> {
       });
     });
 
-    Future.delayed(const Duration(seconds: 9), () {
-      Navigator.of(context).pushNamedAndRemoveUntil('/login',ModalRoute.withName('/'));
+    Future.delayed(const Duration(seconds: 9), () async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      if (prefs.containsKey('userData')) {
+        UserDataResponse user = UserDataResponse.fromJson(await sharedPref.read("userData"));
+        Provider.of<AuthViewModel>(context, listen: false).setUserDataResponse(user);
+        Provider.of<AuthViewModel>(context, listen: false).callUserName();
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/home', ModalRoute.withName('/'));
+      } else {
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/login', ModalRoute.withName('/'));
+      }
     });
   }
 
