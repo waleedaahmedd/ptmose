@@ -20,6 +20,8 @@ import 'package:ptmose/view_model/winery_details_view_model.dart';
 import 'Screens/splash_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   configLoading();
 
   runApp(MultiProvider(
