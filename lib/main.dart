@@ -9,6 +9,7 @@ import 'package:ptmose/view_model/cart_view_model.dart';
 import 'package:ptmose/view_model/forget_password_view_model.dart';
 import 'package:ptmose/view_model/home_view_model.dart';
 import 'package:ptmose/view_model/auth_view_model.dart';
+import 'package:ptmose/view_model/locations_view_model.dart';
 import 'package:ptmose/view_model/my_reservation_view_model.dart';
 import 'package:ptmose/view_model/shop_view_model.dart';
 import 'package:ptmose/view_model/tasting_details_view_model.dart';
@@ -58,6 +59,9 @@ void main() {
       ),
       ChangeNotifierProvider(
         create: (_) => ShopViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => LocationsViewModel(),
       ),
     ],
     child: const MyApp(),

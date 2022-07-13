@@ -1,3 +1,5 @@
+import 'package:ptmose/models/responses/locations_model.dart';
+
 import 'models/responses/tasting_model.dart';
 import 'models/responses/wineries_model.dart';
 import 'models/responses/wines_model.dart';
@@ -173,5 +175,16 @@ class DummyData {
         description: 'Cline Family Winery',
         year: '2008',
         price: 46.20),
+  ];
+
+  List<LocationsModel> locationsList = [
+    LocationsModel(
+        id: 1, name: "sdadwd", image: 'assets/images/EventsHeadPic.png'),
+    LocationsModel(
+        id: 2, name: "asdad", image: 'assets/images/EventsHeadPic.png'),
+    LocationsModel(
+        id: 3, name: "asdwdf", image: 'assets/images/EventsHeadPic.png'),
+    LocationsModel(
+        id: 4, name: "fxfgxfgxf", image: 'assets/images/EventsHeadPic.png')
   ];
 }
