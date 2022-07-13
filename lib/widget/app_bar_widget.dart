@@ -30,6 +30,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             Visibility(
               visible: cartButton?? false,
               child: Badge(
+                showBadge: cartViewModel.getCartCount.toString() == '0'? false: true,
+                badgeColor: CustomColors.purple,
                 position: BadgePosition.topEnd(top: 5, end: 4),
                 badgeContent: GoogleFontText2(
                   data: cartViewModel.getCartCount.toString(),

@@ -59,7 +59,8 @@ class DrawerWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GoogleFontText3(
-                      data: Provider.of<AuthViewModel>(context, listen: false).getUserName,
+                      data: Provider.of<AuthViewModel>(context, listen: false)
+                          .getUserName,
                     ),
                     const Icon(
                       Icons.mode_edit_outlined,
@@ -70,83 +71,137 @@ class DrawerWidget extends StatelessWidget {
               ],
             ),
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.ac_unit,
-              color: CustomColors.golden,
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushNamed('/my_reservation');
+              },
+              child: Row(children: [
+                Image.asset(
+                  'assets/images/mic.png',
+                  height: 12.h,
+                ),
+                SizedBox(
+                  width: 20.w,
+                ),
+                const GoogleFontText2(
+                  data: 'MY RESERVATIONS',
+                ),
+              ]),
             ),
-            title: const GoogleFontText2(
-              data: 'MY RESERVATIONS',
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.of(context).pushNamed('/my_reservation');
-            },
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.ac_unit,
-              color: CustomColors.golden,
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                //Navigator.of(context).pushNamed('/my_reservation');
+              },
+              child: Row(children: [
+                Image.asset(
+                  'assets/images/star_2.png',
+                  height: 12.h,
+                ),
+                SizedBox(
+                  width: 20.w,
+                ),
+                const GoogleFontText2(
+                  data: 'MY REVIEWS',
+                ),
+              ]),
             ),
-            title: const GoogleFontText2(
-              data: 'MY REVIEWS',
-            ),
-            onTap: () {
-              Navigator.pop(context);
-            },
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.ac_unit,
-              color: CustomColors.golden,
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/shop');
+              },
+              child: Row(children: [
+                Image.asset(
+                  'assets/images/vine.png',
+                  height: 12.h,
+                ),
+                SizedBox(
+                  width: 20.w,
+                ),
+                const GoogleFontText2(
+                  data: 'SHOP',
+                ),
+              ]),
             ),
-            title: const GoogleFontText2(
-              data: 'SHOP',
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/shop');
-            },
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.ac_unit,
-              color: CustomColors.golden,
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                //Navigator.pushNamed(context, '/shop');
+              },
+              child: Row(children: [
+                Image.asset(
+                  'assets/images/about.png',
+                  height: 12.h,
+                ),
+                SizedBox(
+                  width: 20.w,
+                ),
+                const GoogleFontText2(
+                  data: 'ABOUT PTMOSE',
+                ),
+              ]),
             ),
-            title: const GoogleFontText2(
-              data: 'ABOUT PTMOSE',
-            ),
-            onTap: () {
-              Navigator.pop(context);
-            },
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.ac_unit,
-              color: CustomColors.golden,
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                //Navigator.pushNamed(context, '/shop');
+              },
+              child: Row(children: [
+                Image.asset(
+                  'assets/images/setting_btn.png',
+                  height: 12.h,
+                ),
+                SizedBox(
+                  width: 20.w,
+                ),
+                const GoogleFontText2(
+                  data: 'SETTINGS',
+                ),
+              ]),
             ),
-            title: const GoogleFontText2(
-              data: 'SETTINGS',
-            ),
-            onTap: () {
-              Navigator.pop(context);
-            },
           ),
+
           const Spacer(),
-          ListTile(
-            leading: const Icon(
-              Icons.ac_unit,
-              color: CustomColors.golden,
+
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: GestureDetector(
+              onTap: () {
+                sharedPref.remove('userData');
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/login', ModalRoute.withName('/'));
+              },
+              child: Row(children: [
+                Image.asset(
+                  'assets/images/logout_btn.png',
+                  height: 12.h,
+                ),
+                SizedBox(
+                  width: 20.w,
+                ),
+                const GoogleFontText2(
+                  data: 'LOGOUT',
+                ),
+              ]),
             ),
-            title: const GoogleFontText2(
-              data: 'LOGOUT',
-            ),
-            onTap: () {
-              sharedPref.remove('userData');
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/login', ModalRoute.withName('/'));
-            },
           ),
+
           SizedBox(
             height: 20.h,
           )

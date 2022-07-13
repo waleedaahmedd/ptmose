@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'custom_colors.dart';
 
@@ -18,11 +17,11 @@ class GoogleFontText1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style: GoogleFonts.montaguSlab(
-          textStyle: TextStyle(
-              fontSize: 30.sp,
-              color: CustomColors.golden,
-              fontWeight: FontWeight.w400)),
+      style: TextStyle(
+          fontFamily: 'MontaguSlab',
+          fontSize: 30.sp,
+          color: CustomColors.golden,
+          fontWeight: FontWeight.w400),
     );
   }
 }
@@ -40,8 +39,10 @@ class GoogleFontText2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style: GoogleFonts.montaguSlab(
-          textStyle: const TextStyle(color: Colors.white)),
+      style: const TextStyle(
+        color: Colors.white,
+        fontFamily: 'MontaguSlab',
+      ),
     );
   }
 }
@@ -59,8 +60,11 @@ class GoogleFontText3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style: GoogleFonts.montaguSlab(
-          textStyle: TextStyle(fontSize: 30.sp, color: Colors.white)),
+      style: TextStyle(
+        fontSize: 30.sp,
+        color: Colors.white,
+        fontFamily: 'MontaguSlab',
+      ),
     );
   }
 }
@@ -78,12 +82,14 @@ class GoogleFontText4 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style: GoogleFonts.montaguSlab(
-          textStyle: TextStyle(fontSize: 20.sp, color: CustomColors.golden)),
+      style: TextStyle(
+        fontSize: 20.sp,
+        color: CustomColors.golden,
+        fontFamily: 'MontaguSlab',
+      ),
     );
   }
 }
-
 
 //google font, color golden, size 25
 class GoogleFontText5 extends StatelessWidget {
@@ -98,12 +104,14 @@ class GoogleFontText5 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style: GoogleFonts.montaguSlab(
-          textStyle: TextStyle(fontSize: 25.sp, color: CustomColors.golden)),
+      style: TextStyle(
+        fontSize: 25.sp,
+        color: CustomColors.golden,
+        fontFamily: 'MontaguSlab',
+      ),
     );
   }
 }
-
 
 //google font, color golden, size 14, align center
 class GoogleFontText6 extends StatelessWidget {
@@ -118,9 +126,12 @@ class GoogleFontText6 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      textAlign: TextAlign.center
-      ,style: GoogleFonts.montaguSlab(
-          textStyle: TextStyle(fontSize: 14.sp, color: CustomColors.golden,)),
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: 14.sp,
+        color: CustomColors.golden,
+        fontFamily: 'MontaguSlab',
+      ),
     );
   }
 }
@@ -183,7 +194,6 @@ class NormalFontText3 extends StatelessWidget {
   }
 }
 
-
 //normal font, color grey, size 14
 class NormalFontText4 extends StatelessWidget {
   final String data;
@@ -215,11 +225,11 @@ class NormalFontText5 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style: const TextStyle(color: CustomColors.purple,fontWeight: FontWeight.w800),
+      style: const TextStyle(
+          color: CustomColors.purple, fontWeight: FontWeight.w800),
     );
   }
 }
-
 
 //normal font, color golden, size 14, bold
 class NormalFontText6 extends StatelessWidget {
@@ -234,7 +244,10 @@ class NormalFontText6 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style:  TextStyle(color: CustomColors.golden, fontWeight: FontWeight.bold, ),
+      style: const TextStyle(
+        color: CustomColors.golden,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 }
