@@ -66,7 +66,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           centerTitle: true,
           backgroundColor: Colors.white,
           title: Image.asset(
-            'assets/images/Logo3.png',
+            'assets/images/Animation.gif',
             height: 20.h,
           ),
         );
