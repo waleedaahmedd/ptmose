@@ -5,6 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:ptmose/utils/custom_font_style.dart';
+import 'package:ptmose/view_model/locations_view_model.dart';
 
 import '../utils/custom_colors.dart';
 import '../view_model/home_view_model.dart';
@@ -27,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
+      Provider.of<LocationsViewModel>(context, listen: false).callLocationsListApi();
       Provider.of<HomeViewModel>(context, listen: false).callTestingListApi();
       Provider.of<HomeViewModel>(context, listen: false).callWineriesList();
     });

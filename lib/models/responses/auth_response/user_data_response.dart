@@ -1,27 +1,30 @@
+
 class UserDataResponse {
   String? id;
-  String? email;
   String? name;
-  String? userRole;
-  String? createdAt;
+  String? email;
+  bool? isVerified;
 
-  UserDataResponse({this.id, this.email, this.name, this.userRole, this.createdAt});
+  UserDataResponse(
+      {this.id,
+        this.name,
+        this.email,
+        this.isVerified,
+        });
 
   UserDataResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    email = json['email'];
     name = json['name'];
-    userRole = json['userRole'];
-    createdAt = json['createdAt'];
+    email = json['email'];
+    isVerified = json['isVerified'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['email'] = this.email;
-    data['name'] = this.name;
-    data['userRole'] = this.userRole;
-    data['createdAt'] = this.createdAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['isVerified'] = isVerified;
     return data;
   }
 }

@@ -177,7 +177,7 @@ class AuthViewModel with ChangeNotifier {
   Future<bool> callSignUpApi(BuildContext context) async {
     EasyLoading.show(status: 'Please Wait...');
     SignUpRequest signUpRequest = SignUpRequest(
-        emailController.text, passwordController.text, nameController.text);
+        emailController.text, passwordController.text, nameController.text,'here you put fcm token','if social id here you put providerId','emailpassword/facebook/google');
     final response = await SignUpApi(signUpRequest);
     if (response != null) {
       setSignUpResponse(response);
