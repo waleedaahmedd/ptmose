@@ -190,11 +190,11 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
                     SizedBox(
                       height: 340.h,
                       width: double.infinity,
-                      child: TastingHorizontalListWidget(
+                     /* child: TastingHorizontalListWidget(
                         tastingList:
                             wineryDetailsViewModel.getTastingList,
                         listScrollable: true,
-                      ),
+                      ),*/
                     ),
                     SizedBox(
                       height: 20.h,

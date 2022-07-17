@@ -27,11 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      Provider.of<LocationsViewModel>(context, listen: false).callLocationsListApi();
-      Provider.of<HomeViewModel>(context, listen: false).callTestingListApi();
-      Provider.of<HomeViewModel>(context, listen: false).callWineriesList();
-    });
+    _callApis();
   }
 
   @override
@@ -78,6 +74,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 10.h,
                     ),
                     //TODO: call List
+                    homeViewModel.getTastingList.isEmpty?
+                    const Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: 20.0),
+                        child: NormalFontText1(
+                          data: 'Sorry No Tastings Are Found At This Location',
+                        ),
+                      ),
+                    ):
                     SizedBox(
                       height: 340.h,
                       width: double.infinity,
@@ -109,10 +114,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 10.h,
                     ),
                     //TODO: call List
-                    WineriesVerticalListWidget(
-                      wineriesList: homeViewModel.getWineriesList,
-                      listScrollable: false,
-                    ),
+                    homeViewModel.getWineriesList.isEmpty
+                        ? const Center(
+                            child: NormalFontText1(
+                              data: 'Sorry No Wineries Are Found At This Location',
+                            ),
+                          )
+                        : WineriesVerticalListWidget(
+                            wineriesList: homeViewModel.getWineriesList,
+                            listScrollable: false,
+                          ),
                     SizedBox(
                       height: 60.h,
                     )
@@ -124,6 +135,13 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       );
+    });
+  }
+
+  void _callApis() {
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      Provider.of<LocationsViewModel>(context, listen: false)
+          .callLocationsListApi(context);
     });
   }
 }

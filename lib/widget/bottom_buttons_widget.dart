@@ -10,7 +10,8 @@ class BottomButtonsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned.fill(
+    return Container(
+      height: double.infinity,
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Container(

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'custom_colors.dart';
 
 //google fonts
-//google font, color golden, size 30, w400
+//google font, color golden, size 28, w400
 class GoogleFontText1 extends StatelessWidget {
   final String data;
 
@@ -19,7 +19,7 @@ class GoogleFontText1 extends StatelessWidget {
       data,
       style: TextStyle(
           fontFamily: 'MontaguSlab',
-          fontSize: 30.sp,
+          fontSize: 28.sp,
           color: CustomColors.golden,
           fontWeight: FontWeight.w400),
     );
@@ -47,7 +47,7 @@ class GoogleFontText2 extends StatelessWidget {
   }
 }
 
-//google font, color white, size 30
+//google font, color white, size 28
 class GoogleFontText3 extends StatelessWidget {
   final String data;
 
@@ -61,7 +61,7 @@ class GoogleFontText3 extends StatelessWidget {
     return Text(
       data,
       style: TextStyle(
-        fontSize: 30.sp,
+        fontSize: 28.sp,
         color: Colors.white,
         fontFamily: 'MontaguSlab',
       ),
@@ -69,7 +69,7 @@ class GoogleFontText3 extends StatelessWidget {
   }
 }
 
-//google font, color golden, size 20
+//google font, color golden, size 18
 class GoogleFontText4 extends StatelessWidget {
   final String data;
 
@@ -83,7 +83,7 @@ class GoogleFontText4 extends StatelessWidget {
     return Text(
       data,
       style: TextStyle(
-        fontSize: 20.sp,
+        fontSize: 18.sp,
         color: CustomColors.golden,
         fontFamily: 'MontaguSlab',
       ),
@@ -91,7 +91,7 @@ class GoogleFontText4 extends StatelessWidget {
   }
 }
 
-//google font, color golden, size 25
+//google font, color golden, size 23
 class GoogleFontText5 extends StatelessWidget {
   final String data;
 
@@ -105,7 +105,7 @@ class GoogleFontText5 extends StatelessWidget {
     return Text(
       data,
       style: TextStyle(
-        fontSize: 25.sp,
+        fontSize: 23.sp,
         color: CustomColors.golden,
         fontFamily: 'MontaguSlab',
       ),

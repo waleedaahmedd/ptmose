@@ -7,12 +7,14 @@ import 'package:ptmose/models/responses/auth_response/sign_up_response.dart';
 
 import '../models/requests/location_request.dart';
 import '../models/requests/auth_request/login_request.dart';
+import '../models/requests/wineries_and_testing_request.dart';
 import '../models/responses/auth_response/login_response.dart';
 import '../models/responses/locations_model.dart';
+import '../models/responses/wineries_and_testing_response.dart';
 
 var _baseURL = 'https://ptmose.herokuapp.com/';
 
-Future<LoginResponse?> LoginApi(LoginRequest loginRequest) async {
+Future<LoginResponse?> loginApi(LoginRequest loginRequest) async {
   var headers = {'Content-Type': 'application/json'};
   var request = http.Request('POST', Uri.parse(_baseURL));
   request.body = loginRequest.generateQuery();
@@ -21,7 +23,7 @@ Future<LoginResponse?> LoginApi(LoginRequest loginRequest) async {
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     LoginResponse loginResponse =
-        LoginResponse.fromJson(json.decode(responseData.body));
+    LoginResponse.fromJson(json.decode(responseData.body));
 
     return loginResponse;
   } else {
@@ -30,7 +32,7 @@ Future<LoginResponse?> LoginApi(LoginRequest loginRequest) async {
   }
 }
 
-Future<SignUpResponse?> SignUpApi(SignUpRequest signUpRequest) async {
+Future<SignUpResponse?> signUpApi(SignUpRequest signUpRequest) async {
   var headers = {'Content-Type': 'application/json'};
   var request = http.Request('POST', Uri.parse(_baseURL));
   request.body = signUpRequest.generateQuery();
@@ -39,7 +41,7 @@ Future<SignUpResponse?> SignUpApi(SignUpRequest signUpRequest) async {
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     SignUpResponse signUpResponse =
-        SignUpResponse.fromJson(json.decode(responseData.body));
+    SignUpResponse.fromJson(json.decode(responseData.body));
 
     return signUpResponse;
   } else {
@@ -48,7 +50,7 @@ Future<SignUpResponse?> SignUpApi(SignUpRequest signUpRequest) async {
   }
 }
 
-Future<LocationsModel?> GetAllLocationsApi() async {
+Future<LocationsModel?> getAllLocationsApi() async {
   LocationRequest locationRequest = LocationRequest();
   var headers = {'Content-Type': 'application/json'};
   var request = http.Request('POST', Uri.parse(_baseURL));
@@ -61,6 +63,25 @@ Future<LocationsModel?> GetAllLocationsApi() async {
     LocationsModel.fromJson(json.decode(responseData.body));
 
     return locationResponse;
+  } else {
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
+Future<WineriesAndTestingResponse?> getWineriesAndTastings(int? locationId) async {
+  WineriesAndLocationRequest wineriesAndLocationRequest = WineriesAndLocationRequest(locationId!);
+  var headers = {'Content-Type': 'application/json'};
+  var request = http.Request('POST', Uri.parse(_baseURL));
+  request.body = wineriesAndLocationRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    WineriesAndTestingResponse wineriesAndTestingResponse =
+    WineriesAndTestingResponse.fromJson(json.decode(responseData.body));
+
+    return wineriesAndTestingResponse;
   } else {
     print(response.reasonPhrase);
     return null;

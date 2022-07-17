@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ptmose/models/responses/wineries_model.dart';
 
+import '../models/responses/wineries_and_testing_response.dart';
 import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
 
@@ -10,7 +11,7 @@ class WineriesVerticalListWidget extends StatelessWidget {
   const WineriesVerticalListWidget({Key? key, required this.wineriesList, required this.listScrollable})
       : super(key: key);
   final bool listScrollable;
-  final List<WineriesModel> wineriesList;
+  final List<Wineries> wineriesList;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +41,8 @@ class WineriesVerticalListWidget extends StatelessWidget {
                     SizedBox(
                       width: 80.w,
                       height: 150.h,
-                      child: Image.asset(
-                        '${wineriesList[index].image}',
+                      child: Image.network(
+                        '${wineriesList[index].wineryImage}',
                         /*height: 65,*/
                         width: 100,
                         fit: BoxFit.cover,
@@ -51,13 +52,14 @@ class WineriesVerticalListWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             GoogleFontText4(
-                              data: '${wineriesList[index].title}',
+                              data: '${wineriesList[index].wineryName}',
                             ),
                             NormalFontText4(
-                                data: '${wineriesList[index].description}'),
+                                data: '${wineriesList[index].wineryAbout}'),
                             Row(
                               children: [
                                 Icon(
@@ -69,7 +71,7 @@ class WineriesVerticalListWidget extends StatelessWidget {
                                   width: 10.w,
                                 ),
                                 NormalFontText4(
-                                    data: '${wineriesList[index].closingTime}'),
+                                    data: '${wineriesList[index].wineryAbout}'),
                               ],
                             ),
                           ],

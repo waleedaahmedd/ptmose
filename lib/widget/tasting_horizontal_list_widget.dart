@@ -4,13 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ptmose/models/responses/tasting_model.dart';
 import 'package:ptmose/utils/custom_colors.dart';
 
+import '../models/responses/wineries_and_testing_response.dart';
 import '../utils/custom_font_style.dart';
 
 class TastingHorizontalListWidget extends StatelessWidget {
   const TastingHorizontalListWidget(
       {Key? key, required this.tastingList, required this.listScrollable})
       : super(key: key);
-  final List<TastingModel> tastingList;
+  final List<Tastings> tastingList;
   final bool listScrollable;
 
   @override
@@ -43,10 +44,10 @@ class TastingHorizontalListWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      '${tastingList[index].image}',
+                    Image.network(
+                      '${tastingList[index].img}',
                       width: double.infinity,
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(20),
@@ -54,11 +55,11 @@ class TastingHorizontalListWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           NormalFontText5(
-                              data: '${tastingList[index].location}'),
+                              data: '${tastingList[index].merchantName}'),
                           SizedBox(
                             height: 10.h,
                           ),
-                          GoogleFontText5(data: '${tastingList[index].title}'),
+                          GoogleFontText5(data: '${tastingList[index].tastingName}'),
                           SizedBox(
                             height: 10.h,
                           ),
@@ -90,7 +91,7 @@ class TastingHorizontalListWidget extends StatelessWidget {
                                 width: 10.w,
                               ),
                               NormalFontText4(
-                                  data: '${tastingList[index].workingHours}'),
+                                  data: '${tastingList[index].startTime}-${tastingList[index].endTime}'),
                             ],
                           ),
                           SizedBox(
@@ -107,7 +108,7 @@ class TastingHorizontalListWidget extends StatelessWidget {
                                 width: 10.w,
                               ),
                               NormalFontText4(
-                                  data: '${tastingList[index].address}'),
+                                  data: '${tastingList[index].locationName}'),
                             ],
                           ),
                         ],

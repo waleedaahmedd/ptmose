@@ -158,7 +158,7 @@ class AuthViewModel with ChangeNotifier {
     EasyLoading.show(status: 'Please Wait...');
     LoginRequest loginRequest =
         LoginRequest(emailController.text, passwordController.text);
-    final response = await LoginApi(loginRequest);
+    final response = await loginApi(loginRequest);
     if (response != null) {
       setLoginResponse(response);
       if (_loginResponse!.loginData!.loginUser!.userDataResponse != null) {
@@ -178,7 +178,7 @@ class AuthViewModel with ChangeNotifier {
     EasyLoading.show(status: 'Please Wait...');
     SignUpRequest signUpRequest = SignUpRequest(
         emailController.text, passwordController.text, nameController.text,'here you put fcm token','if social id here you put providerId','emailpassword/facebook/google');
-    final response = await SignUpApi(signUpRequest);
+    final response = await signUpApi(signUpRequest);
     if (response != null) {
       setSignUpResponse(response);
       if (_signUpResponse!.signUpData!.createUser!.userDataResponse != null) {

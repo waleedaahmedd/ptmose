@@ -54,10 +54,10 @@ class _WineriesListScreenState extends State<WineriesListScreen> {
                 height: 10.h,
               ),
               //TODO: call List
-              Flexible(
+             /* Flexible(
                 child: WineriesVerticalListWidget(
                   wineriesList: wineriesListViewModel.getWineriesList, listScrollable: true,),
-              ),
+              ),*/
             ],
           ),
         ),

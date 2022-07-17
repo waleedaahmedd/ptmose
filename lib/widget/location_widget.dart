@@ -70,7 +70,11 @@ class LocationWidget extends StatelessWidget {
                   visible: locationViewModel.getShowLocationList,
                   child: Column(
                     children: [
-                      const Divider(height: 20,thickness: 2,color: CustomColors.golden,),
+                      const Divider(
+                        height: 20,
+                        thickness: 2,
+                        color: CustomColors.golden,
+                      ),
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -80,7 +84,8 @@ class LocationWidget extends StatelessWidget {
                             onTap: () {
                               locationViewModel.setShowLocationList(false);
                               locationViewModel.setSelectedLocation(
-                                  locationViewModel.getLocationList[index]);
+                                  locationViewModel.getLocationList[index],
+                                  context);
                             },
                             child: SizedBox(
                               height: 60.h,
@@ -93,17 +98,20 @@ class LocationWidget extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 20.0),
+                                      padding:
+                                          const EdgeInsets.only(left: 20.0),
                                       child: GoogleFontText4(
                                         data: locationViewModel
                                             .getLocationList[index].name!,
                                       ),
                                     ),
                                     Image.network(
-                                      locationViewModel.getLocationList[index].img!,
+                                      locationViewModel
+                                          .getLocationList[index].img!,
                                       /*height: 65,*/
                                       fit: BoxFit.fill,
                                     )
