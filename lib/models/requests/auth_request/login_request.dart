@@ -6,7 +6,7 @@ class LoginRequest {
 
   generateQuery() {
     String query =
-        '''{"query":"query {\\n  loginUser(email: \\"$email\\", password: \\"$password\\") {\\n    status\\n    message\\n    data {\\n      id\\n      name\\n      email\\n      isVerified\\n    }\\n  }\\n}","variables":{}}''';
+        '''{"query":"query {\\n  loginUser(email: \\"$email\\", password: \\"$password\\", userRole: User,) {\\n    status\\n    message\\n    data {\\n      id\\n      name\\n      email\\n      isVerified\\n    }\\n  }\\n}","variables":{}}''';
     return query;
   }
 }

@@ -94,18 +94,21 @@ class AppBarHeading extends StatelessWidget implements PreferredSizeWidget {
               data: 'HELLO,',
             ),
           ),
-          Row(
+          /*Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children:  [
-              GoogleFontText1(
-                data: Provider.of<AuthViewModel>(context, listen: false).getUserName,
+            children:  [*/
+              Align(
+                alignment: Alignment.centerLeft,
+                child: GoogleFontText1(
+                  data: Provider.of<AuthViewModel>(context, listen: false).getUserName,
+                ),
               ),
-              const Icon(
+            /*  const Icon(
                 Icons.search,
                 color: CustomColors.golden,
-              )
-            ],
-          ),
+              )*/
+            /*],*/
+       /*   ),*/
         ],
       ),
     );

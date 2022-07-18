@@ -91,7 +91,7 @@ class TastingHorizontalListWidget extends StatelessWidget {
                                 width: 10.w,
                               ),
                               NormalFontText4(
-                                  data: '${tastingList[index].startTime}-${tastingList[index].endTime}'),
+                                  data: '${tastingList[index].startTime} - ${tastingList[index].endTime} PST'),
                             ],
                           ),
                           SizedBox(

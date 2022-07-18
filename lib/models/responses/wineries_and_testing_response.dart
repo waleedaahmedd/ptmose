@@ -1,3 +1,5 @@
+import '../../utils/date_time_formatter.dart';
+
 class WineriesAndTestingResponse {
   WineriesAndTestingData? data;
 
@@ -120,9 +122,9 @@ class Tastings {
   Tastings.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     img = json['img'];
-    date = json['date'];
-    startTime = json['startTime'];
-    endTime = json['endTime'];
+    date = DateTimeFormatter.showDate(json['date']);
+    startTime = DateTimeFormatter.showTime(json['startTime']);
+    endTime = DateTimeFormatter.showTime(json['endTime']);
     tastingName = json['tastingName'];
     merchantName = json['merchantName'];
     locationName = json['locationName'];
