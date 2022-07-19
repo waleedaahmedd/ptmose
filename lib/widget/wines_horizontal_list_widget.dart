@@ -1,17 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ptmose/utils/custom_colors.dart';
+import 'package:ptmose/models/responses/Wines_response.dart';
 
-import '../models/responses/wineries_model.dart';
-import '../models/responses/wines_model.dart';
 import '../utils/custom_font_style.dart';
 
 class WinesHorizontalListWidget extends StatelessWidget {
   const WinesHorizontalListWidget(
       {Key? key, required this.winesList, required this.listScrollable})
       : super(key: key);
-  final List<WinesModel> winesList;
+  final List<Wine> winesList;
   final bool listScrollable;
 
   @override

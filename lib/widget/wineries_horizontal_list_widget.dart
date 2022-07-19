@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ptmose/models/responses/wineries_response.dart';
 import 'package:ptmose/utils/custom_colors.dart';
 
-import '../models/responses/wineries_model.dart';
 import '../utils/custom_font_style.dart';
 
 class WineriesHorizontalListWidget extends StatelessWidget {
@@ -12,7 +12,7 @@ class WineriesHorizontalListWidget extends StatelessWidget {
     required this.wineriesList,
    required this.listScrollable
   }) : super(key: key);
-  final List<WineriesModel> wineriesList;
+  final List<Wineries> wineriesList;
   final bool listScrollable;
 
   @override
@@ -44,8 +44,8 @@ class WineriesHorizontalListWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      '${wineriesList[index].image}',
+                    Image.network(
+                      '${wineriesList[index].wineryImage}',
                       width: double.infinity,
                       fit: BoxFit.fill,
                     ),

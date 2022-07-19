@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ptmose/models/responses/wineries_model.dart';
+import 'package:ptmose/models/responses/Wines_response.dart';
 
-import '../models/responses/wines_model.dart';
 import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
 
@@ -12,7 +11,7 @@ class WinesVerticalListWidget extends StatelessWidget {
       {Key? key, required this.winesList, required this.listScrollable})
       : super(key: key);
   final bool listScrollable;
-  final List<WinesModel> winesList;
+  final List<Wine> winesList;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class WinesVerticalListWidget extends StatelessWidget {
             },
             child: SizedBox(
               width: double.infinity,
-              //height: 150.h,
+              height: 100.h,
               child: Card(
                 elevation: 10,
                 semanticContainer: true,
@@ -42,14 +41,14 @@ class WinesVerticalListWidget extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        SizedBox(
-                          width: 80.w,
-                          // height: 150.h,
-                          child: Image.asset(
-                            '${winesList[index].image}',
-                            /*height: 65,*/
-                            width: 100,
-                            fit: BoxFit.cover,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20, bottom: 20, left: 20),
+                          child: Center(
+                            child: Image.network(
+                              '${winesList[index].image}',
+                             // height: 200.h,
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
                         Expanded(
@@ -59,7 +58,7 @@ class WinesVerticalListWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 GoogleFontText4(
-                                  data: '${winesList[index].title}',
+                                  data: '${winesList[index].wineName}',
                                 ),
                                 SizedBox(
                                   height: 10.h,
@@ -71,12 +70,12 @@ class WinesVerticalListWidget extends StatelessWidget {
                                       children: [
                                         NormalFontText5(
                                             data:
-                                                '${winesList[index].description}'),
+                                                '${winesList[index].wineType}'),
                                         SizedBox(
                                           height: 5.h,
                                         ),
                                         NormalFontText2(
-                                            data: '${winesList[index].year}'),
+                                            data: '${winesList[index].age}'),
                                       ],
                                     ),
                                     SizedBox(

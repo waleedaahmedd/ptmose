@@ -13,7 +13,9 @@ import '../widget/tasting_horizontal_list_widget.dart';
 import '../widget/wines_vertical_list_widget.dart';
 
 class WineryDetailsScreen extends StatefulWidget {
-  const WineryDetailsScreen({Key? key}) : super(key: key);
+  const WineryDetailsScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<WineryDetailsScreen> createState() => _WineryDetailsScreenState();
@@ -25,12 +27,6 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      Provider.of<WineryDetailsViewModel>(context, listen: false)
-          .callTastingListApi();
-      Provider.of<WineryDetailsViewModel>(context, listen: false)
-          .callWinesListApi();
-    });
   }
 
   @override
@@ -48,9 +44,12 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
                 children: [
                   Stack(
                     children: [
-                      Image.asset(
-                        'assets/images/WineryProfileHeadPic.png',
-                        fit: BoxFit.fill,
+                      Image.network(
+                        wineryDetailsViewModel.getWineriesDetailsResponse.data!
+                            .getWineryById!.data!.wineryImage!,
+                        height: 170.h,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(
@@ -71,8 +70,13 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const GoogleFontText3(
-                                      data: 'Vinous Reverie Wine Merchant',
+                                    GoogleFontText3(
+                                      data: wineryDetailsViewModel
+                                          .getWineriesDetailsResponse
+                                          .data!
+                                          .getWineryById!
+                                          .data!
+                                          .wineryName!,
                                     ),
                                     SizedBox(
                                       height: 20.h,
@@ -135,9 +139,9 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
                     SizedBox(
                       height: 10.h,
                     ),
-                    const NormalFontText2(
-                      data:
-                          'xadcsdskksc shflhfksjdf hfkshfkjsfhskf  fsfhksfheihfase lfhsjfhsofhsof lsfjhsslkfsjfljf flsjflsjflskjfle lsjdfljsfklejl sfakjkdsf fdkfjkdfjkdfkdf dkfjdkjfijfirr frirfjofijspjfpjef fsfjpsrjfpsjoisfr fpsfjsifjiosroisfr ',
+                    NormalFontText2(
+                      data: wineryDetailsViewModel.getWineriesDetailsResponse
+                          .data!.getWineryById!.data!.wineryAbout!,
                     ),
                     SizedBox(
                       height: 20.h,
@@ -158,7 +162,9 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
                         SizedBox(
                           width: 10.w,
                         ),
-                        const NormalFontText2(data: '5:00 PM - 7:00 PM PST'),
+                        NormalFontText2(
+                            data:
+                                '${wineryDetailsViewModel.getWineriesDetailsResponse.data!.getWineryById!.data!.startTime!} - ${wineryDetailsViewModel.getWineriesDetailsResponse.data!.getWineryById!.data!.endTime!} PST'),
                       ],
                     ),
                     SizedBox(
@@ -174,8 +180,14 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
                         SizedBox(
                           width: 10.w,
                         ),
-                        const NormalFontText2(
-                            data: 'Vinous Reverie Winery, Walnut Creek, CA'),
+                        NormalFontText2(
+                            data: wineryDetailsViewModel
+                                    .getWineriesDetailsResponse
+                                    .data!
+                                    .getWineryById!
+                                    .data!
+                                    .location ??
+                                ''),
                       ],
                     ),
                     SizedBox(
@@ -190,11 +202,10 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
                     SizedBox(
                       height: 340.h,
                       width: double.infinity,
-                     /* child: TastingHorizontalListWidget(
-                        tastingList:
-                            wineryDetailsViewModel.getTastingList,
+                      child: TastingHorizontalListWidget(
+                        tastingList: wineryDetailsViewModel.getTastingList,
                         listScrollable: true,
-                      ),*/
+                      ),
                     ),
                     SizedBox(
                       height: 20.h,
@@ -208,7 +219,10 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
                     SizedBox(
                       height: 10.h,
                     ),
-                     WinesVerticalListWidget(listScrollable: false, winesList: wineryDetailsViewModel.getWinesList,)
+                    WinesVerticalListWidget(
+                      listScrollable: false,
+                      winesList: wineryDetailsViewModel.getWinesList,
+                    )
                   ],
                 ),
               ),

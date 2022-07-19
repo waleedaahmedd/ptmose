@@ -1,4 +1,5 @@
-import '../../utils/date_time_formatter.dart';
+import 'package:ptmose/models/responses/tastings_response.dart';
+import 'package:ptmose/models/responses/wineries_response.dart';
 
 class WineriesAndTestingResponse {
   WineriesAndTestingData? data;
@@ -95,84 +96,6 @@ class WineryByLocationData {
     if (wineries != null) {
       data['wineries'] = wineries!.map((v) => v.toJson()).toList();
     }
-    return data;
-  }
-}
-
-class Tastings {
-  int? id;
-  String? img;
-  String? date;
-  String? startTime;
-  String? endTime;
-  String? tastingName;
-  String? merchantName;
-  String? locationName;
-
-  Tastings(
-      {this.id,
-        this.img,
-        this.date,
-        this.startTime,
-        this.endTime,
-        this.tastingName,
-        this.merchantName,
-        this.locationName});
-
-  Tastings.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    img = json['img'];
-    date = DateTimeFormatter.showDate(json['date']);
-    startTime = DateTimeFormatter.showTime(json['startTime']);
-    endTime = DateTimeFormatter.showTime(json['endTime']);
-    tastingName = json['tastingName'];
-    merchantName = json['merchantName'];
-    locationName = json['locationName'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['img'] = this.img;
-    data['date'] = this.date;
-    data['startTime'] = this.startTime;
-    data['endTime'] = this.endTime;
-    data['tastingName'] = this.tastingName;
-    data['merchantName'] = this.merchantName;
-    data['locationName'] = this.locationName;
-    return data;
-  }
-}
-
-class Wineries {
-  int? id;
-  String? wineryName;
-  String? wineryAbout;
-  String? wineryTags;
-  String? wineryImage;
-
-  Wineries(
-      {this.id,
-      this.wineryName,
-      this.wineryAbout,
-      this.wineryTags,
-      this.wineryImage});
-
-  Wineries.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    wineryName = json['wineryName'];
-    wineryAbout = json['wineryAbout'];
-    wineryTags = json['wineryTags'];
-    wineryImage = json['wineryImage'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['wineryName'] = wineryName;
-    data['wineryAbout'] = wineryAbout;
-    data['wineryTags'] = wineryTags;
-    data['wineryImage'] = wineryImage;
     return data;
   }
 }

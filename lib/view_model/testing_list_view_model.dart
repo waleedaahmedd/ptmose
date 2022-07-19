@@ -1,20 +1,19 @@
 import 'package:flutter/cupertino.dart';
+import 'package:ptmose/models/responses/tastings_response.dart';
 
-import '../dummy_data.dart';
-import '../models/responses/tasting_model.dart';
 
 class TestingListViewModel with ChangeNotifier {
-  final List<TastingModel> _tastingList = [];
+  final List<Tastings> _tastingList = [];
 
-  List<TastingModel> get getTastingList => _tastingList;
+  List<Tastings> get getTastingList => _tastingList;
 
-  void setTestingList(List<TastingModel> value) {
+  void setTestingList(List<Tastings> value) {
     _tastingList.addAll(value);
     notifyListeners();
   }
 
   callTestingListApi() {
     _tastingList.clear();
-    setTestingList(DummyData().tastingList);
+    //setTestingList(DummyData().tastingList);
   }
 }

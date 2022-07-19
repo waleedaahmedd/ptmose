@@ -105,7 +105,7 @@ class GoogleFontText5 extends StatelessWidget {
     return Text(
       data,
       style: TextStyle(
-        fontSize: 23.sp,
+        fontSize: 22.sp,
         color: CustomColors.golden,
         fontFamily: 'MontaguSlab',
       ),

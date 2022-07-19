@@ -1,37 +1,56 @@
 import 'package:flutter/cupertino.dart';
-import 'package:ptmose/models/responses/wines_model.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:ptmose/Service/api_service.dart';
+import 'package:ptmose/models/responses/tastings_response.dart';
+import 'package:ptmose/models/responses/wineries_detail_response.dart';
 
-import '../dummy_data.dart';
-import '../models/responses/tasting_model.dart';
+import '../models/responses/Wines_response.dart';
 
 class WineryDetailsViewModel with ChangeNotifier{
 
-  final List<TastingModel> _tastingList = [];
-  final List<WinesModel> _winesList = [];
+  final List<Tastings> _tastingList = [];
+  final List<Wine> _winesList = [];
+  WineriesDetailsResponse? _wineriesDetailsResponse;
 
-  List<TastingModel> get getTastingList => _tastingList;
-  List<WinesModel> get getWinesList => _winesList;
+  WineriesDetailsResponse get getWineriesDetailsResponse => _wineriesDetailsResponse!;
 
+  List<Tastings> get getTastingList => _tastingList;
+  List<Wine> get getWinesList => _winesList;
 
+  void setWineriesDetailsResponse(WineriesDetailsResponse value) {
+    _wineriesDetailsResponse = value;
+    notifyListeners();
+  }
 
-  void setTastingList(List<TastingModel> value) {
+  void setTastingList(List<Tastings> value) {
     _tastingList.addAll(value);
     notifyListeners();
   }
 
-  void setWinesList(List<WinesModel> value) {
+  void setWinesList(List<Wine> value) {
     _winesList.addAll(value);
     notifyListeners();
   }
 
-  callTastingListApi(){
-    _tastingList.clear();
-    setTastingList(DummyData().tastingList);
-  }
 
-  callWinesListApi(){
+  Future <void> callWineriesDetails(int? wineryId) async {
+    EasyLoading.show(status: 'Please Wait...');
     _winesList.clear();
-    setWinesList(DummyData().winesList);
+    _tastingList.clear();
+
+    final response = await getWineryDetails(wineryId);
+    if (response != null) {
+      setWineriesDetailsResponse(response);
+      if (_wineriesDetailsResponse!.data!.getWineryById!.data!.wine!.isNotEmpty) {
+        setWinesList(_wineriesDetailsResponse!.data!.getWineryById!.data!.wine!);
+      }
+      if (_wineriesDetailsResponse!.data!.getWineryById!.data!.tasting!.isNotEmpty) {
+        setTastingList(_wineriesDetailsResponse!.data!.getWineryById!.data!.tasting!);
+      }
+      EasyLoading.dismiss();
+    } else {
+      EasyLoading.dismiss();
+    }
   }
 
 }

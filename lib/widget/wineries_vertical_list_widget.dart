@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ptmose/models/responses/wineries_model.dart';
+import 'package:provider/provider.dart';
 
 import '../models/responses/wineries_and_testing_response.dart';
+import '../models/responses/wineries_response.dart';
 import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
+import '../view_model/winery_details_view_model.dart';
 
 class WineriesVerticalListWidget extends StatelessWidget {
-  const WineriesVerticalListWidget({Key? key, required this.wineriesList, required this.listScrollable})
+  const WineriesVerticalListWidget(
+      {Key? key, required this.wineriesList, required this.listScrollable})
       : super(key: key);
   final bool listScrollable;
   final List<Wineries> wineriesList;
@@ -16,7 +19,8 @@ class WineriesVerticalListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      physics: listScrollable == false? const NeverScrollableScrollPhysics() : null  ,
+      physics:
+          listScrollable == false ? const NeverScrollableScrollPhysics() : null,
       itemCount: wineriesList.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
@@ -24,7 +28,9 @@ class WineriesVerticalListWidget extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 10.0),
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed('/wineryDetails');
+              Provider.of<WineryDetailsViewModel>(context, listen: false)
+                  .callWineriesDetails(wineriesList[index].id).then((value) =>  Navigator.of(context).pushNamed('/wineryDetails'));
+
             },
             child: SizedBox(
               width: double.infinity,
@@ -71,7 +77,7 @@ class WineriesVerticalListWidget extends StatelessWidget {
                                   width: 10.w,
                                 ),
                                 NormalFontText4(
-                                    data: '${wineriesList[index].wineryAbout}'),
+                                    data: '${wineriesList[index].startTime} - ${wineriesList[index].endTime} PST'),
                               ],
                             ),
                           ],

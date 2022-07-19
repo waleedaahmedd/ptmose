@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ptmose/models/responses/tasting_model.dart';
 import 'package:ptmose/utils/custom_colors.dart';
 
+import '../models/responses/tastings_response.dart';
 import '../models/responses/wineries_and_testing_response.dart';
 import '../utils/custom_font_style.dart';
 
@@ -47,6 +47,7 @@ class TastingHorizontalListWidget extends StatelessWidget {
                     Image.network(
                       '${tastingList[index].img}',
                       width: double.infinity,
+                      height: 150.h,
                       fit: BoxFit.cover,
                     ),
                     Padding(

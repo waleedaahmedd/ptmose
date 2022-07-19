@@ -8,9 +8,11 @@ import 'package:ptmose/models/responses/auth_response/sign_up_response.dart';
 import '../models/requests/location_request.dart';
 import '../models/requests/auth_request/login_request.dart';
 import '../models/requests/wineries_and_testing_request.dart';
+import '../models/requests/wineries_details_reques.dart';
 import '../models/responses/auth_response/login_response.dart';
 import '../models/responses/locations_model.dart';
 import '../models/responses/wineries_and_testing_response.dart';
+import '../models/responses/wineries_detail_response.dart';
 
 var _baseURL = 'https://ptmose.herokuapp.com/';
 
@@ -70,7 +72,7 @@ Future<LocationsModel?> getAllLocationsApi() async {
 }
 
 Future<WineriesAndTestingResponse?> getWineriesAndTastings(int? locationId) async {
-  WineriesAndLocationRequest wineriesAndLocationRequest = WineriesAndLocationRequest(locationId!);
+  WineriesAndTastingsRequest wineriesAndLocationRequest = WineriesAndTastingsRequest(locationId!);
   var headers = {'Content-Type': 'application/json'};
   var request = http.Request('POST', Uri.parse(_baseURL));
   request.body = wineriesAndLocationRequest.generateQuery();
@@ -82,6 +84,26 @@ Future<WineriesAndTestingResponse?> getWineriesAndTastings(int? locationId) asyn
     WineriesAndTestingResponse.fromJson(json.decode(responseData.body));
 
     return wineriesAndTestingResponse;
+  } else {
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
+
+Future<WineriesDetailsResponse?> getWineryDetails(int? wineryId) async {
+  WineriesDetailRequest wineriesDetailRequest = WineriesDetailRequest(wineryId!);
+  var headers = {'Content-Type': 'application/json'};
+  var request = http.Request('POST', Uri.parse(_baseURL));
+  request.body = wineriesDetailRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    WineriesDetailsResponse wineriesDetailsResponse =
+    WineriesDetailsResponse.fromJson(json.decode(responseData.body));
+
+    return wineriesDetailsResponse;
   } else {
     print(response.reasonPhrase);
     return null;

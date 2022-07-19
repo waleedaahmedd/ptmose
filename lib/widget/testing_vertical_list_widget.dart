@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ptmose/models/responses/tasting_model.dart';
+import 'package:ptmose/models/responses/tastings_response.dart';
 
 import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
@@ -8,7 +8,7 @@ import '../utils/custom_font_style.dart';
 class TestingVerticalListWidget extends StatelessWidget {
   const TestingVerticalListWidget({Key? key, required this.listScrollable, required this.tastingList}) : super(key: key);
   final bool listScrollable;
-  final List<TastingModel> tastingList;
+  final List<Tastings> tastingList;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +38,8 @@ class TestingVerticalListWidget extends StatelessWidget {
                     SizedBox(
                       width: 80.w,
                       height: 140.h,
-                      child: Image.asset(
-                        '${tastingList[index].image}',
+                      child: Image.network(
+                        '${tastingList[index].img}',
                         /*height: 65,*/
                         width: 100,
                         fit: BoxFit.cover,
@@ -53,11 +53,11 @@ class TestingVerticalListWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             NormalFontText5(
-                                data: '${tastingList[index].location}'),
+                                data: '${tastingList[index].merchantName}'),
                             SizedBox(
                               height: 5.h,
                             ),
-                            GoogleFontText4(data: '${tastingList[index].title}'),
+                            GoogleFontText4(data: '${tastingList[index].tastingName}'),
                             SizedBox(
                               height: 5.h,
                             ),
@@ -89,7 +89,7 @@ class TestingVerticalListWidget extends StatelessWidget {
                                   width: 10.w,
                                 ),
                                 NormalFontText4(
-                                    data: '${tastingList[index].workingHours}'),
+                                    data: '${tastingList[index].startTime} - ${tastingList[index].endTime} PST'),
                               ],
                             ),
                            /* SizedBox(

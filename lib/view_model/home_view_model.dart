@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:ptmose/dummy_data.dart';
 
 import '../Service/api_service.dart';
-import '../models/responses/tasting_model.dart';
+import '../models/responses/tastings_response.dart';
 import '../models/responses/wineries_and_testing_response.dart';
-import '../models/responses/wineries_model.dart';
-import '../utils/shared_pref .dart';
+import '../models/responses/wineries_response.dart';
 
 class HomeViewModel with ChangeNotifier {
   final List<Tastings> _tastingList = [];

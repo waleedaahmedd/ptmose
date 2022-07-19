@@ -1,23 +1,23 @@
 import 'package:flutter/cupertino.dart';
+import 'package:ptmose/models/responses/Wines_response.dart';
 
 import '../dummy_data.dart';
-import '../models/responses/wines_model.dart';
 
 class ShopViewModel with ChangeNotifier{
-  final List<WinesModel> _winesList = [];
+  final List<Wine> _winesList = [];
   TextEditingController searchController = TextEditingController();
 
 
-  List<WinesModel> get getWinesList => _winesList;
+  List<Wine> get getWinesList => _winesList;
 
-  void setWinesList(List<WinesModel> value) {
+  void setWinesList(List<Wine> value) {
     _winesList.addAll(value);
     notifyListeners();
   }
 
   callWinesListApi(){
     _winesList.clear();
-    setWinesList(DummyData().winesList);
+    //setWinesList(DummyData().winesList);
   }
 
 }

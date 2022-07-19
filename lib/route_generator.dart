@@ -32,7 +32,7 @@ class RouteGenerator {
       case '/home':
         return MaterialPageRoute(builder: (_) =>  const HomeScreen());
       case '/wineryDetails':
-        return MaterialPageRoute(builder: (_) =>  const WineryDetailsScreen());
+        return MaterialPageRoute(builder: (_) =>   WineryDetailsScreen());
       case '/my_reservation':
         return MaterialPageRoute(builder: (_) =>  const MyReservationScreen());
       case '/tasting_list':
