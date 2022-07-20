@@ -190,39 +190,56 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
                                 ''),
                       ],
                     ),
-                    SizedBox(
-                      height: 40.h,
-                    ),
-                    const GoogleFontText1(
-                      data: 'Tasting',
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    SizedBox(
-                      height: 340.h,
-                      width: double.infinity,
-                      child: TastingHorizontalListWidget(
-                        tastingList: wineryDetailsViewModel.getTastingList,
-                        listScrollable: true,
+                    Visibility(
+                      visible: wineryDetailsViewModel.getTastingList.isNotEmpty? true : false,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 40.h,
+                          ),
+                          const GoogleFontText1(
+                            data: 'Tasting',
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          SizedBox(
+                            height: 300.h,
+                            width: double.infinity,
+                            child: TastingHorizontalListWidget(
+                              tastingList: wineryDetailsViewModel.getTastingList,
+                              listScrollable: true,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Container(
-                      key: dataKey,
-                      child: const GoogleFontText1(
-                        data: 'Shop Wines',
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    WinesVerticalListWidget(
-                      listScrollable: false,
-                      winesList: wineryDetailsViewModel.getWinesList,
+
+                    Visibility(
+                      visible: wineryDetailsViewModel.getWinesList.isNotEmpty? true : false,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Container(
+                          key: dataKey,
+                          child: const GoogleFontText1(
+                            data: 'Shop Wines',
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        WinesVerticalListWidget(
+                          listScrollable: false,
+                          winesList: wineryDetailsViewModel.getWinesList,
+                        )
+                      ],),
                     )
+
                   ],
                 ),
               ),

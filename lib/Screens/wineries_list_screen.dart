@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:ptmose/view_model/locations_view_model.dart';
 import 'package:ptmose/widget/wineries_vertical_list_widget.dart';
 
 import '../utils/custom_font_style.dart';
@@ -22,15 +23,15 @@ class _WineriesListScreenState extends State<WineriesListScreen> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
+    /* SchedulerBinding.instance.addPostFrameCallback((_) {
       Provider.of<WineriesListViewModel>(context, listen: false)
           .callWineriesList();
-    });
+    });*/
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<WineriesListViewModel>(builder: (_, wineriesListViewModel, __) {
+    return Consumer<LocationsViewModel>(builder: (_, locationViewModel, __) {
       return Scaffold(
         appBar: const AppBarWidget(
           cartButton: true,
@@ -40,10 +41,7 @@ class _WineriesListScreenState extends State<WineriesListScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const LocationWidget(
-                name: 'Napa Country',
-                image: 'assets/images/LocationBoxImg.png',
-              ),
+              const LocationWidget(),
               SizedBox(
                 height: 20.h,
               ),
@@ -54,10 +52,20 @@ class _WineriesListScreenState extends State<WineriesListScreen> {
                 height: 10.h,
               ),
               //TODO: call List
-             /* Flexible(
-                child: WineriesVerticalListWidget(
-                  wineriesList: wineriesListViewModel.getWineriesList, listScrollable: true,),
-              ),*/
+              locationViewModel.getWineriesList.isEmpty
+                  ? const Expanded(
+                      child: Center(
+                        child: NormalFontText1(
+                          data: 'Sorry No Wineries Are Found At This Location',
+                        ),
+                      ),
+                    )
+                  : Flexible(
+                      child: WineriesVerticalListWidget(
+                        wineriesList: locationViewModel.getWineriesList,
+                        listScrollable: true,
+                      ),
+                    ),
             ],
           ),
         ),

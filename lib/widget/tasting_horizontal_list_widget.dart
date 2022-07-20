@@ -27,7 +27,7 @@ class TastingHorizontalListWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(right: 10.0),
           child: SizedBox(
-            width: 300.w,
+            width: 250.w,
             child: GestureDetector(
               onTap: () {
                 Navigator.of(context).pushNamed('/tasting_details');
@@ -47,7 +47,7 @@ class TastingHorizontalListWidget extends StatelessWidget {
                     Image.network(
                       '${tastingList[index].img}',
                       width: double.infinity,
-                      height: 150.h,
+                      height: 120.h,
                       fit: BoxFit.cover,
                     ),
                     Padding(
@@ -108,8 +108,10 @@ class TastingHorizontalListWidget extends StatelessWidget {
                               SizedBox(
                                 width: 10.w,
                               ),
-                              NormalFontText4(
-                                  data: '${tastingList[index].locationName}'),
+                              Flexible(
+                                child: NormalFontText4(
+                                    data: '${tastingList[index].locationName}'),
+                              ),
                             ],
                           ),
                         ],

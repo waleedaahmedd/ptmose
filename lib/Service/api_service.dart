@@ -3,7 +3,9 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:ptmose/models/requests/auth_request/sign_up_request.dart';
+import 'package:ptmose/models/requests/wineries_list_by_location_request.dart';
 import 'package:ptmose/models/responses/auth_response/sign_up_response.dart';
+import 'package:ptmose/models/responses/wineries_list_by_location_reaponse.dart';
 
 import '../models/requests/location_request.dart';
 import '../models/requests/auth_request/login_request.dart';
@@ -109,3 +111,60 @@ Future<WineriesDetailsResponse?> getWineryDetails(int? wineryId) async {
     return null;
   }
 }
+
+Future<WineriesDetailsResponse?> getTastingsDetails(int? wineryId) async {
+  WineriesDetailRequest wineriesDetailRequest = WineriesDetailRequest(wineryId!);
+  var headers = {'Content-Type': 'application/json'};
+  var request = http.Request('POST', Uri.parse(_baseURL));
+  request.body = wineriesDetailRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    WineriesDetailsResponse wineriesDetailsResponse =
+    WineriesDetailsResponse.fromJson(json.decode(responseData.body));
+
+    return wineriesDetailsResponse;
+  } else {
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
+Future<WineriesListByLocationResponse?> getAllWineriesListByLocation(int? locationId) async {
+  WineriesListByLocationRequest wineriesListByLocationRequest = WineriesListByLocationRequest(locationId!);
+  var headers = {'Content-Type': 'application/json'};
+  var request = http.Request('POST', Uri.parse(_baseURL));
+  request.body = wineriesListByLocationRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    WineriesListByLocationResponse wineriesListByLocationResponse =
+    WineriesListByLocationResponse.fromJson(json.decode(responseData.body));
+
+    return wineriesListByLocationResponse;
+  } else {
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
+/*Future<WineriesAndTestingResponse?> getTastingsList(int? locationId) async {
+  WineriesAndTastingsRequest wineriesAndLocationRequest = WineriesAndTastingsRequest(locationId!);
+  var headers = {'Content-Type': 'application/json'};
+  var request = http.Request('POST', Uri.parse(_baseURL));
+  request.body = wineriesAndLocationRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    WineriesAndTestingResponse wineriesAndTestingResponse =
+    WineriesAndTestingResponse.fromJson(json.decode(responseData.body));
+
+    return wineriesAndTestingResponse;
+  } else {
+    print(response.reasonPhrase);
+    return null;
+  }
+}*/

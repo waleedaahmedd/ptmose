@@ -8,10 +8,9 @@ import 'package:ptmose/view_model/locations_view_model.dart';
 import '../utils/custom_font_style.dart';
 
 class LocationWidget extends StatelessWidget {
-  const LocationWidget({Key? key, required this.name, required this.image})
-      : super(key: key);
-  final String name;
-  final String image;
+  const LocationWidget({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -84,8 +83,7 @@ class LocationWidget extends StatelessWidget {
                             onTap: () {
                               locationViewModel.setShowLocationList(false);
                               locationViewModel.setSelectedLocation(
-                                  locationViewModel.getLocationList[index],
-                                  context);
+                                  locationViewModel.getLocationList[index]);
                             },
                             child: SizedBox(
                               height: 60.h,

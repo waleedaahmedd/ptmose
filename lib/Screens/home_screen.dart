@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeViewModel>(builder: (_, homeViewModel, __) {
+    return Consumer<LocationsViewModel>(builder: (_, locationViewModel, __) {
       return Scaffold(
         appBar: const AppBarWidget(
           headings: true,
@@ -48,8 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const LocationWidget(
-                      name: 'Napa Country',
-                      image: 'assets/images/LocationBoxImg.png',
+
                     ),
                     SizedBox(
                       height: 20.h,
@@ -74,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 10.h,
                     ),
                     //TODO: call List
-                    homeViewModel.getTastingList.isEmpty?
+                    locationViewModel.getTastingList.isEmpty?
                     const Center(
                       child: Padding(
                         padding: EdgeInsets.only(bottom: 20.0),
@@ -84,10 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ):
                     SizedBox(
-                      height: 340.h,
+                      height: 300.h,
                       width: double.infinity,
                       child: TastingHorizontalListWidget(
-                        tastingList: homeViewModel.getTastingList,
+                        tastingList: locationViewModel.getTastingList,
                         listScrollable: true,
                       ),
                     ),
@@ -114,14 +113,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 10.h,
                     ),
                     //TODO: call List
-                    homeViewModel.getWineriesList.isEmpty
+                    locationViewModel.getWineriesList.isEmpty
                         ? const Center(
                             child: NormalFontText1(
                               data: 'Sorry No Wineries Are Found At This Location',
                             ),
                           )
                         : WineriesVerticalListWidget(
-                            wineriesList: homeViewModel.getWineriesList,
+                            wineriesList: locationViewModel.getWineriesList,
                             listScrollable: false,
                           ),
                     SizedBox(

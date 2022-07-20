@@ -40,8 +40,7 @@ class _TastingListScreenState extends State<TastingListScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const LocationWidget(
-                name: 'Napa Country',
-                image: 'assets/images/LocationBoxImg.png',
+
               ),
               SizedBox(
                 height: 20.h,

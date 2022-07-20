@@ -34,7 +34,7 @@ class WineriesVerticalListWidget extends StatelessWidget {
             },
             child: SizedBox(
               width: double.infinity,
-              height: 150.h,
+              height: 130.h,
               child: Card(
                 elevation: 10,
                 semanticContainer: true,
@@ -44,15 +44,11 @@ class WineriesVerticalListWidget extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    SizedBox(
+                    Image.network(
+                      '${wineriesList[index].wineryImage}',
                       width: 80.w,
-                      height: 150.h,
-                      child: Image.network(
-                        '${wineriesList[index].wineryImage}',
-                        /*height: 65,*/
-                        width: 100,
-                        fit: BoxFit.cover,
-                      ),
+                      height: 130.h,
+                      fit: BoxFit.cover,
                     ),
                     Expanded(
                       child: Padding(
@@ -65,7 +61,7 @@ class WineriesVerticalListWidget extends StatelessWidget {
                               data: '${wineriesList[index].wineryName}',
                             ),
                             NormalFontText4(
-                                data: '${wineriesList[index].wineryAbout}'),
+                                data: '${wineriesList[index].wineryTags}'),
                             Row(
                               children: [
                                 Icon(
