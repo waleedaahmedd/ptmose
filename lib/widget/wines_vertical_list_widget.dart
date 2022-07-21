@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:ptmose/models/responses/Wines_response.dart';
 
 import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
+import '../view_model/cart_view_model.dart';
 
 class WinesVerticalListWidget extends StatelessWidget {
   const WinesVerticalListWidget(
@@ -25,7 +27,10 @@ class WinesVerticalListWidget extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 10.0),
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed('/wines_details',arguments: false);
+              Provider.of<CartViewModel>(context, listen: false)
+                  .callWineDetails(winesList[index].id)
+                  .then((value) => Navigator.of(context)
+                  .pushNamed('/wines_details', arguments: false));
             },
             child: SizedBox(
               width: double.infinity,

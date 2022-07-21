@@ -14,6 +14,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SharedPref sharedPref = SharedPref();
+
     return Consumer<AuthViewModel>(
       builder: (_, authViewModel, __) {
         return Scaffold(
@@ -84,7 +86,8 @@ class LoginScreen extends StatelessWidget {
                                         ),
                                         hintText: 'PASSWORD',
                                         errorText: authViewModel
-                                                .getPasswordValidateMessage.isEmpty
+                                                .getPasswordValidateMessage
+                                                .isEmpty
                                             ? null
                                             : authViewModel
                                                 .getPasswordValidateMessage),
@@ -185,7 +188,11 @@ class LoginScreen extends StatelessWidget {
                                     text: 'LOGIN AS GUEST',
                                     onPressed: () {
                                       authViewModel.setGuestUser(true);
-
+                                      final prevUserData =
+                                          sharedPref.read('userData');
+                                      if (prevUserData != null) {
+                                        sharedPref.remove('userData');
+                                      }
                                       authViewModel.callUserName();
                                       Navigator.of(context)
                                           .pushNamedAndRemoveUntil('/home',

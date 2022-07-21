@@ -86,7 +86,7 @@ class LocationWidget extends StatelessWidget {
                                   locationViewModel.getLocationList[index]);
                             },
                             child: SizedBox(
-                              height: 60.h,
+                              height: 40.h,
                               width: double.infinity,
                               child: Card(
                                 elevation: 10,

@@ -5,7 +5,7 @@ class TastingsDetailsRequest {
 
 
   generateQuery(){
-    String query = '''{"query":"query {\\n  getWineryByLocation(id: $tastingId) {\\n    status\\n    message\\n    data {\\n      tastings {\\n        id\\n        img\\n        date\\n        startTime\\n        endTime\\n        tastingName\\n        merchantName\\n        locationName\\n      }\\n      wineries {\\n        id\\n        wineryName\\n        wineryAbout\\n        wineryTags\\n        wineryImage\\n      }\\n    }\\n  }\\n}","variables":{}}''';
+    String query = '''{"query":"query {\\r\\n  getTastingById(id: $tastingId) {\\r\\n    status\\r\\n    message\\r\\n    data {\\r\\n      id\\r\\n      img\\r\\n      date\\r\\n      startTime\\r\\n      endTime\\r\\n      tastingName\\r\\n      merchantName\\r\\n      locationName\\r\\n      TastingReservers {\\r\\n        id\\r\\n      }\\r\\n      tastingWines {\\r\\n        Wine {\\r\\n          id\\r\\n          wineName\\r\\n          age\\r\\n          price\\r\\n          wineType\\r\\n          image\\r\\n        }\\r\\n      }\\r\\n      about\\r\\n    }\\r\\n  }\\r\\n}\\r\\n","variables":{}}''';
     return query;
   }
 }

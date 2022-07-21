@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:ptmose/utils/custom_colors.dart';
 
 import '../models/responses/tastings_response.dart';
 import '../models/responses/wineries_and_testing_response.dart';
 import '../utils/custom_font_style.dart';
+import '../view_model/tasting_details_view_model.dart';
 
 class TastingHorizontalListWidget extends StatelessWidget {
   const TastingHorizontalListWidget(
@@ -30,7 +32,11 @@ class TastingHorizontalListWidget extends StatelessWidget {
             width: 250.w,
             child: GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed('/tasting_details');
+                Provider.of<TastingDetailsViewModel>(context, listen: false)
+                    .callTastingDetails(tastingList[index].id)
+                    .then((value) =>
+                        Navigator.of(context).pushNamed('/tasting_details'));
+
                 /* : Navigator.of(context).pushReplacementNamed('/shop');*/
               },
               child: Card(
@@ -47,7 +53,7 @@ class TastingHorizontalListWidget extends StatelessWidget {
                     Image.network(
                       '${tastingList[index].img}',
                       width: double.infinity,
-                      height: 120.h,
+                      height: 115.h,
                       fit: BoxFit.cover,
                     ),
                     Padding(
@@ -60,7 +66,8 @@ class TastingHorizontalListWidget extends StatelessWidget {
                           SizedBox(
                             height: 10.h,
                           ),
-                          GoogleFontText5(data: '${tastingList[index].tastingName}'),
+                          GoogleFontText5(
+                              data: '${tastingList[index].tastingName}'),
                           SizedBox(
                             height: 10.h,
                           ),
@@ -92,7 +99,8 @@ class TastingHorizontalListWidget extends StatelessWidget {
                                 width: 10.w,
                               ),
                               NormalFontText4(
-                                  data: '${tastingList[index].startTime} - ${tastingList[index].endTime} PST'),
+                                  data:
+                                      '${tastingList[index].startTime} - ${tastingList[index].endTime} PST'),
                             ],
                           ),
                           SizedBox(

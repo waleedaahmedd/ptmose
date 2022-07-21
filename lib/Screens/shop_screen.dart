@@ -52,7 +52,7 @@ class _ShopScreenState extends State<ShopScreen> {
             ),
             SizedBox(height: 20.h,),
             //const WineriesWidget(image: 'assets/images/LocationBoxImg.png', name: 'Vinous Reverie Wine Merchant',),
-            Expanded(child: WinesVerticalListWidget(listScrollable: true, winesList: shopViewModel.getWinesList,)),
+            Expanded(child: WinesVerticalListWidget(listScrollable: true, winesList: shopViewModel.getWines,)),
 
           ],
         ),

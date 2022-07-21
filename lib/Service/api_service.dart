@@ -3,31 +3,40 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:ptmose/models/requests/auth_request/sign_up_request.dart';
+import 'package:ptmose/models/requests/tastings_details_request.dart';
 import 'package:ptmose/models/requests/wineries_list_by_location_request.dart';
 import 'package:ptmose/models/responses/auth_response/sign_up_response.dart';
+import 'package:ptmose/models/responses/tastings_details_response.dart';
 import 'package:ptmose/models/responses/wineries_list_by_location_reaponse.dart';
 
 import '../models/requests/location_request.dart';
 import '../models/requests/auth_request/login_request.dart';
+import '../models/requests/reserve_tasting_request.dart';
+import '../models/requests/wine_detail_request.dart';
 import '../models/requests/wineries_and_testing_request.dart';
-import '../models/requests/wineries_details_reques.dart';
+import '../models/requests/wineries_details_request.dart';
+import '../models/requests/wines_list_request.dart';
 import '../models/responses/auth_response/login_response.dart';
 import '../models/responses/locations_model.dart';
+import '../models/responses/reserve_tasting_response.dart';
+import '../models/responses/wine_detail_response.dart';
 import '../models/responses/wineries_and_testing_response.dart';
 import '../models/responses/wineries_detail_response.dart';
+import '../models/responses/wines_list_response.dart';
 
 var _baseURL = 'https://ptmose.herokuapp.com/';
+var headers = {'Content-Type': 'application/json'};
 
 Future<LoginResponse?> loginApi(LoginRequest loginRequest) async {
-  var headers = {'Content-Type': 'application/json'};
   var request = http.Request('POST', Uri.parse(_baseURL));
+
   request.body = loginRequest.generateQuery();
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     LoginResponse loginResponse =
-    LoginResponse.fromJson(json.decode(responseData.body));
+        LoginResponse.fromJson(json.decode(responseData.body));
 
     return loginResponse;
   } else {
@@ -37,15 +46,15 @@ Future<LoginResponse?> loginApi(LoginRequest loginRequest) async {
 }
 
 Future<SignUpResponse?> signUpApi(SignUpRequest signUpRequest) async {
-  var headers = {'Content-Type': 'application/json'};
   var request = http.Request('POST', Uri.parse(_baseURL));
+
   request.body = signUpRequest.generateQuery();
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     SignUpResponse signUpResponse =
-    SignUpResponse.fromJson(json.decode(responseData.body));
+        SignUpResponse.fromJson(json.decode(responseData.body));
 
     return signUpResponse;
   } else {
@@ -56,15 +65,15 @@ Future<SignUpResponse?> signUpApi(SignUpRequest signUpRequest) async {
 
 Future<LocationsModel?> getAllLocationsApi() async {
   LocationRequest locationRequest = LocationRequest();
-  var headers = {'Content-Type': 'application/json'};
   var request = http.Request('POST', Uri.parse(_baseURL));
+
   request.body = locationRequest.generateQuery();
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     LocationsModel locationResponse =
-    LocationsModel.fromJson(json.decode(responseData.body));
+        LocationsModel.fromJson(json.decode(responseData.body));
 
     return locationResponse;
   } else {
@@ -73,17 +82,19 @@ Future<LocationsModel?> getAllLocationsApi() async {
   }
 }
 
-Future<WineriesAndTestingResponse?> getWineriesAndTastings(int? locationId) async {
-  WineriesAndTastingsRequest wineriesAndLocationRequest = WineriesAndTastingsRequest(locationId!);
-  var headers = {'Content-Type': 'application/json'};
+Future<WineriesAndTestingResponse?> getWineriesAndTastings(
+    int? locationId) async {
+  WineriesAndTastingsRequest wineriesAndLocationRequest =
+      WineriesAndTastingsRequest(locationId!);
   var request = http.Request('POST', Uri.parse(_baseURL));
+
   request.body = wineriesAndLocationRequest.generateQuery();
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     WineriesAndTestingResponse wineriesAndTestingResponse =
-    WineriesAndTestingResponse.fromJson(json.decode(responseData.body));
+        WineriesAndTestingResponse.fromJson(json.decode(responseData.body));
 
     return wineriesAndTestingResponse;
   } else {
@@ -92,18 +103,18 @@ Future<WineriesAndTestingResponse?> getWineriesAndTastings(int? locationId) asyn
   }
 }
 
-
 Future<WineriesDetailsResponse?> getWineryDetails(int? wineryId) async {
-  WineriesDetailRequest wineriesDetailRequest = WineriesDetailRequest(wineryId!);
-  var headers = {'Content-Type': 'application/json'};
+  WineriesDetailRequest wineriesDetailRequest =
+      WineriesDetailRequest(wineryId!);
   var request = http.Request('POST', Uri.parse(_baseURL));
+
   request.body = wineriesDetailRequest.generateQuery();
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     WineriesDetailsResponse wineriesDetailsResponse =
-    WineriesDetailsResponse.fromJson(json.decode(responseData.body));
+        WineriesDetailsResponse.fromJson(json.decode(responseData.body));
 
     return wineriesDetailsResponse;
   } else {
@@ -112,36 +123,97 @@ Future<WineriesDetailsResponse?> getWineryDetails(int? wineryId) async {
   }
 }
 
-Future<WineriesDetailsResponse?> getTastingsDetails(int? wineryId) async {
-  WineriesDetailRequest wineriesDetailRequest = WineriesDetailRequest(wineryId!);
-  var headers = {'Content-Type': 'application/json'};
+Future<TastingsDetailResponse?> getTastingsDetails(int? tastingId) async {
+  TastingsDetailsRequest tastingsDetailsRequest =
+      TastingsDetailsRequest(tastingId!);
   var request = http.Request('POST', Uri.parse(_baseURL));
-  request.body = wineriesDetailRequest.generateQuery();
+
+  request.body = tastingsDetailsRequest.generateQuery();
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
-    WineriesDetailsResponse wineriesDetailsResponse =
-    WineriesDetailsResponse.fromJson(json.decode(responseData.body));
+    TastingsDetailResponse tastingsDetailResponse =
+        TastingsDetailResponse.fromJson(json.decode(responseData.body));
 
-    return wineriesDetailsResponse;
+    return tastingsDetailResponse;
   } else {
     print(response.reasonPhrase);
     return null;
   }
 }
 
-Future<WineriesListByLocationResponse?> getAllWineriesListByLocation(int? locationId) async {
-  WineriesListByLocationRequest wineriesListByLocationRequest = WineriesListByLocationRequest(locationId!);
-  var headers = {'Content-Type': 'application/json'};
+Future<WineDetailResponse?> getWineDetails(int? wineId) async {
+  WineDetailRequest wineDetailRequest =
+  WineDetailRequest(wineId!);
   var request = http.Request('POST', Uri.parse(_baseURL));
+
+  request.body = wineDetailRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    WineDetailResponse wineDetailResponse =
+    WineDetailResponse.fromJson(json.decode(responseData.body));
+
+    return wineDetailResponse;
+  } else {
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
+Future<WinesListResponse?> getWinesList() async {
+  WinesListRequest winesListRequest = WinesListRequest();
+  var request = http.Request('POST', Uri.parse(_baseURL));
+
+  request.body = winesListRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    WinesListResponse winesListResponse =
+    WinesListResponse.fromJson(json.decode(responseData.body));
+
+    return winesListResponse;
+  } else {
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
+Future<ReserveTastingResponse?> reserveTasting(int? tastingId , int? userId) async {
+  ReserveTastingRequest reserveTastingRequest = ReserveTastingRequest(tastingId!,userId!);
+  var request = http.Request('POST', Uri.parse(_baseURL));
+
+  request.body = reserveTastingRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    ReserveTastingResponse reserveTastingResponse =
+    ReserveTastingResponse.fromJson(json.decode(responseData.body));
+
+    return reserveTastingResponse;
+  } else {
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
+Future<WineriesListByLocationResponse?> getAllWineriesListByLocation(
+    int? locationId) async {
+  WineriesListByLocationRequest wineriesListByLocationRequest =
+      WineriesListByLocationRequest(locationId!);
+  var request = http.Request('POST', Uri.parse(_baseURL));
+
   request.body = wineriesListByLocationRequest.generateQuery();
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     WineriesListByLocationResponse wineriesListByLocationResponse =
-    WineriesListByLocationResponse.fromJson(json.decode(responseData.body));
+        WineriesListByLocationResponse.fromJson(json.decode(responseData.body));
 
     return wineriesListByLocationResponse;
   } else {

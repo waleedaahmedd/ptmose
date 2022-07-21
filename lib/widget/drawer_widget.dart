@@ -76,7 +76,9 @@ class DrawerWidget extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).pushNamed('/my_reservation');
+                Provider.of<AuthViewModel>(context, listen: false).getGuestUser
+                    ? Navigator.of(context).pushNamed('/login')
+                    : Navigator.of(context).pushNamed('/my_reservation');
               },
               child: Row(children: [
                 Image.asset(
@@ -176,16 +178,14 @@ class DrawerWidget extends StatelessWidget {
               ]),
             ),
           ),
-
           const Spacer(),
-
           Padding(
             padding: const EdgeInsets.all(20),
             child: GestureDetector(
               onTap: () {
                 sharedPref.remove('userData');
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/login', ModalRoute.withName('/'));
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/login', ModalRoute.withName('/'));
               },
               child: Row(children: [
                 Image.asset(
@@ -201,7 +201,6 @@ class DrawerWidget extends StatelessWidget {
               ]),
             ),
           ),
-
           SizedBox(
             height: 20.h,
           )

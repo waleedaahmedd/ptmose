@@ -21,7 +21,7 @@ class WinesDetailScreen extends StatefulWidget {
 }
 
 class _WinesDetailScreenState extends State<WinesDetailScreen> {
-  int quantityCount = 0;
+  int quantityCount = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -42,19 +42,19 @@ class _WinesDetailScreenState extends State<WinesDetailScreen> {
                 SizedBox(
                     height: 150.h,
                     child: Center(
-                        child: Image.asset(
-                            'assets/images/WineBottles/WineBottlePic1.png'))),
+                        child: Image.network(
+                            cartViewModel.getWineDetailResponse.data!.getWineById!.data!.image!))),
                 SizedBox(
                   height: 40.h,
                 ),
-                const GoogleFontText5(
-                  data: 'Cline Family Cellars \'Farmhouse Red\'',
+                 GoogleFontText5(
+                  data: cartViewModel.getWineDetailResponse.data!.getWineById!.data!.wineName!,
                 ),
                 SizedBox(
                   height: 10.h,
                 ),
-                const NormalFontText5(
-                  data: 'Sonoma, CA 2018',
+                 NormalFontText5(
+                  data: '${cartViewModel.getWineDetailResponse.data!.getWineById!.data!.wineType}, CA ${cartViewModel.getWineDetailResponse.data!.getWineById!.data!.age}',
                 ),
                 SizedBox(
                   height: 20.h,
@@ -65,9 +65,9 @@ class _WinesDetailScreenState extends State<WinesDetailScreen> {
                 SizedBox(
                   height: 10.h,
                 ),
-                const NormalFontText4(
+                 NormalFontText4(
                   data:
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                  cartViewModel.getWineDetailResponse.data!.getWineById!.data!.description!,
                 ),
                 SizedBox(
                   height: 20.h,

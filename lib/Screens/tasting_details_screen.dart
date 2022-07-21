@@ -7,6 +7,7 @@ import 'package:ptmose/view_model/winery_details_view_model.dart';
 
 import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
+import '../view_model/auth_view_model.dart';
 import '../view_model/tasting_details_view_model.dart';
 import '../widget/app_bar_widget.dart';
 import '../widget/drawer_widget.dart';
@@ -22,14 +23,13 @@ class TastingDetailsScreen extends StatefulWidget {
 }
 
 class _TastingDetailsScreenState extends State<TastingDetailsScreen> {
-  @override
+  /* @override
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      Provider.of<TastingDetailsViewModel>(context, listen: false)
-          .callWinesListApi();
+
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +42,10 @@ class _TastingDetailsScreenState extends State<TastingDetailsScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Image.asset(
-                'assets/images/EventsHeadPic.png',
-                fit: BoxFit.fill,
+              Image.network(
+                tastingDetailsViewModel
+                    .getTastingsDetailResponse.data!.getTastingById!.data!.img!,
+                fit: BoxFit.cover,
               ),
               SizedBox(height: 20.h),
               Column(
@@ -54,14 +55,24 @@ class _TastingDetailsScreenState extends State<TastingDetailsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const NormalFontText5(
-                          data: 'Vinous Reverie Wine Merchant',
+                        NormalFontText5(
+                          data: tastingDetailsViewModel
+                              .getTastingsDetailResponse
+                              .data!
+                              .getTastingById!
+                              .data!
+                              .merchantName!,
                         ),
                         SizedBox(
                           height: 10.h,
                         ),
-                        const GoogleFontText5(
-                          data: 'Alsace Grand Cru Riesling Tasting',
+                        GoogleFontText5(
+                          data: tastingDetailsViewModel
+                              .getTastingsDetailResponse
+                              .data!
+                              .getTastingById!
+                              .data!
+                              .tastingName!,
                         ),
                         SizedBox(
                           height: 20.h,
@@ -69,19 +80,35 @@ class _TastingDetailsScreenState extends State<TastingDetailsScreen> {
                         Row(
                           children: [
                             Expanded(
-                              child: Card(
-                                  color: CustomColors.purple,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 20.0),
-                                    child: Center(
-                                        child: NormalFontText3(
-                                      data: 'RESERVE',
+                              child: GestureDetector(
+                                onTap: () {
+                                  Provider.of<AuthViewModel>(context,
+                                              listen: false)
+                                          .getGuestUser
+                                      ? Navigator.of(context)
+                                          .pushNamed('/login')
+                                      : tastingDetailsViewModel
+                                          .callReserveTasting(int.parse(
+                                              Provider.of<AuthViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .getUserDataResponse
+                                                  .id!));
+                                },
+                                child: Card(
+                                    color: CustomColors.purple,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 20.0),
+                                      child: Center(
+                                          child: NormalFontText3(
+                                        data: 'RESERVE',
+                                      )),
                                     )),
-                                  )),
+                              ),
                             ),
                             Card(
                                 color: CustomColors.purple,
@@ -145,14 +172,17 @@ class _TastingDetailsScreenState extends State<TastingDetailsScreen> {
                           SizedBox(
                             height: 10.h,
                           ),
-                          const NormalFontText7(
-                            data:
-                                'xadcsdskksc shflhfksjdf hfkshfkjsfhskf  fsfhksfheihfase lfhsjfhsofhsof lsfjhsslkfsjfljf flsjflsjflskjfle lsjdfljsfklejl sfakjkdsf fdkfjkdfjkdfkdf dkfjdkjfijfirr frirfjofijspjfpjef fsfjpsrjfpsjoisfr fpsfjsifjiosroisfr ',
+                          NormalFontText7(
+                            data: tastingDetailsViewModel
+                                .getTastingsDetailResponse
+                                .data!
+                                .getTastingById!
+                                .data!
+                                .about!,
                           ),
                           SizedBox(
                             height: 20.h,
                           ),
-
                           Row(
                             children: [
                               Icon(
@@ -163,8 +193,13 @@ class _TastingDetailsScreenState extends State<TastingDetailsScreen> {
                               SizedBox(
                                 width: 10.w,
                               ),
-                              const NormalFontText7(
-                                  data: 'FEB 3'),
+                              NormalFontText7(
+                                  data: tastingDetailsViewModel
+                                      .getTastingsDetailResponse
+                                      .data!
+                                      .getTastingById!
+                                      .data!
+                                      .date!),
                             ],
                           ),
                           SizedBox(
@@ -180,7 +215,9 @@ class _TastingDetailsScreenState extends State<TastingDetailsScreen> {
                               SizedBox(
                                 width: 10.w,
                               ),
-                              const NormalFontText7(data: '5:00 PM - 7:00 PM PST'),
+                              NormalFontText7(
+                                  data:
+                                      '${tastingDetailsViewModel.getTastingsDetailResponse.data!.getTastingById!.data!.startTime} - ${tastingDetailsViewModel.getTastingsDetailResponse.data!.getTastingById!.data!.endTime} PST'),
                             ],
                           ),
                           SizedBox(
@@ -196,8 +233,13 @@ class _TastingDetailsScreenState extends State<TastingDetailsScreen> {
                               SizedBox(
                                 width: 10.w,
                               ),
-                              const NormalFontText7(
-                                  data: 'Vinous Reverie Winery, Walnut Creek, CA'),
+                              NormalFontText7(
+                                  data: tastingDetailsViewModel
+                                      .getTastingsDetailResponse
+                                      .data!
+                                      .getTastingById!
+                                      .data!
+                                      .locationName!),
                             ],
                           ),
                           SizedBox(
@@ -213,8 +255,9 @@ class _TastingDetailsScreenState extends State<TastingDetailsScreen> {
                               SizedBox(
                                 width: 10.w,
                               ),
-                              const NormalFontText7(
-                                  data: '45 Attendees'),
+                              NormalFontText7(
+                                  data:
+                                      '${tastingDetailsViewModel.getTastingsDetailResponse.data!.getTastingById!.data!.tastingReservers!.length} Attendees'),
                             ],
                           ),
                         ],

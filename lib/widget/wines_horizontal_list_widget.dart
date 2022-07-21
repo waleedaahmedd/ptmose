@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:ptmose/models/responses/Wines_response.dart';
+import 'package:ptmose/models/responses/tastings_details_response.dart';
+import 'package:ptmose/view_model/cart_view_model.dart';
 
 import '../utils/custom_font_style.dart';
 
@@ -9,7 +12,7 @@ class WinesHorizontalListWidget extends StatelessWidget {
   const WinesHorizontalListWidget(
       {Key? key, required this.winesList, required this.listScrollable})
       : super(key: key);
-  final List<Wine> winesList;
+  final List<TastingWines> winesList;
   final bool listScrollable;
 
   @override
@@ -28,7 +31,11 @@ class WinesHorizontalListWidget extends StatelessWidget {
             width: 180.w,
             child: GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed('/wines_details',arguments: true);
+                Provider.of<CartViewModel>(context, listen: false)
+                    .callWineDetails(winesList[index].wine!.id)
+                    .then((value) => Navigator.of(context)
+                        .pushNamed('/wines_details', arguments: true));
+
                 /* : Navigator.of(context).pushReplacementNamed('/shop');*/
               },
               child: Card(
@@ -43,9 +50,10 @@ class WinesHorizontalListWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 20.0,left: 20, right: 20),
-                      child: Image.asset(
-                        '${winesList[index].image}',
+                      padding:
+                          const EdgeInsets.only(top: 20.0, left: 20, right: 20),
+                      child: Image.network(
+                        '${winesList[index].wine!.image}',
                         width: double.infinity,
                         fit: BoxFit.fill,
                       ),
