@@ -20,14 +20,7 @@ class WineriesListScreen extends StatefulWidget {
 }
 
 class _WineriesListScreenState extends State<WineriesListScreen> {
-  @override
-  void initState() {
-    super.initState();
-    /* SchedulerBinding.instance.addPostFrameCallback((_) {
-      Provider.of<WineriesListViewModel>(context, listen: false)
-          .callWineriesList();
-    });*/
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +45,7 @@ class _WineriesListScreenState extends State<WineriesListScreen> {
                 height: 10.h,
               ),
               //TODO: call List
-              locationViewModel.getWineriesList.isEmpty
+              locationViewModel.getWineriesListByLocation.isEmpty
                   ? const Expanded(
                       child: Center(
                         child: NormalFontText1(

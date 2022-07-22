@@ -186,7 +186,7 @@ class _WineryDetailsScreenState extends State<WineryDetailsScreen> {
                                     .data!
                                     .getWineryById!
                                     .data!
-                                    .location ??
+                                    .address ??
                                 ''),
                       ],
                     ),

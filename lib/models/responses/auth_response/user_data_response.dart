@@ -1,6 +1,6 @@
 
 class UserDataResponse {
-  String? id;
+  int? id;
   String? name;
   String? email;
   bool? isVerified;

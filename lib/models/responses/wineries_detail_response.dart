@@ -71,7 +71,7 @@ class WineryDetailData {
   String? wineryImage;
   String? startTime;
   String? endTime;
-  String? location;
+  String? address;
   List<Tastings>? tasting;
   List<Wine>? wine;
 
@@ -81,7 +81,7 @@ class WineryDetailData {
         this.wineryImage,
         this.startTime,
         this.endTime,
-        this.location,
+        this.address,
         this.tasting,
         this.wine});
 
@@ -91,7 +91,7 @@ class WineryDetailData {
     wineryImage = json['wineryImage'];
     startTime = DateTimeFormatter.showTime(json['startTime']);
     endTime = DateTimeFormatter.showTime(json['endTime']);
-    location = json['Location'];
+    address = json['address'];
     if (json['Tasting'] != null) {
       tasting = <Tastings>[];
       json['Tasting'].forEach((v) {
@@ -113,7 +113,7 @@ class WineryDetailData {
     data['wineryImage'] = wineryImage;
     data['startTime'] = startTime;
     data['endTime'] = endTime;
-    data['Location'] = location;
+    data['address'] = address;
     if (tasting != null) {
       data['Tasting'] = tasting!.map((v) => v.toJson()).toList();
     }

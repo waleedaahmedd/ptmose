@@ -5,14 +5,17 @@ import 'package:ptmose/models/responses/wines_list_response.dart';
 
 import '../Service/api_service.dart';
 import '../dummy_data.dart';
+import '../models/responses/wines_list_response.dart';
 
-class ShopViewModel with ChangeNotifier{
+class ShopViewModel with ChangeNotifier {
   final List<Wine> _winesList = [];
+  List<Wine> _searchWinesList = [];
   WinesListResponse? _winesListResponse;
   TextEditingController searchController = TextEditingController();
 
-
   List<Wine> get getWines => _winesList;
+
+  List<Wine> get getSearchWinesList => _searchWinesList;
 
   WinesListResponse get getWinesListResponse => _winesListResponse!;
 
@@ -21,12 +24,21 @@ class ShopViewModel with ChangeNotifier{
     notifyListeners();
   }
 
+  void setSearchWines(String value) {
+    _searchWinesList = _winesList
+        .where((element) =>
+            element.wineName!.toLowerCase().contains(value) ||
+            element.wineName!.contains(value))
+        .toList();
+    notifyListeners();
+  }
+
   void setWines(List<Wine> value) {
     _winesList.addAll(value);
     notifyListeners();
   }
 
-  Future <void> callWinesListApi() async {
+  Future<void> callWinesListApi() async {
     EasyLoading.show(status: 'Please Wait...');
     _winesList.clear();
 
@@ -41,7 +53,4 @@ class ShopViewModel with ChangeNotifier{
       EasyLoading.dismiss();
     }
   }
-
-
-
 }

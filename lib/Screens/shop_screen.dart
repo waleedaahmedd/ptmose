@@ -18,45 +18,52 @@ class ShopScreen extends StatefulWidget {
 }
 
 class _ShopScreenState extends State<ShopScreen> {
-
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      Provider.of<ShopViewModel>(context, listen: false)
-          .callWinesListApi();
+      Provider.of<ShopViewModel>(context, listen: false).callWinesListApi();
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<ShopViewModel>(
-        builder: (_, shopViewModel, __) {
-    return Scaffold(
-      appBar: const AppBarWidget(
-        cartButton: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children:  [
-            TextField(
-              controller: shopViewModel.searchController,
-              decoration: const InputDecoration(
+    return Consumer<ShopViewModel>(builder: (_, shopViewModel, __) {
+      return Scaffold(
+        appBar: const AppBarWidget(
+          cartButton: true,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                onChanged: (content) {
+                  shopViewModel.setSearchWines(content);
+                },
+                controller: shopViewModel.searchController,
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   suffixIcon: Icon(
                     Icons.search,
                   ),
                   hintText: 'Search Wines',
-                 ),
-            ),
-            SizedBox(height: 20.h,),
-            //const WineriesWidget(image: 'assets/images/LocationBoxImg.png', name: 'Vinous Reverie Wine Merchant',),
-            Expanded(child: WinesVerticalListWidget(listScrollable: true, winesList: shopViewModel.getWines,)),
-
-          ],
+                ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              //const WineriesWidget(image: 'assets/images/LocationBoxImg.png', name: 'Vinous Reverie Wine Merchant',),
+              Expanded(
+                  child: WinesVerticalListWidget(
+                listScrollable: true,
+                winesList: shopViewModel.searchController.text.isEmpty? shopViewModel.getWines: shopViewModel.getSearchWinesList,
+              )),
+            ],
+          ),
         ),
-      ),
-    );});
+      );
+    });
   }
 }

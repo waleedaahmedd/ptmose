@@ -4,6 +4,7 @@ import 'package:ptmose/Screens/my_reservation_screen.dart';
 import 'package:ptmose/Screens/splash_screen.dart';
 import 'package:ptmose/Screens/tasting_list_screen.dart';
 
+import 'Screens/about_screen.dart';
 import 'Screens/cart_screen.dart';
 import 'Screens/forget_password_screen.dart';
 import 'Screens/home_screen.dart';
@@ -51,6 +52,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) =>  const ShopScreen());
       case '/cart':
         return MaterialPageRoute(builder: (_) =>  const CartScreen());
+      case '/about':
+        return MaterialPageRoute(builder: (_) =>  const AboutScreen());
+
       default:
         return _errorRoute();
     }

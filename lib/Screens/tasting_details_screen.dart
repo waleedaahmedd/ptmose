@@ -88,12 +88,12 @@ class _TastingDetailsScreenState extends State<TastingDetailsScreen> {
                                       ? Navigator.of(context)
                                           .pushNamed('/login')
                                       : tastingDetailsViewModel
-                                          .callReserveTasting(int.parse(
+                                          .callReserveTasting(
                                               Provider.of<AuthViewModel>(
                                                       context,
                                                       listen: false)
                                                   .getUserDataResponse
-                                                  .id!));
+                                                  .id!);
                                 },
                                 child: Card(
                                     color: CustomColors.purple,
@@ -151,9 +151,13 @@ class _TastingDetailsScreenState extends State<TastingDetailsScreen> {
                         SizedBox(
                           height: 211.h,
                           width: double.infinity,
-                          child: WinesHorizontalListWidget(
+                          child: tastingDetailsViewModel.getWinesList.isNotEmpty?WinesHorizontalListWidget(
                             listScrollable: true,
                             winesList: tastingDetailsViewModel.getWinesList,
+                          ):const Center(
+                            child: NormalFontText1(
+                              data: 'Sorry Currently No Wines Found',
+                            ),
                           ),
                         ),
                       ],

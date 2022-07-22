@@ -1,26 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:ptmose/models/responses/Wines_response.dart';
 
+import '../models/responses/Wines_response.dart';
+import '../models/responses/wine_detail_response.dart';
 import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
 import '../view_model/cart_view_model.dart';
 
-class WinesVerticalListWidget extends StatelessWidget {
-  const WinesVerticalListWidget(
-      {Key? key, required this.winesList, required this.listScrollable})
-      : super(key: key);
-  final bool listScrollable;
-  final List<Wine> winesList;
+class CartItemsListWidget extends StatelessWidget {
+  const CartItemsListWidget({Key? key, required this.cartList}) : super(key: key);
+
+  final List<GetWineByIdData> cartList;
+
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      physics:
-          listScrollable == false ? const NeverScrollableScrollPhysics() : null,
-      itemCount: winesList.length,
+      //physics:
+      //listScrollable == false ? const NeverScrollableScrollPhysics() : null,
+      itemCount: cartList.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
         return Padding(
@@ -28,7 +27,7 @@ class WinesVerticalListWidget extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               Provider.of<CartViewModel>(context, listen: false)
-                  .callWineDetails(winesList[index].id)
+                  .callWineDetails(cartList[index].id)
                   .then((value) => Navigator.of(context)
                   .pushNamed('/wines_details', arguments: false));
             },
@@ -50,8 +49,8 @@ class WinesVerticalListWidget extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 20, bottom: 20, left: 20),
                           child: Center(
                             child: Image.network(
-                              '${winesList[index].image}',
-                             // height: 200.h,
+                              '${cartList[index].image}',
+                              // height: 200.h,
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -64,7 +63,7 @@ class WinesVerticalListWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 GoogleFontText4(
-                                  data: '${winesList[index].wineName}',
+                                  data: '${cartList[index].wineName}',
                                 ),
 
                                 Row(
@@ -74,12 +73,12 @@ class WinesVerticalListWidget extends StatelessWidget {
                                       children: [
                                         NormalFontText5(
                                             data:
-                                                '${winesList[index].wineType}'),
+                                            '${cartList[index].wineType}'),
                                         SizedBox(
                                           height: 5.h,
                                         ),
                                         NormalFontText2(
-                                            data: '${winesList[index].age}'),
+                                            data: '${cartList[index].age}'),
                                       ],
                                     ),
                                     SizedBox(
@@ -102,7 +101,7 @@ class WinesVerticalListWidget extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 20),
                             child: NormalFontText5(
-                                data: '\$ ${winesList[index].price!.toStringAsFixed(2)}'),
+                                data: '\$ ${cartList[index].price!.toStringAsFixed(2)}'),
                           ),
                         ),
                       ),

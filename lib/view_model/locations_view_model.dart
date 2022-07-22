@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:ptmose/models/responses/locations_model.dart';
+import 'package:ptmose/models/responses/tasting_list_by_location_reaponse.dart';
 import 'package:ptmose/view_model/wineriesListViewModel.dart';
 
 import '../Service/api_service.dart';
@@ -21,9 +22,16 @@ class LocationsViewModel with ChangeNotifier {
   final List<LocationData> _locationsList = [];
   bool _showLocationList = false;
   final List<Wineries> _wineriesListByLocation = [];
+  final List<Tastings> _tastingListByLocation = [];
+  TastingListByLocationResponse? _tastingListByLocationResponse;
   WineriesListByLocationResponse? _wineriesListByLocationResponse;
 
   LocationsModel get getLocationModel => _locationsResponse!;
+
+  TastingListByLocationResponse get getTastingListByLocationResponse =>
+      _tastingListByLocationResponse!;
+
+  List<Tastings> get getTastingListByLocation => _tastingListByLocation;
 
   bool get getShowLocationList => _showLocationList;
 
@@ -48,8 +56,18 @@ class LocationsViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void setTastingListByLocationResponse(TastingListByLocationResponse value) {
+    _tastingListByLocationResponse = value;
+    notifyListeners();
+  }
+
+  void setTastingListByLocation(List<Tastings> value) {
+    _tastingListByLocation.addAll(value);
+    notifyListeners();
+  }
+
   void setWineriesList(List<Wineries> value) {
-    _wineriesListByLocation.addAll(value);
+    _wineriesList.addAll(value);
     notifyListeners();
   }
 
@@ -59,7 +77,7 @@ class LocationsViewModel with ChangeNotifier {
   }
 
   void setWineriesListByLocation(List<Wineries> value) {
-    _wineriesList.addAll(value);
+    _wineriesListByLocation.addAll(value);
     notifyListeners();
   }
 
@@ -87,6 +105,8 @@ class LocationsViewModel with ChangeNotifier {
     _selectedLocation = value;
     await callWineriesAndTastingList(_selectedLocation!.id);
     await callWineriesListByLocation(_selectedLocation!.id);
+    await callTastingListByLocation(_selectedLocation!.id);
+
     notifyListeners();
   }
 
@@ -119,7 +139,23 @@ class LocationsViewModel with ChangeNotifier {
         setWineriesListByLocation(
             _wineriesListByLocationResponse!.data!.getAllWineries!.data!);
       }
+    } else {
+      EasyLoading.dismiss();
+    }
+    EasyLoading.dismiss();
+  }
 
+  Future<void> callTastingListByLocation(int? locationId) async {
+    _tastingListByLocation.clear();
+
+    final response = await getAllTastingListByLocation(locationId);
+    if (response != null) {
+      setTastingListByLocationResponse(response);
+      if (_tastingListByLocationResponse!
+          .data!.getAllTastings!.data!.isNotEmpty) {
+        setTastingListByLocation(
+            _tastingListByLocationResponse!.data!.getAllTastings!.data!);
+      }
     } else {
       EasyLoading.dismiss();
     }

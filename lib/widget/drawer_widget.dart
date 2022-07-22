@@ -141,6 +141,8 @@ class DrawerWidget extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 Navigator.pop(context);
+                Navigator.of(context)
+                    .pushNamed('/about');
                 //Navigator.pushNamed(context, '/shop');
               },
               child: Row(children: [

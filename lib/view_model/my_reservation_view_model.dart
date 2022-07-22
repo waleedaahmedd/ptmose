@@ -1,26 +1,74 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ptmose/models/responses/tastings_response.dart';
+import 'package:ptmose/models/responses/user_reservation_response.dart';
+
+import '../Service/api_service.dart';
 
 class MyReservationViewModel with ChangeNotifier {
-  bool _confirmedReservationsList = true;
-  final List<Tastings> _tastingList = [];
+  bool _confirmedReservations = true;
+  final List<Tastings> _confirmReservationList = [];
+  final List<Tastings> _unConfirmReservationList = [];
+  UserReservationResponse? _userReservationResponse;
 
-  bool get getConfirmedReservationsList => _confirmedReservationsList;
+  bool get getConfirmedReservations => _confirmedReservations;
 
-  List<Tastings> get getTastingList => _tastingList;
+  UserReservationResponse get getUserReservationResponse =>
+      _userReservationResponse!;
 
-  void setConfirmedReservationsList(bool value) {
-    _confirmedReservationsList = value;
+  List<Tastings> get getConfirmReservationList => _confirmReservationList;
+
+  List<Tastings> get getUnConfirmReservationList => _unConfirmReservationList;
+
+  void setConfirmedReservations(bool value) {
+    _confirmedReservations = value;
     notifyListeners();
   }
 
-  void setWineriesList(List<Tastings> value) {
-    _tastingList.addAll(value);
+  void setUserReservationResponse(UserReservationResponse value) {
+    _userReservationResponse = value;
     notifyListeners();
   }
 
-  callTastingList() {
-    _tastingList.clear();
-    // setWineriesList(DummyData().tastingList);
+  void setConfirmReservationList(Tastings value) {
+    _confirmReservationList.add(value);
+    notifyListeners();
+  }
+
+  void setUnConfirmReservationList(Tastings value) {
+    _unConfirmReservationList.add(value);
+    notifyListeners();
+  }
+
+  Future<void> callUserReservations(int? userId) async {
+    EasyLoading.show(status: 'Please Wait...');
+    _confirmReservationList.clear();
+    _unConfirmReservationList.clear();
+    setConfirmedReservations(true);
+    final response = await getReservations(userId);
+    if (response != null) {
+      setUserReservationResponse(response);
+      if (_userReservationResponse!.data!.getAllReservation!.data!.isNotEmpty) {
+        for (int i = 0;
+            i < _userReservationResponse!.data!.getAllReservation!.data!.length;
+            i++) {
+          _userReservationResponse!.data!.getAllReservation!.data![i].status! ==
+                  'Confirmed'
+              ? setConfirmReservationList(_userReservationResponse!
+                  .data!.getAllReservation!.data![i].tasting!)
+              : setUnConfirmReservationList(_userReservationResponse!
+                  .data!.getAllReservation!.data![i].tasting!);
+        }
+      }
+      EasyLoading.dismiss();
+
+      /*getReserveTastingResponse.data!.addReservers!.status! ?
+      EasyLoading.showSuccess(
+          getReserveTastingResponse.data!.addReservers!.message!) :
+      EasyLoading.showError(
+          getReserveTastingResponse.data!.addReservers!.message!);*/
+    } else {
+      EasyLoading.dismiss();
+    }
   }
 }

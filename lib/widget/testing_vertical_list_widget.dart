@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:ptmose/models/responses/tastings_response.dart';
 
 import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
+import '../view_model/tasting_details_view_model.dart';
 
 class TestingVerticalListWidget extends StatelessWidget {
   const TestingVerticalListWidget({Key? key, required this.listScrollable, required this.tastingList}) : super(key: key);
@@ -21,11 +23,14 @@ class TestingVerticalListWidget extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 10.0),
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed('/wineryDetails');
+              Provider.of<TastingDetailsViewModel>(context, listen: false)
+                  .callTastingDetails(tastingList[index].id)
+                  .then((value) =>
+                  Navigator.of(context).pushNamed('/tasting_details'));
             },
             child: SizedBox(
               width: double.infinity,
-              height: 140.h,
+              height: 150.h,
               child: Card(
                 elevation: 10,
                 semanticContainer: true,
@@ -35,15 +40,11 @@ class TestingVerticalListWidget extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: 80.w,
-                      height: 140.h,
-                      child: Image.network(
-                        '${tastingList[index].img}',
-                        /*height: 65,*/
-                        width: 100,
-                        fit: BoxFit.cover,
-                      ),
+                    Image.network(
+                      '${tastingList[index].img}',
+                      height: 150.h,
+                      width: 100,
+                      fit: BoxFit.cover,
                     ),
                     Expanded(
                       child: Padding(
@@ -55,11 +56,11 @@ class TestingVerticalListWidget extends StatelessWidget {
                             NormalFontText5(
                                 data: '${tastingList[index].merchantName}'),
                             SizedBox(
-                              height: 5.h,
+                              height: 2.h,
                             ),
                             GoogleFontText4(data: '${tastingList[index].tastingName}'),
                             SizedBox(
-                              height: 5.h,
+                              height: 2.h,
                             ),
                             Row(
                               children: [
@@ -76,7 +77,7 @@ class TestingVerticalListWidget extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              height: 5.h,
+                              height: 2.h,
                             ),
                             Row(
                               children: [
@@ -92,8 +93,8 @@ class TestingVerticalListWidget extends StatelessWidget {
                                     data: '${tastingList[index].startTime} - ${tastingList[index].endTime} PST'),
                               ],
                             ),
-                           /* SizedBox(
-                              height: 5.h,
+                            SizedBox(
+                              height: 2.h,
                             ),
                             Row(
                               children: [
@@ -105,10 +106,12 @@ class TestingVerticalListWidget extends StatelessWidget {
                                 SizedBox(
                                   width: 10.w,
                                 ),
-                                NormalFontText4(
-                                    data: '${tastingList[index].address}'),
+                                Flexible(
+                                  child: NormalFontText4(
+                                      data: '${tastingList[index].locationName}'),
+                                ),
                               ],
-                            ),*/
+                            ),
                           ],
                         ),
                       ),

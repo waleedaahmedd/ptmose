@@ -164,7 +164,8 @@ class _WinesDetailScreenState extends State<WinesDetailScreen> {
                           text: 'ADD TO CART',
                           onPressed: () {
                             EasyLoading.show(status: 'Please Wait..');
-                            cartViewModel.addCartCount();
+                            cartViewModel.addCartCount(quantityCount);
+                            cartViewModel.addCartWineList(cartViewModel.getWineDetailResponse.data!.getWineById!.data!);
                             EasyLoading.showSuccess('Wine Added Successfully');
                           },
                         ),

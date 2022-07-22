@@ -26,7 +26,7 @@ class LocationWidget extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        locationViewModel.setShowLocationList(true);
+                        locationViewModel.setShowLocationList(!locationViewModel.getShowLocationList);
                       },
                       child: const NormalFontText2(
                         data: 'CHANGE',

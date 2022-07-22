@@ -52,22 +52,22 @@ class WinesHorizontalListWidget extends StatelessWidget {
                     Padding(
                       padding:
                           const EdgeInsets.only(top: 20.0, left: 20, right: 20),
-                      child: Image.network(
-                        '${winesList[index].wine!.image}',
-                        width: double.infinity,
-                        fit: BoxFit.fill,
+                      child: Center(
+                        child: Image.network(
+                          '${winesList[index].wine!.image}',
+                          height: 100.h,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const GoogleFontText6(
+                        children: const [
+                          GoogleFontText6(
                               data: 'Alsace Grand Cru Riesling Tasting'),
-                          SizedBox(
-                            height: 10.h,
-                          ),
+
                         ],
                       ),
                     )

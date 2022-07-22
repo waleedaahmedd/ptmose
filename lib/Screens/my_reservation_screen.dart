@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
+import '../view_model/auth_view_model.dart';
 import '../view_model/my_reservation_view_model.dart';
 import '../widget/app_bar_widget.dart';
 import '../widget/drawer_widget.dart';
@@ -24,7 +25,11 @@ class _MyReservationScreenState extends State<MyReservationScreen> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      Provider.of<MyReservationViewModel>(context, listen: false).callTastingList();
+      Provider.of<MyReservationViewModel>(context, listen: false).callUserReservations(Provider.of<AuthViewModel>(
+          context,
+          listen: false)
+          .getUserDataResponse
+          .id!);
     });
   }
 
@@ -55,12 +60,12 @@ class _MyReservationScreenState extends State<MyReservationScreen> {
                       child: GestureDetector(
                         onTap: () {
                           myReservationViewModel
-                              .setConfirmedReservationsList(true);
+                              .setConfirmedReservations(true);
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             color: myReservationViewModel
-                                    .getConfirmedReservationsList
+                                    .getConfirmedReservations
                                 ? CustomColors.purple
                                 : null,
                             borderRadius: const BorderRadius.all(
@@ -81,12 +86,12 @@ class _MyReservationScreenState extends State<MyReservationScreen> {
                       child: GestureDetector(
                         onTap: () {
                           myReservationViewModel
-                              .setConfirmedReservationsList(false);
+                              .setConfirmedReservations(false);
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             color: myReservationViewModel
-                                    .getConfirmedReservationsList
+                                    .getConfirmedReservations
                                 ? null
                                 : CustomColors.purple,
                             borderRadius: const BorderRadius.all(
@@ -139,7 +144,7 @@ class _MyReservationScreenState extends State<MyReservationScreen> {
               //TODO: call List
               Flexible(
                 child: TestingVerticalListWidget(
-                    tastingList: myReservationViewModel.getTastingList, listScrollable: true,),
+                    tastingList: myReservationViewModel.getConfirmedReservations? myReservationViewModel.getConfirmReservationList : myReservationViewModel.getUnConfirmReservationList, listScrollable: true,),
               ),
             ],
           ),
