@@ -9,9 +9,11 @@ import 'package:ptmose/models/responses/auth_response/sign_up_response.dart';
 import 'package:ptmose/models/responses/tastings_details_response.dart';
 import 'package:ptmose/models/responses/wineries_list_by_location_reaponse.dart';
 
+import '../models/orderItemModel.dart';
 import '../models/requests/location_request.dart';
 import '../models/requests/auth_request/login_request.dart';
 import '../models/requests/reserve_tasting_request.dart';
+import '../models/requests/submit_order_request.dart';
 import '../models/requests/tastings_list_by_location_request.dart';
 import '../models/requests/user_reservations_request.dart';
 import '../models/requests/wine_detail_request.dart';
@@ -21,6 +23,7 @@ import '../models/requests/wines_list_request.dart';
 import '../models/responses/auth_response/login_response.dart';
 import '../models/responses/locations_model.dart';
 import '../models/responses/reserve_tasting_response.dart';
+import '../models/responses/submit_order_response.dart';
 import '../models/responses/tasting_list_by_location_reaponse.dart';
 import '../models/responses/user_reservation_response.dart';
 import '../models/responses/wine_detail_response.dart';
@@ -204,6 +207,27 @@ Future<ReserveTastingResponse?> reserveTasting(int? tastingId , int? userId) asy
     return null;
   }
 }
+
+Future<SubmitOrderResponse?> submitOrder( int? userId, int? totalAmount, List<OrderItemModel> orderItemModel,) async {
+  String cartItems = jsonEncode(orderItemModel);
+  SubmitOrderRequest submitOrderRequest = SubmitOrderRequest(userId!,cartItems,'',totalAmount!);
+  var request = http.Request('POST', Uri.parse(_baseURL));
+
+  request.body = submitOrderRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    SubmitOrderResponse submitOrderResponse =
+    SubmitOrderResponse.fromJson(json.decode(responseData.body));
+
+    return submitOrderResponse;
+  } else {
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
 
 Future<UserReservationResponse?> getReservations(int? userId) async {
   UserReservationsRequest reservationsRequest = UserReservationsRequest(userId!);

@@ -4,7 +4,6 @@ import 'package:ptmose/models/responses/Wines_response.dart';
 import 'package:ptmose/models/responses/wines_list_response.dart';
 
 import '../Service/api_service.dart';
-import '../dummy_data.dart';
 import '../models/responses/wines_list_response.dart';
 
 class ShopViewModel with ChangeNotifier {

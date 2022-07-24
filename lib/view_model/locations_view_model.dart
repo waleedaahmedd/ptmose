@@ -6,7 +6,6 @@ import 'package:ptmose/models/responses/tasting_list_by_location_reaponse.dart';
 import 'package:ptmose/view_model/wineriesListViewModel.dart';
 
 import '../Service/api_service.dart';
-import '../dummy_data.dart';
 import '../models/responses/tastings_response.dart';
 import '../models/responses/wineries_and_testing_response.dart';
 import '../models/responses/wineries_list_by_location_reaponse.dart';

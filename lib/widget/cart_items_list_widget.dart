@@ -24,10 +24,10 @@ class CartItemsListWidget extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 10.0),
             child: GestureDetector(
               onTap: () {
-                Provider.of<CartViewModel>(context, listen: false)
+                /* Provider.of<CartViewModel>(context, listen: false)
                     .callWineDetails(cartViewModel.getCartWineList[index].id)
                     .then((value) => Navigator.of(context)
-                        .pushNamed('/wines_details', arguments: false));
+                        .pushNamed('/wines_details', arguments: false));*/
               },
               child: SizedBox(
                 width: double.infinity,
@@ -41,6 +41,17 @@ class CartItemsListWidget extends StatelessWidget {
                   ),
                   child: Stack(
                     children: [
+                       Positioned.fill(
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            onPressed: (){
+                              cartViewModel.deleteItemFromCart(index);
+                            },
+                            icon: const Icon(Icons.delete_forever_rounded,color: CustomColors.purple,),
+                          ),
+                        ),
+                      ),
                       Row(
                         children: [
                           Padding(
@@ -92,7 +103,14 @@ class CartItemsListWidget extends StatelessWidget {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
-                                            cartViewModel.removeOrderItemQuantity(index,1);
+                                            if (cartViewModel
+                                                    .getOrderItemList[index]
+                                                    .quantity! >
+                                                1) {
+                                              cartViewModel
+                                                  .removeOrderItemQuantity(
+                                                      index, 1);
+                                            }
                                           },
                                           child: Container(
                                             height: 20.h,
@@ -121,7 +139,8 @@ class CartItemsListWidget extends StatelessWidget {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            cartViewModel.addOrderItemQuantity(index,1);
+                                            cartViewModel.addOrderItemQuantity(
+                                                index, 1);
                                           },
                                           child: Container(
                                             height: 20.h,
@@ -160,7 +179,7 @@ class CartItemsListWidget extends StatelessWidget {
                                   horizontal: 20.0, vertical: 20),
                               child: NormalFontText5(
                                   data:
-                                      '\$ ${cartViewModel.getCartWineList[index].price!.toStringAsFixed(2)}'),
+                                      '\$ ${cartViewModel.getOrderItemList[index].amount!.toStringAsFixed(2)}'),
                             ),
                           ),
                         ),
