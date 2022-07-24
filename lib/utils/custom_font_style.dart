@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'custom_colors.dart';
 
 //google fonts
-//google font, color golden, size 28, w400
+//google font, color golden, size 25, w400
 class GoogleFontText1 extends StatelessWidget {
   final String data;
 
@@ -19,7 +19,7 @@ class GoogleFontText1 extends StatelessWidget {
       data,
       style: TextStyle(
           fontFamily: 'MontaguSlab',
-          fontSize: 28.sp,
+          fontSize: 25.sp,
           color: CustomColors.golden,
           fontWeight: FontWeight.w400),
     );
@@ -48,7 +48,7 @@ class GoogleFontText2 extends StatelessWidget {
   }
 }
 
-//google font, color white, size 28
+//google font, color white, size 25
 class GoogleFontText3 extends StatelessWidget {
   final String data;
 
@@ -62,7 +62,7 @@ class GoogleFontText3 extends StatelessWidget {
     return Text(
       data,
       style: TextStyle(
-        fontSize: 28.sp,
+        fontSize: 25.sp,
         color: Colors.white,
         fontFamily: 'MontaguSlab',
       ),
@@ -70,7 +70,7 @@ class GoogleFontText3 extends StatelessWidget {
   }
 }
 
-//google font, color golden, size 18
+//google font, color golden, size 16
 class GoogleFontText4 extends StatelessWidget {
   final String data;
 
@@ -84,7 +84,7 @@ class GoogleFontText4 extends StatelessWidget {
     return Text(
       data,
       style: TextStyle(
-        fontSize: 18.sp,
+        fontSize: 16.sp,
         color: CustomColors.golden,
         fontFamily: 'MontaguSlab',
       ),
@@ -92,7 +92,7 @@ class GoogleFontText4 extends StatelessWidget {
   }
 }
 
-//google font, color golden, size 23
+//google font, color golden, size 18
 class GoogleFontText5 extends StatelessWidget {
   final String data;
 
@@ -106,7 +106,7 @@ class GoogleFontText5 extends StatelessWidget {
     return Text(
       data,
       style: TextStyle(
-        fontSize: 22.sp,
+        fontSize: 18.sp,
         color: CustomColors.golden,
         fontFamily: 'MontaguSlab',
       ),
@@ -154,7 +154,7 @@ class NormalFontText1 extends StatelessWidget {
       style: TextStyle(
           color: CustomColors.purple,
           fontWeight: FontWeight.bold,
-          fontSize: 15.sp),
+          fontSize: 14.sp),
     );
   }
 }

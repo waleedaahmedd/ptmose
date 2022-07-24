@@ -51,7 +51,7 @@ class WinesVerticalListWidget extends StatelessWidget {
                           child: Center(
                             child: Image.network(
                               '${winesList[index].image}',
-                             // height: 200.h,
+                              width: 30.w,
                               fit: BoxFit.contain,
                             ),
                           ),

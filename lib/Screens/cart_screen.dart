@@ -16,8 +16,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<CartViewModel>(builder: (_, cartViewModel, __)
-    {
+    return Consumer<CartViewModel>(builder: (_, cartViewModel, __) {
       return Scaffold(
         appBar: const AppBarWidget(
           homeButton: true,
@@ -25,8 +24,9 @@ class _CartScreenState extends State<CartScreen> {
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            children: [
-              CartItemsListWidget(cartList: cartViewModel.getCartWineList,)
+            children:  [
+              Text('Total Items: ${cartViewModel.getCartCount}'),
+              Flexible(child: CartItemsListWidget()),
             ],
           ),
         ),
