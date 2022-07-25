@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:provider/provider.dart';
 import 'package:ptmose/utils/custom_font_style.dart';
 import 'package:ptmose/view_model/locations_view_model.dart';
@@ -143,4 +144,6 @@ class _HomeScreenState extends State<HomeScreen> {
           .callLocationsListApi(context);
     });
   }
+
+
 }

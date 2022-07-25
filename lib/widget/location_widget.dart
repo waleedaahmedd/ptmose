@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:provider/provider.dart';
 import 'package:ptmose/utils/custom_colors.dart';
 import 'package:ptmose/view_model/locations_view_model.dart';
@@ -26,7 +27,8 @@ class LocationWidget extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        locationViewModel.setShowLocationList(!locationViewModel.getShowLocationList);
+                        locationViewModel.setShowLocationList(
+                            !locationViewModel.getShowLocationList);
                       },
                       child: const NormalFontText2(
                         data: 'CHANGE',
@@ -37,31 +39,46 @@ class LocationWidget extends StatelessWidget {
                 SizedBox(
                   height: 10.h,
                 ),
+
                 SizedBox(
-                  height: 60.h,
+                  height: 70.h,
                   width: double.infinity,
-                  child: Card(
-                    elevation: 10,
-                    semanticContainer: true,
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: GoogleFontText4(
-                            data: locationViewModel.getSelectedLocation.name!,
+                  child: GestureDetector(
+                    onTap: () {
+                      locationViewModel.showLocation();
+                    },
+                    child: Card(
+                      elevation: 10,
+                      semanticContainer: true,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                GoogleFontText4(
+                                  data: locationViewModel.getSelectedLocation.name!,
+                                ),
+                                SizedBox(height: 5.h,),
+                                const NormalFontText4(data: 'Click to view Direction',),
+                              ],
+                            ),
                           ),
-                        ),
-                        Image.network(
-                          locationViewModel.getSelectedLocation.img!,
-                          /*height: 65,*/
-                          fit: BoxFit.fill,
-                        )
-                      ],
+                          Image.network(
+                            locationViewModel.getSelectedLocation.img!,
+                            /*height: 65,*/
+                            fit: BoxFit.fill,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -128,4 +145,6 @@ class LocationWidget extends StatelessWidget {
           : Container();
     });
   }
+
+
 }

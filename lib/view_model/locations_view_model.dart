@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:provider/provider.dart';
 import 'package:ptmose/models/responses/locations_model.dart';
 import 'package:ptmose/models/responses/tasting_list_by_location_reaponse.dart';
@@ -181,6 +182,16 @@ class LocationsViewModel with ChangeNotifier {
       }
     } else {
       EasyLoading.dismiss();
+    }
+  }
+
+  Future<void> showLocation() async {
+    final googleMap = await MapLauncher.isMapAvailable(MapType.google);
+    if (googleMap!) {
+      await MapLauncher.showDirections(
+        mapType: MapType.google,
+        destination: Coords(24.91787128399232, 67.06985695767303),
+      );
     }
   }
 }

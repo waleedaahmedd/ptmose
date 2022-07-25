@@ -7,11 +7,29 @@ import 'package:ptmose/utils/custom_colors.dart';
 import 'package:ptmose/widget/custom_button_1.dart';
 
 import '../utils/custom_font_style.dart';
+import '../view_model/cart_view_model.dart';
 import '../view_model/wine_review_view_model.dart';
 import '../widget/app_bar_widget.dart';
 
-class WineReviewScreen extends StatelessWidget {
+class WineReviewScreen extends StatefulWidget {
   const WineReviewScreen({Key? key}) : super(key: key);
+
+  @override
+  State<WineReviewScreen> createState() => _WineReviewScreenState();
+}
+
+class _WineReviewScreenState extends State<WineReviewScreen> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<WineReviewViewModel>(context, listen: false)
+          .setWineDetailResponse(
+              Provider.of<CartViewModel>(context, listen: false)
+                  .getWineDetailResponse);
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,50 +42,62 @@ class WineReviewScreen extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              Card(
-                elevation: 10,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 80.w,
-                      // height: 150.h,
-                      child: Image.asset(
-                        'assets/images/WineBottles/WineBottlePic1.png',
-                        /*height: 65,*/
-                        width: 100,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const GoogleFontText4(
-                              data: 'Cline Family Cellars \'Farmhouse Red\'',
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    NormalFontText5(data: 'Sonoma, CA 2018'),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                              ],
-                            ),
-                          ],
+              SizedBox(
+                width: double.infinity,
+                height: 100.h,
+                child: Card(
+                  elevation: 10,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 20, bottom: 20, left: 20),
+                        child: Center(
+                          child: Image.network(
+                            wineReviewViewModel.getWineDetailResponse.data!
+                                .getWineById!.data!.image!,
+                            width: 30.w,
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              GoogleFontText4(
+                                data: wineReviewViewModel.getWineDetailResponse
+                                    .data!.getWineById!.data!.wineName!,
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              NormalFontText5(
+                                  data: wineReviewViewModel
+                                      .getWineDetailResponse
+                                      .data!
+                                      .getWineById!
+                                      .data!
+                                      .wineType!),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              NormalFontText5(
+                                  data: wineReviewViewModel
+                                      .getWineDetailResponse
+                                      .data!
+                                      .getWineById!
+                                      .data!
+                                      .age!
+                                      .toString()),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Expanded(
@@ -80,35 +110,6 @@ class WineReviewScreen extends StatelessWidget {
                       ),
                       const GoogleFontText1(
                         data: 'Review',
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Row(
-                        children: [
-                          const Expanded(
-                              child: NormalFontText5(
-                            data: 'FRUIT FORWARD',
-                          )),
-                          RatingBar.builder(
-                            unratedColor: CustomColors.tintPurple,
-                            glow: false,
-                            itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
-                            direction: Axis.horizontal,
-                            allowHalfRating: true,
-                            itemCount: 5,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                            itemBuilder: (context, _) => const Icon(
-                              Icons.star,
-                              color: CustomColors.golden,
-                            ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                            },
-                          ),
-                        ],
                       ),
                       SizedBox(
                         height: 20.h,
@@ -778,7 +779,7 @@ class WineReviewScreen extends StatelessWidget {
                       CustomButton1(
                           text: 'SUBMIT REVIEW',
                           onPressed: () {
-                           /* Navigator.pushNamedAndRemoveUntil(
+                            /* Navigator.pushNamedAndRemoveUntil(
                                 context,
                                 '/review_submission',
                                 (route) =>
