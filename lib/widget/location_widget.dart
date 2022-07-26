@@ -68,7 +68,7 @@ class LocationWidget extends StatelessWidget {
                                   data: locationViewModel.getSelectedLocation.name!,
                                 ),
                                 SizedBox(height: 5.h,),
-                                const NormalFontText4(data: 'Click to view Direction',),
+                                const NormalFontText4(data: 'View Direction on Map',),
                               ],
                             ),
                           ),

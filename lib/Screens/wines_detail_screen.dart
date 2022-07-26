@@ -7,6 +7,7 @@ import 'package:ptmose/utils/custom_colors.dart';
 
 import '../utils/custom_font_style.dart';
 import '../view_model/cart_view_model.dart';
+import '../view_model/wine_review_view_model.dart';
 import '../widget/app_bar_widget.dart';
 import '../widget/custom_button_1.dart';
 import '../widget/custom_button_2.dart';
@@ -42,19 +43,21 @@ class _WinesDetailScreenState extends State<WinesDetailScreen> {
                 SizedBox(
                     height: 150.h,
                     child: Center(
-                        child: Image.network(
-                            cartViewModel.getWineDetailResponse.data!.getWineById!.data!.image!))),
+                        child: Image.network(cartViewModel.getWineDetailResponse
+                            .data!.getWineById!.data!.image!))),
                 SizedBox(
                   height: 40.h,
                 ),
-                 GoogleFontText5(
-                  data: cartViewModel.getWineDetailResponse.data!.getWineById!.data!.wineName!,
+                GoogleFontText5(
+                  data: cartViewModel
+                      .getWineDetailResponse.data!.getWineById!.data!.wineName!,
                 ),
                 SizedBox(
                   height: 10.h,
                 ),
-                 NormalFontText5(
-                  data: '${cartViewModel.getWineDetailResponse.data!.getWineById!.data!.wineType}, CA ${cartViewModel.getWineDetailResponse.data!.getWineById!.data!.age}',
+                NormalFontText5(
+                  data:
+                      '${cartViewModel.getWineDetailResponse.data!.getWineById!.data!.wineType}, CA ${cartViewModel.getWineDetailResponse.data!.getWineById!.data!.age}',
                 ),
                 SizedBox(
                   height: 20.h,
@@ -65,9 +68,9 @@ class _WinesDetailScreenState extends State<WinesDetailScreen> {
                 SizedBox(
                   height: 10.h,
                 ),
-                 NormalFontText4(
-                  data:
-                  cartViewModel.getWineDetailResponse.data!.getWineById!.data!.description!,
+                NormalFontText4(
+                  data: cartViewModel.getWineDetailResponse.data!.getWineById!
+                      .data!.description!,
                 ),
                 SizedBox(
                   height: 20.h,
@@ -78,7 +81,11 @@ class _WinesDetailScreenState extends State<WinesDetailScreen> {
                     children: [
                       CustomButton2(
                         text: 'HOW\'D YOU LIKE IT ?',
-                        onPressed: () {
+                        onPressed: () async {
+                          Provider.of<WineReviewViewModel>(context,
+                                  listen: false)
+                              .setWineDetailResponse(
+                                  cartViewModel.getWineDetailResponse);
                           Navigator.of(context).pushNamed('/wines_review');
                         },
                       ),
@@ -165,7 +172,11 @@ class _WinesDetailScreenState extends State<WinesDetailScreen> {
                           onPressed: () {
                             EasyLoading.show(status: 'Please Wait..');
                             cartViewModel.setQuantityCount(quantityCount);
-                            cartViewModel.addItemsToCart(cartViewModel.getWineDetailResponse.data!.getWineById!.data!);
+                            cartViewModel.addItemsToCart(cartViewModel
+                                .getWineDetailResponse
+                                .data!
+                                .getWineById!
+                                .data!);
                             EasyLoading.showSuccess('Wine Added Successfully');
                           },
                         ),

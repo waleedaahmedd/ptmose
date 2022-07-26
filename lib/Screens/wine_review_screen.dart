@@ -22,10 +22,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<WineReviewViewModel>(context, listen: false)
-          .setWineDetailResponse(
-              Provider.of<CartViewModel>(context, listen: false)
-                  .getWineDetailResponse);
+
     });
 
     super.initState();
@@ -127,7 +124,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             initialRating: 0,
                             minRating: 0,
                             direction: Axis.horizontal,
-                            allowHalfRating: true,
+                            //allowHalfRating: true,
                             itemCount: 5,
                             itemPadding:
                                 const EdgeInsets.symmetric(horizontal: 1.0),
@@ -137,6 +134,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setFruitForward(rating.toInt());
                             },
                           ),
                         ],
@@ -167,6 +165,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setBerrys(rating.toInt());
+
                             },
                           ),
                         ],
@@ -196,6 +196,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setFullBodied(rating.toInt());
+
                             },
                           ),
                         ],
@@ -225,6 +227,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setThin(rating.toInt());
+
                             },
                           ),
                         ],
@@ -254,6 +258,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setLongFinish(rating.toInt());
+
                             },
                           ),
                         ],
@@ -283,6 +289,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setBakance(rating.toInt());
+
                             },
                           ),
                         ],
@@ -312,6 +320,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setComplex(rating.toInt());
+
                             },
                           ),
                         ],
@@ -341,6 +351,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setElegant(rating.toInt());
+
                             },
                           ),
                         ],
@@ -370,6 +382,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setChewy(rating.toInt());
+
                             },
                           ),
                         ],
@@ -399,6 +413,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setSoft(rating.toInt());
+
                             },
                           ),
                         ],
@@ -428,6 +444,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setSilky(rating.toInt());
+
                             },
                           ),
                         ],
@@ -457,6 +475,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setBurn(rating.toInt());
+
                             },
                           ),
                         ],
@@ -486,6 +506,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setJammy(rating.toInt());
+
                             },
                           ),
                         ],
@@ -515,6 +537,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setBellpepper(rating.toInt());
+
                             },
                           ),
                         ],
@@ -544,6 +568,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setSpicy(rating.toInt());
+
                             },
                           ),
                         ],
@@ -573,6 +599,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setToasty(rating.toInt());
+
                             },
                           ),
                         ],
@@ -602,6 +630,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setOak(rating.toInt());
+
                             },
                           ),
                         ],
@@ -631,6 +661,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setVegetable(rating.toInt());
+
                             },
                           ),
                         ],
@@ -660,6 +692,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setMinerality(rating.toInt());
+
                             },
                           ),
                         ],
@@ -689,6 +723,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setRubber(rating.toInt());
+
                             },
                           ),
                         ],
@@ -718,6 +754,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setSmoky(rating.toInt());
+
                             },
                           ),
                         ],
@@ -747,6 +785,8 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
+                              wineReviewViewModel.setAgeOfWine(rating.toInt());
+
                             },
                           ),
                         ],
