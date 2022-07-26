@@ -6,7 +6,8 @@ import 'package:ptmose/utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
 
 class BottomButtonsWidget extends StatelessWidget {
-  const BottomButtonsWidget({Key? key}) : super(key: key);
+  const BottomButtonsWidget({Key? key, required this.homeScreen}) : super(key: key);
+  final bool homeScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -34,30 +35,37 @@ class BottomButtonsWidget extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: CustomColors.purple,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20.0),
+                child: GestureDetector(
+                  onTap: (){
+                    homeScreen?(){}:Navigator.of(context).pop();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      width: double.infinity,
+                      decoration:  BoxDecoration(
+                        color: homeScreen?CustomColors.purple:Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(20.0),
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.calendar_today_outlined,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        const NormalFontText3(
-                          data: 'TASTINGS',
-                        ),
-                      ],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                           Icon(
+                            Icons.calendar_today_outlined,
+                            color: homeScreen?Colors.white:CustomColors.golden,
+                          ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          homeScreen? const NormalFontText3(
+                            data: 'TASTINGS',
+                          ):const NormalFontText6(
+                            data: 'TASTINGS',
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -65,24 +73,39 @@ class BottomButtonsWidget extends StatelessWidget {
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/shop');
+                    homeScreen?
+                    Navigator.pushNamed(context, '/shop'):(){};
                   },
                   child: SizedBox(
                     width: double.infinity,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.account_balance_wallet_outlined,
-                          color: CustomColors.golden,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        decoration:  BoxDecoration(
+                          color: homeScreen?Colors.white:CustomColors.purple,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20.0),
+                          ),
                         ),
-                        SizedBox(
-                          height: 5.h,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                             Icon(
+                              Icons.account_balance_wallet_outlined,
+                              color: homeScreen?CustomColors.golden:Colors.white,
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            homeScreen?
+                            const NormalFontText6(
+                              data: 'SHOP',
+                            ):const NormalFontText3(
+                              data: 'SHOP',
+                            ),
+                          ],
                         ),
-                        const NormalFontText6(
-                          data: 'SHOP',
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

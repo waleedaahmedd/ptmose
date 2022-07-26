@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../utils/custom_font_style.dart';
 import '../view_model/shop_view_model.dart';
 import '../widget/app_bar_widget.dart';
+import '../widget/bottom_buttons_widget.dart';
 import '../widget/wineries_widget.dart';
 import '../widget/wines_vertical_list_widget.dart';
 
@@ -33,35 +34,45 @@ class _ShopScreenState extends State<ShopScreen> {
         appBar: const AppBarWidget(
           cartButton: true,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextField(
-                onChanged: (content) {
-                  shopViewModel.setSearchWines(content);
-                },
-                controller: shopViewModel.searchController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  suffixIcon: Icon(
-                    Icons.search,
+        body: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextField(
+                    onChanged: (content) {
+                      shopViewModel.setSearchWines(content);
+                    },
+                    controller: shopViewModel.searchController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      suffixIcon: Icon(
+                        Icons.search,
+                      ),
+                      hintText: 'Search Wines',
+                    ),
                   ),
-                  hintText: 'Search Wines',
-                ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  //const WineriesWidget(image: 'assets/images/LocationBoxImg.png', name: 'Vinous Reverie Wine Merchant',),
+                  Expanded(
+                      child: WinesVerticalListWidget(
+                    listScrollable: true,
+                    winesList: shopViewModel.searchController.text.isEmpty? shopViewModel.getWines: shopViewModel.getSearchWinesList,
+                  )),
+                  //const BottomButtonsWidget()
+                  SizedBox(
+                    height: 60.h,
+                  )
+                ],
               ),
-              SizedBox(
-                height: 20.h,
-              ),
-              //const WineriesWidget(image: 'assets/images/LocationBoxImg.png', name: 'Vinous Reverie Wine Merchant',),
-              Expanded(
-                  child: WinesVerticalListWidget(
-                listScrollable: true,
-                winesList: shopViewModel.searchController.text.isEmpty? shopViewModel.getWines: shopViewModel.getSearchWinesList,
-              )),
-            ],
-          ),
+            ),
+            const BottomButtonsWidget(homeScreen: false,)
+
+          ],
         ),
       );
     });

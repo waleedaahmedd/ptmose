@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            const BottomButtonsWidget()
+            const BottomButtonsWidget(homeScreen: true,)
           ],
         ),
       );
