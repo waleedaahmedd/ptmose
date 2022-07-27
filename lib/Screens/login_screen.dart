@@ -165,9 +165,14 @@ class LoginScreen extends StatelessWidget {
                                       Expanded(
                                           child: Align(
                                               alignment: Alignment.centerRight,
-                                              child: Image.asset(
-                                                'assets/images/connect_google.png',
-                                                height: 50.h,
+                                              child: GestureDetector(
+                                                onTap: (){
+                                                  authViewModel.signInWithGoogle();
+                                                },
+                                                child: Image.asset(
+                                                  'assets/images/connect_google.png',
+                                                  height: 50.h,
+                                                ),
                                               ))),
                                       SizedBox(
                                         width: 20.h,

@@ -7,6 +7,7 @@ import 'package:ptmose/utils/custom_colors.dart';
 import 'package:ptmose/widget/custom_button_1.dart';
 
 import '../utils/custom_font_style.dart';
+import '../view_model/auth_view_model.dart';
 import '../view_model/cart_view_model.dart';
 import '../view_model/wine_review_view_model.dart';
 import '../widget/app_bar_widget.dart';
@@ -134,7 +135,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setFruitForward(rating.toInt());
+                              wineReviewViewModel.setFruitForward(rating);
                             },
                           ),
                         ],
@@ -165,7 +166,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setBerrys(rating.toInt());
+                              wineReviewViewModel.setBerrys(rating);
 
                             },
                           ),
@@ -196,7 +197,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setFullBodied(rating.toInt());
+                              wineReviewViewModel.setFullBodied(rating);
 
                             },
                           ),
@@ -227,7 +228,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setThin(rating.toInt());
+                              wineReviewViewModel.setThin(rating);
 
                             },
                           ),
@@ -258,7 +259,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setLongFinish(rating.toInt());
+                              wineReviewViewModel.setLongFinish(rating);
 
                             },
                           ),
@@ -289,7 +290,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setBakance(rating.toInt());
+                              wineReviewViewModel.setBakance(rating);
 
                             },
                           ),
@@ -320,7 +321,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setComplex(rating.toInt());
+                              wineReviewViewModel.setComplex(rating);
 
                             },
                           ),
@@ -351,7 +352,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setElegant(rating.toInt());
+                              wineReviewViewModel.setElegant(rating);
 
                             },
                           ),
@@ -382,7 +383,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setChewy(rating.toInt());
+                              wineReviewViewModel.setChewy(rating);
 
                             },
                           ),
@@ -413,7 +414,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setSoft(rating.toInt());
+                              wineReviewViewModel.setSoft(rating);
 
                             },
                           ),
@@ -444,7 +445,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setSilky(rating.toInt());
+                              wineReviewViewModel.setSilky(rating);
 
                             },
                           ),
@@ -475,7 +476,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setBurn(rating.toInt());
+                              wineReviewViewModel.setBurn(rating);
 
                             },
                           ),
@@ -506,7 +507,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setJammy(rating.toInt());
+                              wineReviewViewModel.setJammy(rating);
 
                             },
                           ),
@@ -537,7 +538,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setBellpepper(rating.toInt());
+                              wineReviewViewModel.setBellpepper(rating);
 
                             },
                           ),
@@ -568,7 +569,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setSpicy(rating.toInt());
+                              wineReviewViewModel.setSpicy(rating);
 
                             },
                           ),
@@ -599,7 +600,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setToasty(rating.toInt());
+                              wineReviewViewModel.setToasty(rating);
 
                             },
                           ),
@@ -630,7 +631,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setOak(rating.toInt());
+                              wineReviewViewModel.setOak(rating);
 
                             },
                           ),
@@ -661,7 +662,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setVegetable(rating.toInt());
+                              wineReviewViewModel.setVegetable(rating);
 
                             },
                           ),
@@ -692,7 +693,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setMinerality(rating.toInt());
+                              wineReviewViewModel.setMinerality(rating);
 
                             },
                           ),
@@ -723,7 +724,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setRubber(rating.toInt());
+                              wineReviewViewModel.setRubber(rating);
 
                             },
                           ),
@@ -754,7 +755,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setSmoky(rating.toInt());
+                              wineReviewViewModel.setSmoky(rating);
 
                             },
                           ),
@@ -785,7 +786,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             ),
                             onRatingUpdate: (rating) {
                               print(rating);
-                              wineReviewViewModel.setAgeOfWine(rating.toInt());
+                              wineReviewViewModel.setAgeOfWine(rating);
 
                             },
                           ),
@@ -819,13 +820,14 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                       CustomButton1(
                           text: 'SUBMIT REVIEW',
                           onPressed: () {
+                            wineReviewViewModel.callReviewOrder(Provider.of<AuthViewModel>(context, listen: false)
+                                .getUserDataResponse
+                                .id, context);
                             /* Navigator.pushNamedAndRemoveUntil(
                                 context,
                                 '/review_submission',
                                 (route) =>
-                                    route.settings.name == "/tasting_list");*/
-                            Navigator.pop(context);
-                          })
+                                    route.settings.name == "/tasting_list");*/})
                     ],
                   ),
                 ),

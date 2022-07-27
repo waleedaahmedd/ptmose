@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:ptmose/utils/custom_colors.dart';
 
 import '../utils/custom_font_style.dart';
+import '../view_model/auth_view_model.dart';
 import '../view_model/cart_view_model.dart';
 import '../view_model/wine_review_view_model.dart';
 import '../widget/app_bar_widget.dart';
@@ -82,11 +83,17 @@ class _WinesDetailScreenState extends State<WinesDetailScreen> {
                       CustomButton2(
                         text: 'HOW\'D YOU LIKE IT ?',
                         onPressed: () async {
-                          Provider.of<WineReviewViewModel>(context,
-                                  listen: false)
-                              .setWineDetailResponse(
-                                  cartViewModel.getWineDetailResponse);
-                          Navigator.of(context).pushNamed('/wines_review');
+                          Provider.of<AuthViewModel>(context, listen: false)
+                              .getGuestUser
+                              ? Navigator.of(context).pushNamed('/login')
+                              :
+                            Provider.of<WineReviewViewModel>(context,
+                                listen: false)
+                                .setWineDetailResponse(
+                                cartViewModel.getWineDetailResponse,context);
+
+
+
                         },
                       ),
                       SizedBox(

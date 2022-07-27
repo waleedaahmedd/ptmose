@@ -1,4 +1,4 @@
-package com.example.ptmose
+package com.ptmose
 
 import io.flutter.embedding.android.FlutterActivity
 

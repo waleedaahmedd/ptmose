@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "60082216099",
+    "project_id": "ptmose",
+    "storage_bucket": "ptmose.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:60082216099:android:c9cf6f6e1e73ad04fbf316",
+        "android_client_info": {
+          "package_name": "com.ptmose"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "60082216099-8jqjotsh6qvukdkdjmik6a45mumq3db9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPsINn42YAqd7FgjFx6GiAvfRL2E39HR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "60082216099-8jqjotsh6qvukdkdjmik6a45mumq3db9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

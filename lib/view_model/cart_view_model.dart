@@ -147,9 +147,6 @@ class CartViewModel with ChangeNotifier {
         await submitOrder(userId, getTotalAmount, getOrderItemList);
     if (response != null) {
       setSubmitOrderResponse(response);
-      /* if (_tastingsDetailResponse!.data!.getTastingById!.data!.tastingWines!.isNotEmpty) {
-        setWinesList(_tastingsDetailResponse!.data!.getTastingById!.data!.tastingWines!);
-      }*/
       if (getSubmitOrderResponse.data!.createOrder!.status!) {
         _clearCart();
         Navigator.pop(context);

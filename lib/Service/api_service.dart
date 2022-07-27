@@ -14,6 +14,7 @@ import '../models/requests/location_request.dart';
 import '../models/requests/auth_request/login_request.dart';
 import '../models/requests/reserve_tasting_request.dart';
 import '../models/requests/submit_order_request.dart';
+import '../models/requests/submit_review_request.dart';
 import '../models/requests/tastings_list_by_location_request.dart';
 import '../models/requests/user_reservations_request.dart';
 import '../models/requests/wine_detail_request.dart';
@@ -24,6 +25,7 @@ import '../models/responses/auth_response/login_response.dart';
 import '../models/responses/locations_model.dart';
 import '../models/responses/reserve_tasting_response.dart';
 import '../models/responses/submit_order_response.dart';
+import '../models/responses/submit_review_response.dart';
 import '../models/responses/tasting_list_by_location_reaponse.dart';
 import '../models/responses/user_reservation_response.dart';
 import '../models/responses/wine_detail_response.dart';
@@ -151,8 +153,7 @@ Future<TastingsDetailResponse?> getTastingsDetails(int? tastingId) async {
 }
 
 Future<WineDetailResponse?> getWineDetails(int? wineId) async {
-  WineDetailRequest wineDetailRequest =
-  WineDetailRequest(wineId!);
+  WineDetailRequest wineDetailRequest = WineDetailRequest(wineId!);
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = wineDetailRequest.generateQuery();
@@ -161,7 +162,7 @@ Future<WineDetailResponse?> getWineDetails(int? wineId) async {
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     WineDetailResponse wineDetailResponse =
-    WineDetailResponse.fromJson(json.decode(responseData.body));
+        WineDetailResponse.fromJson(json.decode(responseData.body));
 
     return wineDetailResponse;
   } else {
@@ -180,7 +181,7 @@ Future<WinesListResponse?> getWinesList() async {
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     WinesListResponse winesListResponse =
-    WinesListResponse.fromJson(json.decode(responseData.body));
+        WinesListResponse.fromJson(json.decode(responseData.body));
 
     return winesListResponse;
   } else {
@@ -189,8 +190,10 @@ Future<WinesListResponse?> getWinesList() async {
   }
 }
 
-Future<ReserveTastingResponse?> reserveTasting(int? tastingId , int? userId) async {
-  ReserveTastingRequest reserveTastingRequest = ReserveTastingRequest(tastingId!,userId!);
+Future<ReserveTastingResponse?> reserveTasting(
+    int? tastingId, int? userId) async {
+  ReserveTastingRequest reserveTastingRequest =
+      ReserveTastingRequest(tastingId!, userId!);
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = reserveTastingRequest.generateQuery();
@@ -199,7 +202,7 @@ Future<ReserveTastingResponse?> reserveTasting(int? tastingId , int? userId) asy
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     ReserveTastingResponse reserveTastingResponse =
-    ReserveTastingResponse.fromJson(json.decode(responseData.body));
+        ReserveTastingResponse.fromJson(json.decode(responseData.body));
 
     return reserveTastingResponse;
   } else {
@@ -208,9 +211,84 @@ Future<ReserveTastingResponse?> reserveTasting(int? tastingId , int? userId) asy
   }
 }
 
-Future<SubmitOrderResponse?> submitOrder( int? userId, int? totalAmount, List<OrderItemModel> orderItemModel,) async {
+Future<SubmitReviewResponse?> submitReview({
+  required num fruitForward,
+  required num berrys,
+  required num fullBodied,
+  required num thin,
+  required num longFinish,
+  required num bakance,
+  required num complex,
+  required num elegant,
+  required num chewy,
+  required num soft,
+  required num silky,
+  required num burn,
+  required num jammy,
+  required num bellPepper,
+  required num spicy,
+  required num toasty,
+  required num oak,
+  required num vegetable,
+  required num minerality,
+  required num rubber,
+  required num smoky,
+  required num ageOfWine,
+  required String comment,
+  required int userId,
+  required int wineId,
+}) async {
+  SubmitReviewRequest submitReviewRequest = SubmitReviewRequest(
+      toasty: toasty,
+      spicy: spicy,
+      vegetable: vegetable,
+      jammy: jammy,
+      chewy: chewy,
+      oak: oak,
+      bellPepper: bellPepper,
+      minerality: minerality,
+      rubber: rubber,
+      complex: complex,
+      ageOfWine: ageOfWine,
+      smoky: smoky,
+      silky: silky,
+      bakance: bakance,
+      longFinish: longFinish,
+      wineId: wineId,
+      fullBodied: fullBodied,
+      fruitForward: fruitForward,
+      elegant: elegant,
+      userId: userId,
+      comment: comment,
+      thin: thin,
+      burn: burn,
+      soft: soft,
+      berrys: berrys);
+  var request = http.Request('POST', Uri.parse(_baseURL));
+
+  request.body = submitReviewRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    SubmitReviewResponse submitReviewResponse =
+        SubmitReviewResponse.fromJson(json.decode(responseData.body));
+
+    return submitReviewResponse;
+  } else {
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
+Future<SubmitOrderResponse?> submitOrder(
+  int? userId,
+  int? totalAmount,
+  List<OrderItemModel> orderItemModel,
+) async {
   String cartItems = jsonEncode(orderItemModel);
-  SubmitOrderRequest submitOrderRequest = SubmitOrderRequest(userId!,cartItems,'',totalAmount!);
+  SubmitOrderRequest submitOrderRequest =
+      SubmitOrderRequest(userId!, cartItems, '', totalAmount!);
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = submitOrderRequest.generateQuery();
@@ -219,7 +297,7 @@ Future<SubmitOrderResponse?> submitOrder( int? userId, int? totalAmount, List<Or
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     SubmitOrderResponse submitOrderResponse =
-    SubmitOrderResponse.fromJson(json.decode(responseData.body));
+        SubmitOrderResponse.fromJson(json.decode(responseData.body));
 
     return submitOrderResponse;
   } else {
@@ -228,9 +306,9 @@ Future<SubmitOrderResponse?> submitOrder( int? userId, int? totalAmount, List<Or
   }
 }
 
-
 Future<UserReservationResponse?> getReservations(int? userId) async {
-  UserReservationsRequest reservationsRequest = UserReservationsRequest(userId!);
+  UserReservationsRequest reservationsRequest =
+      UserReservationsRequest(userId!);
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = reservationsRequest.generateQuery();
@@ -239,7 +317,7 @@ Future<UserReservationResponse?> getReservations(int? userId) async {
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     UserReservationResponse reservationResponse =
-    UserReservationResponse.fromJson(json.decode(responseData.body));
+        UserReservationResponse.fromJson(json.decode(responseData.body));
 
     return reservationResponse;
   } else {
@@ -269,8 +347,10 @@ Future<WineriesListByLocationResponse?> getAllWineriesListByLocation(
   }
 }
 
-Future<TastingListByLocationResponse?> getAllTastingListByLocation(int? locationId) async {
-  TastingListByLocationRequest tastingListByLocationRequest = TastingListByLocationRequest(locationId!);
+Future<TastingListByLocationResponse?> getAllTastingListByLocation(
+    int? locationId) async {
+  TastingListByLocationRequest tastingListByLocationRequest =
+      TastingListByLocationRequest(locationId!);
   var headers = {'Content-Type': 'application/json'};
   var request = http.Request('POST', Uri.parse(_baseURL));
   request.body = tastingListByLocationRequest.generateQuery();
@@ -279,7 +359,7 @@ Future<TastingListByLocationResponse?> getAllTastingListByLocation(int? location
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     TastingListByLocationResponse tastingListByLocationResponse =
-    TastingListByLocationResponse.fromJson(json.decode(responseData.body));
+        TastingListByLocationResponse.fromJson(json.decode(responseData.body));
 
     return tastingListByLocationResponse;
   } else {
