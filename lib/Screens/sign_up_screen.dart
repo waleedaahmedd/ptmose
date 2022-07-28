@@ -119,7 +119,7 @@ class SignUpScreen extends StatelessWidget {
                               FocusManager.instance.primaryFocus?.unfocus();
                               if (authViewModel.signUpValidation() == true) {
                                 authViewModel
-                                    .callSignUpApi(context)
+                                    .callSignUpApi()
                                     .then((value) {
                                   if (value == true) {
                                     EasyLoading.showSuccess(authViewModel

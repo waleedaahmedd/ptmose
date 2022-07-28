@@ -4,6 +4,7 @@ import 'package:ptmose/models/responses/submit_order_response.dart';
 import 'package:ptmose/models/responses/submit_review_response.dart';
 
 import '../Service/api_service.dart';
+import '../models/requests/submit_review_request.dart';
 import '../models/responses/wine_detail_response.dart';
 
 class WineReviewViewModel with ChangeNotifier {
@@ -204,7 +205,7 @@ class WineReviewViewModel with ChangeNotifier {
 
   Future<void> callReviewOrder(int? userId, BuildContext context) async {
     EasyLoading.show(status: 'Please Wait...');
-    final response = await submitReview(
+    SubmitReviewRequest submitReviewRequest = SubmitReviewRequest(
         berrys: _berrys,
         complex: _complex,
         rubber: _rubber,
@@ -230,6 +231,9 @@ class WineReviewViewModel with ChangeNotifier {
         comment: detailController.text,
         userId: userId!,
         burn: _burn);
+
+    final response =
+        await submitReview(submitReviewRequest: submitReviewRequest);
     if (response != null) {
       setSubmitReviewResponse(response);
       if (getSubmitReviewResponse.data!.addFeedback!.status!) {

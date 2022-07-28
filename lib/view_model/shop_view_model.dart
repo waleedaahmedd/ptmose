@@ -4,6 +4,7 @@ import 'package:ptmose/models/responses/Wines_response.dart';
 import 'package:ptmose/models/responses/wines_list_response.dart';
 
 import '../Service/api_service.dart';
+import '../models/requests/wines_list_request.dart';
 import '../models/responses/wines_list_response.dart';
 
 class ShopViewModel with ChangeNotifier {
@@ -40,8 +41,9 @@ class ShopViewModel with ChangeNotifier {
   Future<void> callWinesListApi() async {
     EasyLoading.show(status: 'Please Wait...');
     _winesList.clear();
+    WinesListRequest winesListRequest = WinesListRequest();
 
-    final response = await getWinesList();
+    final response = await getWinesList(winesListRequest: winesListRequest);
     if (response != null) {
       setWinesListResponse(response);
       if (_winesListResponse!.data!.getAllWines!.data!.isNotEmpty) {

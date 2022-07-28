@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ptmose/Service/api_service.dart';
@@ -6,6 +8,8 @@ import 'package:ptmose/models/responses/submit_order_response.dart';
 import 'package:ptmose/models/responses/wine_detail_response.dart';
 
 import '../models/orderItemModel.dart';
+import '../models/requests/submit_order_request.dart';
+import '../models/requests/wine_detail_request.dart';
 
 class CartViewModel with ChangeNotifier {
   int _cartCount = 0;
@@ -131,8 +135,9 @@ class CartViewModel with ChangeNotifier {
 
   Future<void> callWineDetails(int? wineId) async {
     EasyLoading.show(status: 'Please Wait...');
+    WineDetailRequest wineDetailRequest = WineDetailRequest(wineId!);
 
-    final response = await getWineDetails(wineId);
+    final response = await getWineDetails(wineDetailRequest: wineDetailRequest);
     if (response != null) {
       setWineDetailResponse(response);
       EasyLoading.dismiss();
@@ -143,8 +148,10 @@ class CartViewModel with ChangeNotifier {
 
   Future<void> callSubmitOrder(int? userId, BuildContext context) async {
     EasyLoading.show(status: 'Please Wait...');
-    final response =
-        await submitOrder(userId, getTotalAmount, getOrderItemList);
+    String cartItems = jsonEncode(getOrderItemList);
+    SubmitOrderRequest submitOrderRequest =
+        SubmitOrderRequest(userId!, cartItems, '', getTotalAmount);
+    final response = await submitOrder(submitOrderRequest: submitOrderRequest);
     if (response != null) {
       setSubmitOrderResponse(response);
       if (getSubmitOrderResponse.data!.createOrder!.status!) {

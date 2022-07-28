@@ -5,6 +5,8 @@ import 'package:ptmose/models/responses/reserve_tasting_response.dart';
 import 'package:ptmose/models/responses/tastings_details_response.dart';
 import 'package:ptmose/models/responses/tastings_response.dart';
 
+import '../models/requests/reserve_tasting_request.dart';
+import '../models/requests/tastings_details_request.dart';
 import '../models/responses/Wines_response.dart';
 
 class TastingDetailsViewModel with ChangeNotifier {
@@ -36,8 +38,9 @@ class TastingDetailsViewModel with ChangeNotifier {
   Future <void> callTastingDetails(int? tastingId) async {
     EasyLoading.show(status: 'Please Wait...');
     _winesList.clear();
-
-    final response = await getTastingsDetails(tastingId);
+    TastingsDetailsRequest tastingsDetailsRequest =
+    TastingsDetailsRequest(tastingId!);
+    final response = await getTastingsDetails(tastingsDetailsRequest: tastingsDetailsRequest);
     if (response != null) {
       setTastingsDetailResponse(response);
       if (_tastingsDetailResponse!.data!.getTastingById!.data!.tastingWines!.isNotEmpty) {
@@ -52,8 +55,9 @@ class TastingDetailsViewModel with ChangeNotifier {
   Future <void> callReserveTasting(int? userId) async {
     EasyLoading.show(status: 'Please Wait...');
     _winesList.clear();
-
-    final response = await reserveTasting(getTastingsDetailResponse.data!.getTastingById!.data!.id!, userId);
+    ReserveTastingRequest reserveTastingRequest =
+    ReserveTastingRequest(getTastingsDetailResponse.data!.getTastingById!.data!.id!, userId!);
+    final response = await reserveTasting(reserveTastingRequest: reserveTastingRequest);
     if (response != null) {
       setReserveTastingResponse(response);
      /* if (_tastingsDetailResponse!.data!.getTastingById!.data!.tastingWines!.isNotEmpty) {

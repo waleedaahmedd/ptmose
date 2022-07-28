@@ -7,6 +7,10 @@ import 'package:ptmose/models/responses/tasting_list_by_location_reaponse.dart';
 import 'package:ptmose/view_model/wineriesListViewModel.dart';
 
 import '../Service/api_service.dart';
+import '../models/requests/location_request.dart';
+import '../models/requests/tastings_list_by_location_request.dart';
+import '../models/requests/wineries_and_testing_request.dart';
+import '../models/requests/wineries_list_by_location_request.dart';
 import '../models/responses/tastings_response.dart';
 import '../models/responses/wineries_and_testing_response.dart';
 import '../models/responses/wineries_list_by_location_reaponse.dart';
@@ -112,8 +116,9 @@ class LocationsViewModel with ChangeNotifier {
 
   Future<void> callLocationsListApi(BuildContext context) async {
     EasyLoading.show(status: 'Please Wait...');
+    LocationRequest locationRequest = LocationRequest();
 
-    final response = await getAllLocationsApi();
+    final response = await getAllLocationsApi(locationRequest: locationRequest);
     if (response != null) {
       setLocationModel(response);
       if (_locationsResponse!.data!.getAllLocations!.data!.isNotEmpty) {
@@ -130,8 +135,10 @@ class LocationsViewModel with ChangeNotifier {
 
   Future<void> callWineriesListByLocation(int? locationId) async {
     _wineriesListByLocation.clear();
-
-    final response = await getAllWineriesListByLocation(locationId);
+    WineriesListByLocationRequest wineriesListByLocationRequest =
+        WineriesListByLocationRequest(locationId!);
+    final response = await getAllWineriesListByLocation(
+        wineriesListByLocationRequest: wineriesListByLocationRequest);
     if (response != null) {
       setWineriesListByLocationResponse(response);
       if (_wineriesListByLocationResponse!
@@ -147,8 +154,10 @@ class LocationsViewModel with ChangeNotifier {
 
   Future<void> callTastingListByLocation(int? locationId) async {
     _tastingListByLocation.clear();
-
-    final response = await getAllTastingListByLocation(locationId);
+    TastingListByLocationRequest tastingListByLocationRequest =
+        TastingListByLocationRequest(locationId!);
+    final response = await getAllTastingListByLocation(
+        tastingListByLocationRequest: tastingListByLocationRequest);
     if (response != null) {
       setTastingListByLocationResponse(response);
       if (_tastingListByLocationResponse!
@@ -166,8 +175,10 @@ class LocationsViewModel with ChangeNotifier {
     EasyLoading.show(status: 'Please Wait...');
     _wineriesList.clear();
     _tastingList.clear();
-
-    final response = await getWineriesAndTastings(locationId);
+    WineriesAndTastingsRequest wineriesAndLocationRequest =
+        WineriesAndTastingsRequest(locationId!);
+    final response = await getWineriesAndTastings(
+        wineriesAndLocationRequest: wineriesAndLocationRequest);
     if (response != null) {
       setWineriesAndTestingResponse(response);
       if (_wineriesAndTestingResponse!

@@ -4,6 +4,7 @@ import 'package:ptmose/models/responses/tastings_response.dart';
 import 'package:ptmose/models/responses/user_reservation_response.dart';
 
 import '../Service/api_service.dart';
+import '../models/requests/user_reservations_request.dart';
 
 class MyReservationViewModel with ChangeNotifier {
   bool _confirmedReservations = true;
@@ -45,7 +46,9 @@ class MyReservationViewModel with ChangeNotifier {
     _confirmReservationList.clear();
     _unConfirmReservationList.clear();
     setConfirmedReservations(true);
-    final response = await getReservations(userId);
+    UserReservationsRequest reservationsRequest =
+    UserReservationsRequest(userId!);
+    final response = await getReservations(reservationsRequest: reservationsRequest);
     if (response != null) {
       setUserReservationResponse(response);
       if (_userReservationResponse!.data!.getAllReservation!.data!.isNotEmpty) {

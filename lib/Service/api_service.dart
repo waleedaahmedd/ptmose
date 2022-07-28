@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:ptmose/models/requests/auth_request/sign_up_request.dart';
 import 'package:ptmose/models/requests/tastings_details_request.dart';
@@ -10,6 +11,7 @@ import 'package:ptmose/models/responses/tastings_details_response.dart';
 import 'package:ptmose/models/responses/wineries_list_by_location_reaponse.dart';
 
 import '../models/orderItemModel.dart';
+import '../models/requests/auth_request/social_media_login_request.dart';
 import '../models/requests/location_request.dart';
 import '../models/requests/auth_request/login_request.dart';
 import '../models/requests/reserve_tasting_request.dart';
@@ -22,6 +24,7 @@ import '../models/requests/wineries_and_testing_request.dart';
 import '../models/requests/wineries_details_request.dart';
 import '../models/requests/wines_list_request.dart';
 import '../models/responses/auth_response/login_response.dart';
+import '../models/responses/auth_response/social_media_login_response.dart';
 import '../models/responses/locations_model.dart';
 import '../models/responses/reserve_tasting_response.dart';
 import '../models/responses/submit_order_response.dart';
@@ -49,6 +52,28 @@ Future<LoginResponse?> loginApi(LoginRequest loginRequest) async {
 
     return loginResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
+Future<SocialMediaLoginResponse?> socialMediaLoginApi(
+    SocialMediaLoginRequest socialMediaLoginRequest) async {
+  var request = http.Request('POST', Uri.parse(_baseURL));
+
+  request.body = socialMediaLoginRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    SocialMediaLoginResponse socialMediaLoginResponse =
+        SocialMediaLoginResponse.fromJson(json.decode(responseData.body));
+
+    return socialMediaLoginResponse;
+  } else {
+    EasyLoading.showError('Something Went Wrong');
     print(response.reasonPhrase);
     return null;
   }
@@ -67,13 +92,15 @@ Future<SignUpResponse?> signUpApi(SignUpRequest signUpRequest) async {
 
     return signUpResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }
 }
 
-Future<LocationsModel?> getAllLocationsApi() async {
-  LocationRequest locationRequest = LocationRequest();
+Future<LocationsModel?> getAllLocationsApi(
+    {required LocationRequest locationRequest}) async {
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = locationRequest.generateQuery();
@@ -92,9 +119,7 @@ Future<LocationsModel?> getAllLocationsApi() async {
 }
 
 Future<WineriesAndTestingResponse?> getWineriesAndTastings(
-    int? locationId) async {
-  WineriesAndTastingsRequest wineriesAndLocationRequest =
-      WineriesAndTastingsRequest(locationId!);
+    {required WineriesAndTastingsRequest wineriesAndLocationRequest}) async {
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = wineriesAndLocationRequest.generateQuery();
@@ -112,9 +137,8 @@ Future<WineriesAndTestingResponse?> getWineriesAndTastings(
   }
 }
 
-Future<WineriesDetailsResponse?> getWineryDetails(int? wineryId) async {
-  WineriesDetailRequest wineriesDetailRequest =
-      WineriesDetailRequest(wineryId!);
+Future<WineriesDetailsResponse?> getWineryDetails(
+    {required WineriesDetailRequest wineriesDetailRequest}) async {
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = wineriesDetailRequest.generateQuery();
@@ -132,9 +156,8 @@ Future<WineriesDetailsResponse?> getWineryDetails(int? wineryId) async {
   }
 }
 
-Future<TastingsDetailResponse?> getTastingsDetails(int? tastingId) async {
-  TastingsDetailsRequest tastingsDetailsRequest =
-      TastingsDetailsRequest(tastingId!);
+Future<TastingsDetailResponse?> getTastingsDetails(
+    {required TastingsDetailsRequest tastingsDetailsRequest}) async {
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = tastingsDetailsRequest.generateQuery();
@@ -152,8 +175,8 @@ Future<TastingsDetailResponse?> getTastingsDetails(int? tastingId) async {
   }
 }
 
-Future<WineDetailResponse?> getWineDetails(int? wineId) async {
-  WineDetailRequest wineDetailRequest = WineDetailRequest(wineId!);
+Future<WineDetailResponse?> getWineDetails(
+    {required WineDetailRequest wineDetailRequest}) async {
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = wineDetailRequest.generateQuery();
@@ -171,8 +194,8 @@ Future<WineDetailResponse?> getWineDetails(int? wineId) async {
   }
 }
 
-Future<WinesListResponse?> getWinesList() async {
-  WinesListRequest winesListRequest = WinesListRequest();
+Future<WinesListResponse?> getWinesList(
+    {required WinesListRequest winesListRequest}) async {
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = winesListRequest.generateQuery();
@@ -191,9 +214,7 @@ Future<WinesListResponse?> getWinesList() async {
 }
 
 Future<ReserveTastingResponse?> reserveTasting(
-    int? tastingId, int? userId) async {
-  ReserveTastingRequest reserveTastingRequest =
-      ReserveTastingRequest(tastingId!, userId!);
+    {required ReserveTastingRequest reserveTastingRequest}) async {
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = reserveTastingRequest.generateQuery();
@@ -211,59 +232,8 @@ Future<ReserveTastingResponse?> reserveTasting(
   }
 }
 
-Future<SubmitReviewResponse?> submitReview({
-  required num fruitForward,
-  required num berrys,
-  required num fullBodied,
-  required num thin,
-  required num longFinish,
-  required num bakance,
-  required num complex,
-  required num elegant,
-  required num chewy,
-  required num soft,
-  required num silky,
-  required num burn,
-  required num jammy,
-  required num bellPepper,
-  required num spicy,
-  required num toasty,
-  required num oak,
-  required num vegetable,
-  required num minerality,
-  required num rubber,
-  required num smoky,
-  required num ageOfWine,
-  required String comment,
-  required int userId,
-  required int wineId,
-}) async {
-  SubmitReviewRequest submitReviewRequest = SubmitReviewRequest(
-      toasty: toasty,
-      spicy: spicy,
-      vegetable: vegetable,
-      jammy: jammy,
-      chewy: chewy,
-      oak: oak,
-      bellPepper: bellPepper,
-      minerality: minerality,
-      rubber: rubber,
-      complex: complex,
-      ageOfWine: ageOfWine,
-      smoky: smoky,
-      silky: silky,
-      bakance: bakance,
-      longFinish: longFinish,
-      wineId: wineId,
-      fullBodied: fullBodied,
-      fruitForward: fruitForward,
-      elegant: elegant,
-      userId: userId,
-      comment: comment,
-      thin: thin,
-      burn: burn,
-      soft: soft,
-      berrys: berrys);
+Future<SubmitReviewResponse?> submitReview(
+    {required SubmitReviewRequest submitReviewRequest}) async {
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = submitReviewRequest.generateQuery();
@@ -282,13 +252,7 @@ Future<SubmitReviewResponse?> submitReview({
 }
 
 Future<SubmitOrderResponse?> submitOrder(
-  int? userId,
-  int? totalAmount,
-  List<OrderItemModel> orderItemModel,
-) async {
-  String cartItems = jsonEncode(orderItemModel);
-  SubmitOrderRequest submitOrderRequest =
-      SubmitOrderRequest(userId!, cartItems, '', totalAmount!);
+    {required SubmitOrderRequest submitOrderRequest}) async {
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = submitOrderRequest.generateQuery();
@@ -306,9 +270,8 @@ Future<SubmitOrderResponse?> submitOrder(
   }
 }
 
-Future<UserReservationResponse?> getReservations(int? userId) async {
-  UserReservationsRequest reservationsRequest =
-      UserReservationsRequest(userId!);
+Future<UserReservationResponse?> getReservations(
+    {required UserReservationsRequest reservationsRequest}) async {
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = reservationsRequest.generateQuery();
@@ -327,9 +290,8 @@ Future<UserReservationResponse?> getReservations(int? userId) async {
 }
 
 Future<WineriesListByLocationResponse?> getAllWineriesListByLocation(
-    int? locationId) async {
-  WineriesListByLocationRequest wineriesListByLocationRequest =
-      WineriesListByLocationRequest(locationId!);
+    {required WineriesListByLocationRequest
+        wineriesListByLocationRequest}) async {
   var request = http.Request('POST', Uri.parse(_baseURL));
 
   request.body = wineriesListByLocationRequest.generateQuery();
@@ -348,9 +310,8 @@ Future<WineriesListByLocationResponse?> getAllWineriesListByLocation(
 }
 
 Future<TastingListByLocationResponse?> getAllTastingListByLocation(
-    int? locationId) async {
-  TastingListByLocationRequest tastingListByLocationRequest =
-      TastingListByLocationRequest(locationId!);
+{required TastingListByLocationRequest tastingListByLocationRequest}) async {
+
   var headers = {'Content-Type': 'application/json'};
   var request = http.Request('POST', Uri.parse(_baseURL));
   request.body = tastingListByLocationRequest.generateQuery();

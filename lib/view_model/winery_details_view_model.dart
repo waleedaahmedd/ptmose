@@ -4,17 +4,19 @@ import 'package:ptmose/Service/api_service.dart';
 import 'package:ptmose/models/responses/tastings_response.dart';
 import 'package:ptmose/models/responses/wineries_detail_response.dart';
 
+import '../models/requests/wineries_details_request.dart';
 import '../models/responses/Wines_response.dart';
 
-class WineryDetailsViewModel with ChangeNotifier{
-
+class WineryDetailsViewModel with ChangeNotifier {
   final List<Tastings> _tastingList = [];
   final List<Wine> _winesList = [];
   WineriesDetailsResponse? _wineriesDetailsResponse;
 
-  WineriesDetailsResponse get getWineriesDetailsResponse => _wineriesDetailsResponse!;
+  WineriesDetailsResponse get getWineriesDetailsResponse =>
+      _wineriesDetailsResponse!;
 
   List<Tastings> get getTastingList => _tastingList;
+
   List<Wine> get getWinesList => _winesList;
 
   void setWineriesDetailsResponse(WineriesDetailsResponse value) {
@@ -32,25 +34,29 @@ class WineryDetailsViewModel with ChangeNotifier{
     notifyListeners();
   }
 
-
-  Future <void> callWineriesDetails(int? wineryId) async {
+  Future<void> callWineriesDetails(int? wineryId) async {
     EasyLoading.show(status: 'Please Wait...');
     _winesList.clear();
     _tastingList.clear();
-
-    final response = await getWineryDetails(wineryId);
+    WineriesDetailRequest wineriesDetailRequest =
+        WineriesDetailRequest(wineryId!);
+    final response =
+        await getWineryDetails(wineriesDetailRequest: wineriesDetailRequest);
     if (response != null) {
       setWineriesDetailsResponse(response);
-      if (_wineriesDetailsResponse!.data!.getWineryById!.data!.wine!.isNotEmpty) {
-        setWinesList(_wineriesDetailsResponse!.data!.getWineryById!.data!.wine!);
+      if (_wineriesDetailsResponse!
+          .data!.getWineryById!.data!.wine!.isNotEmpty) {
+        setWinesList(
+            _wineriesDetailsResponse!.data!.getWineryById!.data!.wine!);
       }
-      if (_wineriesDetailsResponse!.data!.getWineryById!.data!.tasting!.isNotEmpty) {
-        setTastingList(_wineriesDetailsResponse!.data!.getWineryById!.data!.tasting!);
+      if (_wineriesDetailsResponse!
+          .data!.getWineryById!.data!.tasting!.isNotEmpty) {
+        setTastingList(
+            _wineriesDetailsResponse!.data!.getWineryById!.data!.tasting!);
       }
       EasyLoading.dismiss();
     } else {
       EasyLoading.dismiss();
     }
   }
-
 }

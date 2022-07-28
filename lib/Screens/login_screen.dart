@@ -119,7 +119,7 @@ class LoginScreen extends StatelessWidget {
                                       if (authViewModel.logInValidation() ==
                                           true) {
                                         authViewModel
-                                            .callLoginApi(context)
+                                            .callLoginApi()
                                             .then((value) {
                                           if (value == true) {
                                             EasyLoading.showSuccess(
@@ -166,8 +166,38 @@ class LoginScreen extends StatelessWidget {
                                           child: Align(
                                               alignment: Alignment.centerRight,
                                               child: GestureDetector(
-                                                onTap: (){
-                                                  authViewModel.signInWithGoogle();
+                                                onTap: () {
+                                                  //  authViewModel.signInWithGoogle();
+                                                  authViewModel
+                                                      .signInWithGoogle()
+                                                      .then((value) {
+                                                    if (value == true) {
+                                                      EasyLoading.showSuccess(
+                                                          authViewModel
+                                                              .getSocialMediaLoginResponse
+                                                              .data!
+                                                              .socialMediaLogin!
+                                                              .message!);
+                                                      authViewModel
+                                                          .setGuestUser(false);
+
+                                                      authViewModel
+                                                          .callUserName();
+                                                      Navigator.of(context)
+                                                          .pushNamedAndRemoveUntil(
+                                                              '/home',
+                                                              ModalRoute
+                                                                  .withName(
+                                                                      '/'));
+                                                    } else {
+                                                      EasyLoading.showError(
+                                                          authViewModel
+                                                              .getSocialMediaLoginResponse
+                                                              .data!
+                                                              .socialMediaLogin!
+                                                              .message!);
+                                                    }
+                                                  });
                                                 },
                                                 child: Image.asset(
                                                   'assets/images/connect_google.png',
@@ -180,9 +210,14 @@ class LoginScreen extends StatelessWidget {
                                       Expanded(
                                           child: Align(
                                               alignment: Alignment.centerLeft,
-                                              child: Image.asset(
-                                                'assets/images/connect_facebook.png',
-                                                height: 50.h,
+                                              child: GestureDetector(
+                                                onTap: (){
+                                                  authViewModel.signOut();
+                                                },
+                                                child: Image.asset(
+                                                  'assets/images/connect_facebook.png',
+                                                  height: 50.h,
+                                                ),
                                               ))),
                                     ],
                                   ),
@@ -207,7 +242,7 @@ class LoginScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 20.h,
                                   ),
-                                  NormalFontText1(
+                                  const NormalFontText1(
                                     data: 'NEW HERE?',
                                   ),
                                   TextButton(
