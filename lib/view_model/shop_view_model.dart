@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:ptmose/models/responses/Wines_response.dart';
+import 'package:ptmose/models/responses/wines_response.dart';
 import 'package:ptmose/models/responses/wines_list_response.dart';
 
 import '../Service/api_service.dart';

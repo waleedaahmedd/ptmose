@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:ptmose/models/responses/Wines_response.dart';
+import 'package:ptmose/models/responses/wines_response.dart';
 
 import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';

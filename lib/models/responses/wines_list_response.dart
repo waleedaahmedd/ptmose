@@ -1,4 +1,4 @@
-import 'package:ptmose/models/responses/Wines_response.dart';
+import 'package:ptmose/models/responses/wines_response.dart';
 
 class WinesListResponse {
   WinesListResponseData? data;

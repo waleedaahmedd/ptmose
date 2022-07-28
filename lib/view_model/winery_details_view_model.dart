@@ -5,7 +5,7 @@ import 'package:ptmose/models/responses/tastings_response.dart';
 import 'package:ptmose/models/responses/wineries_detail_response.dart';
 
 import '../models/requests/wineries_details_request.dart';
-import '../models/responses/Wines_response.dart';
+import '../models/responses/wines_response.dart';
 
 class WineryDetailsViewModel with ChangeNotifier {
   final List<Tastings> _tastingList = [];

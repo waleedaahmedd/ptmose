@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../models/responses/Wines_response.dart';
+import '../models/responses/wines_response.dart';
 import '../models/responses/wine_detail_response.dart';
 import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';

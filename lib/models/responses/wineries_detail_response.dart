@@ -1,7 +1,7 @@
 import 'package:ptmose/models/responses/tastings_response.dart';
 
 import '../../utils/date_time_formatter.dart';
-import 'Wines_response.dart';
+import 'wines_response.dart';
 
 class WineriesDetailsResponse {
   WineryDetailById? data;
