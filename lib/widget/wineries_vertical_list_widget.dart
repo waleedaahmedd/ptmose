@@ -29,8 +29,11 @@ class WineriesVerticalListWidget extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               Provider.of<WineryDetailsViewModel>(context, listen: false)
-                  .callWineriesDetails(wineriesList[index].id).then((value) =>  Navigator.of(context).pushNamed('/wineryDetails'));
-
+                  .callWineriesDetails(wineriesList[index].id)
+                  .then((value) {
+                Provider.of<WineryDetailsViewModel>(context, listen: false).setShowWineriesShop(false);
+                Navigator.of(context).pushNamed('/wineryDetails');
+              });
             },
             child: SizedBox(
               width: double.infinity,
@@ -73,7 +76,8 @@ class WineriesVerticalListWidget extends StatelessWidget {
                                   width: 10.w,
                                 ),
                                 NormalFontText4(
-                                    data: '${wineriesList[index].startTime} - ${wineriesList[index].endTime} PST'),
+                                    data:
+                                        '${wineriesList[index].startTime} - ${wineriesList[index].endTime} PST'),
                               ],
                             ),
                           ],

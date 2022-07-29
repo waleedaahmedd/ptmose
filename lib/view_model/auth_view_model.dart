@@ -303,10 +303,10 @@ class AuthViewModel with ChangeNotifier {
   }
 
   Future<void> signOut() async {
+    sharedPref.remove('userData');
     final FirebaseAuth _auth = FirebaseAuth.instance;
-
     await _auth.signOut();
-  await GoogleSignIn().signOut();
+    await GoogleSignIn().signOut();
   }
 
 /* void checkforIosPermission() async{

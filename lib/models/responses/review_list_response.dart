@@ -6,7 +6,9 @@ class ReviewListResponse {
   ReviewListResponse({this.data});
 
   ReviewListResponse.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? ReviewListResponseData.fromJson(json['data']) : null;
+    data = json['data'] != null
+        ? ReviewListResponseData.fromJson(json['data'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -68,56 +70,56 @@ class GetAllFeedbacks {
 }
 
 class GetAllFeedbacksData {
-  int? fruitForward;
-  int? berrys;
-  int? fullBodied;
-  int? thin;
-  int? longFinish;
-  int? bakance;
-  int? complex;
-  int? elegant;
-  int? chewy;
-  int? soft;
-  int? silky;
-  int? burn;
-  int? jammy;
-  int? bellPepper;
-  int? spicy;
-  int? toasty;
-  int? oak;
-  int? vegetable;
-  int? minerality;
-  int? rubber;
-  int? smoky;
-  int? ageOfWine;
+  num? fruitForward;
+  num? berrys;
+  num? fullBodied;
+  num? thin;
+  num? longFinish;
+  num? bakance;
+  num? complex;
+  num? elegant;
+  num? chewy;
+  num? soft;
+  num? silky;
+  num? burn;
+  num? jammy;
+  num? bellPepper;
+  num? spicy;
+  num? toasty;
+  num? oak;
+  num? vegetable;
+  num? minerality;
+  num? rubber;
+  num? smoky;
+  num? ageOfWine;
   String? comment;
   Wine? wine;
 
   GetAllFeedbacksData(
       {this.fruitForward,
-        this.berrys,
-        this.fullBodied,
-        this.thin,
-        this.longFinish,
-        this.bakance,
-        this.complex,
-        this.elegant,
-        this.chewy,
-        this.soft,
-        this.silky,
-        this.burn,
-        this.jammy,
-        this.bellPepper,
-        this.spicy,
-        this.toasty,
-        this.oak,
-        this.vegetable,
-        this.minerality,
-        this.rubber,
-        this.smoky,
-        this.ageOfWine,
-        this.comment,
-        this.wine});
+      this.berrys,
+      this.fullBodied,
+      this.thin,
+      this.longFinish,
+      this.bakance,
+      this.complex,
+      this.elegant,
+      this.chewy,
+      this.soft,
+      this.silky,
+      this.burn,
+      this.jammy,
+      this.bellPepper,
+      this.spicy,
+      this.toasty,
+      this.oak,
+      this.vegetable,
+      this.minerality,
+      this.rubber,
+      this.smoky,
+      this.ageOfWine,
+      this.comment,
+      this.wine});
 
   GetAllFeedbacksData.fromJson(Map<String, dynamic> json) {
     fruitForward = json['fruitForward'];
@@ -177,4 +179,3 @@ class GetAllFeedbacksData {
     return data;
   }
 }
-

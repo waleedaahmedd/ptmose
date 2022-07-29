@@ -1,91 +1,115 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:ptmose/utils/custom_colors.dart';
-import 'package:ptmose/widget/custom_button_1.dart';
 
+import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
-import '../view_model/auth_view_model.dart';
 import '../view_model/cart_view_model.dart';
 import '../view_model/wine_review_view_model.dart';
 import '../widget/app_bar_widget.dart';
 
-class WineReviewScreen extends StatefulWidget {
-  const WineReviewScreen({Key? key}) : super(key: key);
+class MyReviewDetailScreen extends StatelessWidget {
+  const MyReviewDetailScreen({Key? key}) : super(key: key);
 
-  @override
-  State<WineReviewScreen> createState() => _WineReviewScreenState();
-}
-
-class _WineReviewScreenState extends State<WineReviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<WineReviewViewModel>(builder: (_, wineReviewViewModel, __) {
       return Scaffold(
         appBar: const AppBarWidget(
-          homeButton: true,
+          cartButton: true,
         ),
         body: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              SizedBox(
-                width: double.infinity,
-                height: 100.h,
-                child: Card(
-                  elevation: 10,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 20, bottom: 20, left: 20),
-                        child: Center(
-                          child: Image.network(
-                            wineReviewViewModel.getWineDetailResponse.data!
-                                .getWineById!.data!.image!,
-                            width: 30.w,
-                            fit: BoxFit.contain,
+              GestureDetector(
+                onTap: (){
+                  Provider.of<CartViewModel>(context, listen: false)
+                      .callWineDetails(wineReviewViewModel.getReviewListResponse
+                      .data!
+                      .getAllFeedbacks!
+                      .data![wineReviewViewModel.getReviewIndex]
+                      .wine!.id)
+                      .then((value) => Navigator.of(context)
+                      .pushNamed('/wines_details', arguments: false));
+                },
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 100.h,
+                  child: Card(
+                    elevation: 10,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 20, bottom: 20, left: 20),
+                          child: Center(
+                            child: Image.network(
+                              wineReviewViewModel
+                                  .getReviewListResponse
+                                  .data!
+                                  .getAllFeedbacks!
+                                  .data![wineReviewViewModel.getReviewIndex]
+                                  .wine!
+                                  .image!,
+                              width: 30.w,
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              GoogleFontText4(
-                                data: wineReviewViewModel.getWineDetailResponse
-                                    .data!.getWineById!.data!.wineName!,
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              NormalFontText5(
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                GoogleFontText4(
                                   data: wineReviewViewModel
-                                      .getWineDetailResponse
+                                      .getReviewListResponse
                                       .data!
-                                      .getWineById!
-                                      .data!
-                                      .wineType!),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              NormalFontText5(
-                                  data: wineReviewViewModel
-                                      .getWineDetailResponse
-                                      .data!
-                                      .getWineById!
-                                      .data!
-                                      .age!
-                                      .toString()),
-                            ],
+                                      .getAllFeedbacks!
+                                      .data![wineReviewViewModel.getReviewIndex]
+                                      .wine!
+                                      .wineName!,
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                NormalFontText5(
+                                    data: wineReviewViewModel
+                                        .getReviewListResponse
+                                        .data!
+                                        .getAllFeedbacks!
+                                        .data![wineReviewViewModel.getReviewIndex]
+                                        .wine!
+                                        .wineType!),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: NormalFontText5(
+                                          data: wineReviewViewModel
+                                              .getReviewListResponse
+                                              .data!
+                                              .getAllFeedbacks!
+                                              .data![wineReviewViewModel.getReviewIndex]
+                                              .wine!
+                                              .age!
+                                              .toString()),
+                                    ),
+                                    const NormalFontText5(
+                                        data:'SHOP NOW'),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -110,13 +134,18 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'FRUIT FORWARD',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .fruitForward!
+                                .toDouble(),
                             direction: Axis.horizontal,
-                            //allowHalfRating: true,
                             itemCount: 5,
                             itemPadding:
                                 const EdgeInsets.symmetric(horizontal: 1.0),
@@ -124,10 +153,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setFruitForward(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -141,11 +167,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'BERRYS',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .berrys!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -155,10 +187,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setBerrys(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -172,11 +201,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'FULL-BODIED',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .fullBodied!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -185,10 +220,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setFullBodied(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -202,11 +234,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'THIN',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .thin!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -215,10 +253,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setThin(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -232,11 +267,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'LONG FINISH',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .longFinish!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -245,10 +286,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setLongFinish(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -262,11 +300,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'BALANCE',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .bakance!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -275,10 +319,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setBakance(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -292,11 +333,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'COMPLEX',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .complex!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -305,10 +352,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setComplex(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -322,11 +366,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'ELEGANT',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .elegant!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -335,10 +385,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setElegant(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -352,11 +399,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'CHEWY',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .chewy!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -365,10 +418,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setChewy(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -382,11 +432,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'SOFT',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .soft!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -395,10 +451,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setSoft(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -412,11 +465,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'SILKY',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .silky!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -425,10 +484,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setSilky(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -442,11 +498,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'BURN',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .burn!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -455,10 +517,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setBurn(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -472,11 +531,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'JAMMY',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .jammy!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -485,10 +550,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setJammy(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -502,11 +564,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'BELL PEPPER',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .bellPepper!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -515,10 +583,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setBellpepper(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -532,11 +597,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'SPICY',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .spicy!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -545,10 +616,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setSpicy(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -562,11 +630,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'TOASTY',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .toasty!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -575,10 +649,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setToasty(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -592,11 +663,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'OAK',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .oak!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -605,10 +682,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setOak(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -622,11 +696,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'VEGETABLE',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .vegetable!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -635,10 +715,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setVegetable(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -652,11 +729,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'MINERALITY',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .minerality!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -665,10 +748,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setMinerality(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -682,11 +762,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'RUBBER',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .rubber!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -695,10 +781,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setRubber(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -712,11 +795,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'SMOKY',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .smoky!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -725,10 +814,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setSmoky(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -742,11 +828,17 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             data: 'AGE OF WINE',
                           )),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             unratedColor: CustomColors.tintPurple,
                             glow: false,
                             itemSize: 25,
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: wineReviewViewModel
+                                .getReviewListResponse
+                                .data!
+                                .getAllFeedbacks!
+                                .data![wineReviewViewModel.getReviewIndex]
+                                .ageOfWine!
+                                .toDouble(),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -755,10 +847,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                               Icons.star,
                               color: CustomColors.golden,
                             ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                              wineReviewViewModel.setAgeOfWine(rating);
-                            },
+                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),
@@ -769,22 +858,30 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                         data: 'DETAIL REVIEW OF WINES AND WINERY EXPERIENCE.',
                       ),
                       SizedBox(
+                        height: 10.h,
+                      ),
+                      NormalFontText2(data: '${wineReviewViewModel
+                          .getReviewListResponse
+                          .data!
+                          .getAllFeedbacks!
+                          .data![wineReviewViewModel.getReviewIndex].comment}',),
+                      SizedBox(
                         height: 20.h,
                       ),
-                      TextField(
+                    /*  TextField(
                         maxLines: 10,
                         maxLength: 500,
                         controller: wineReviewViewModel.detailController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'PLEASE ANSWER HERE',
-                          /* errorText:
+                          *//* errorText:
                             wineReviewViewModel.detailController.text.isEmpty
                                 ? 'Please Fill Details'
-                                : null*/
+                                : null*//*
                         ),
-                      ),
-                      SizedBox(
+                      ),*/
+                      /*SizedBox(
                         height: 20.h,
                       ),
                       CustomButton1(
@@ -792,16 +889,16 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                           onPressed: () {
                             wineReviewViewModel.callReviewOrder(
                                 Provider.of<AuthViewModel>(context,
-                                        listen: false)
+                                    listen: false)
                                     .getUserDataResponse
                                     .id,
                                 context);
-                            /* Navigator.pushNamedAndRemoveUntil(
+                            */ /* Navigator.pushNamedAndRemoveUntil(
                                 context,
                                 '/review_submission',
                                 (route) =>
-                                    route.settings.name == "/tasting_list");*/
-                          })
+                                    route.settings.name == "/tasting_list");*/ /*
+                          })*/
                     ],
                   ),
                 ),

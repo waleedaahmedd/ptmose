@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:ptmose/utils/custom_colors.dart';
 import 'package:ptmose/view_model/auth_view_model.dart';
+import 'package:ptmose/view_model/wine_review_view_model.dart';
 
 import '../utils/shared_pref .dart';
 import '../utils/custom_font_style.dart';
@@ -99,7 +101,10 @@ class DrawerWidget extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 Navigator.pop(context);
-                //Navigator.of(context).pushNamed('/my_reservation');
+                Navigator.of(context);
+                Provider.of<AuthViewModel>(context, listen: false).getGuestUser
+                    ? Navigator.of(context).pushNamed('/login')
+                    : Navigator.of(context).pushNamed('/my_review');
               },
               child: Row(children: [
                 Image.asset(
@@ -141,8 +146,7 @@ class DrawerWidget extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context)
-                    .pushNamed('/about');
+                Navigator.of(context).pushNamed('/about');
                 //Navigator.pushNamed(context, '/shop');
               },
               child: Row(children: [
@@ -185,7 +189,7 @@ class DrawerWidget extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: GestureDetector(
               onTap: () {
-                sharedPref.remove('userData');
+                Provider.of<AuthViewModel>(context, listen: false).signOut();
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     '/login', ModalRoute.withName('/'));
               },

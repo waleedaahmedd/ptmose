@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:ptmose/utils/custom_colors.dart';
@@ -8,13 +9,18 @@ import '../models/responses/tastings_response.dart';
 import '../models/responses/wineries_and_testing_response.dart';
 import '../utils/custom_font_style.dart';
 import '../view_model/tasting_details_view_model.dart';
+import '../view_model/winery_details_view_model.dart';
 
 class TastingHorizontalListWidget extends StatelessWidget {
   const TastingHorizontalListWidget(
-      {Key? key, required this.tastingList, required this.listScrollable})
+      {Key? key,
+      required this.tastingList,
+      required this.listScrollable,
+      required this.onTapTastingDetails})
       : super(key: key);
   final List<Tastings> tastingList;
   final bool listScrollable;
+  final Function onTapTastingDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +38,7 @@ class TastingHorizontalListWidget extends StatelessWidget {
             width: 250.w,
             child: GestureDetector(
               onTap: () {
+                onTapTastingDetails();
                 Provider.of<TastingDetailsViewModel>(context, listen: false)
                     .callTastingDetails(tastingList[index].id)
                     .then((value) =>

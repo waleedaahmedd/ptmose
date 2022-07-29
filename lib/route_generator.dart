@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ptmose/Screens/login_screen.dart';
 import 'package:ptmose/Screens/my_reservation_screen.dart';
+import 'package:ptmose/Screens/my_review_detail_screen.dart';
+import 'package:ptmose/Screens/my_review_screen.dart';
 import 'package:ptmose/Screens/splash_screen.dart';
 import 'package:ptmose/Screens/tasting_list_screen.dart';
 
@@ -33,7 +35,7 @@ class RouteGenerator {
       case '/home':
         return MaterialPageRoute(builder: (_) =>  const HomeScreen());
       case '/wineryDetails':
-        return MaterialPageRoute(builder: (_) =>   WineryDetailsScreen());
+        return MaterialPageRoute(builder: (_) =>   const WineryDetailsScreen());
       case '/my_reservation':
         return MaterialPageRoute(builder: (_) =>  const MyReservationScreen());
       case '/tasting_list':
@@ -54,6 +56,11 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) =>  const CartScreen());
       case '/about':
         return MaterialPageRoute(builder: (_) =>  const AboutScreen());
+      case '/my_review':
+        return MaterialPageRoute(builder: (_) =>  const MyReviewScreen());
+
+      case '/my_review_Details':
+        return MaterialPageRoute(builder: (_) =>  const MyReviewDetailScreen());
 
       default:
         return _errorRoute();

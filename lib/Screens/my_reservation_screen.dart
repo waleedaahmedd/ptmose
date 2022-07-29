@@ -144,6 +144,7 @@ class _MyReservationScreenState extends State<MyReservationScreen> {
               //TODO: call List
               Flexible(
                 child: TestingVerticalListWidget(
+                  comingFromWinery: false,
                     tastingList: myReservationViewModel.getConfirmedReservations? myReservationViewModel.getConfirmReservationList : myReservationViewModel.getUnConfirmReservationList, listScrollable: true,),
               ),
             ],

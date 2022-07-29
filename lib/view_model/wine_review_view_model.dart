@@ -1,16 +1,22 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:ptmose/models/responses/submit_order_response.dart';
+import 'package:ptmose/models/requests/review_list_request.dart';
 import 'package:ptmose/models/responses/submit_review_response.dart';
 
 import '../Service/api_service.dart';
 import '../models/requests/submit_review_request.dart';
+import '../models/responses/review_list_response.dart';
 import '../models/responses/wine_detail_response.dart';
 
 class WineReviewViewModel with ChangeNotifier {
   TextEditingController detailController = TextEditingController();
+  List<GetAllFeedbacksData> _wineReviewList = [];
   WineDetailResponse? _wineDetailResponse;
+  ReviewListResponse? _reviewListResponse;
   SubmitReviewResponse? _submitReviewResponse;
+
+  int? _reviewIndex;
   num _fruitForward = 0;
   num _berrys = 0;
   num _fullBodied = 0;
@@ -34,7 +40,14 @@ class WineReviewViewModel with ChangeNotifier {
   num _smoky = 0;
   num _ageOfWine = 0;
 
+  int get getReviewIndex => _reviewIndex!;
+
   WineDetailResponse get getWineDetailResponse => _wineDetailResponse!;
+
+  List<GetAllFeedbacksData> get getWineReviewList => _wineReviewList;
+
+  ReviewListResponse get getReviewListResponse => _reviewListResponse!;
+
 
   SubmitReviewResponse get getSubmitReviewResponse => _submitReviewResponse!;
 
@@ -84,6 +97,14 @@ class WineReviewViewModel with ChangeNotifier {
 
   void setAgeOfWine(num value) {
     _ageOfWine = value;
+    notifyListeners();
+  }
+  void setReviewIndex(int value) {
+    _reviewIndex = value;
+    notifyListeners();
+  }
+  void setWineReviewList(List<GetAllFeedbacksData> value) {
+    _wineReviewList = value;
     notifyListeners();
   }
 
@@ -198,6 +219,11 @@ class WineReviewViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void setReviewListResponse(ReviewListResponse value) {
+    _reviewListResponse = value;
+    notifyListeners();
+  }
+
   void setSubmitReviewResponse(SubmitReviewResponse value) {
     _submitReviewResponse = value;
     notifyListeners();
@@ -246,6 +272,26 @@ class WineReviewViewModel with ChangeNotifier {
       }
     } else {
       EasyLoading.dismiss();
+    }
+  }
+
+  Future<void> callWinesReviewApi({required int userId}) async {
+    EasyLoading.show(status: 'Please Wait...');
+   // _winesList.clear();
+    ReviewListRequest reviewListRequest = ReviewListRequest(userId: userId);
+
+    final response = await getReviews(reviewListRequest: reviewListRequest);
+    if (response != null) {
+      setReviewListResponse(response);
+
+      if (_reviewListResponse!.data!.getAllFeedbacks!.data!.isNotEmpty) {
+        setWineReviewList(_reviewListResponse!.data!.getAllFeedbacks!.data!);
+      }
+      EasyLoading.dismiss();
+     // return _reviewListResponse!.data!.getAllFeedbacks!.status!;
+    } else {
+      EasyLoading.dismiss();
+     // return false;
     }
   }
 }

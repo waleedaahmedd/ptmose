@@ -110,21 +110,47 @@ class _TastingDetailsScreenState extends State<TastingDetailsScreen> {
                                     )),
                               ),
                             ),
-                            Card(
-                                color: CustomColors.purple,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 20.0, vertical: 20.0),
-                                  child: Center(
-                                      child: Icon(
-                                    Icons.calendar_today_outlined,
-                                    size: 15,
-                                    color: Colors.white,
+                            GestureDetector(
+                              onTap: () {
+                                Provider.of<WineryDetailsViewModel>(context,
+                                        listen: false)
+                                    .setShowWineriesShop(true);
+                                Provider.of<WineryDetailsViewModel>(context,
+                                            listen: false)
+                                        .getIsWineryDetailScreenEnable
+                                    ? Navigator.pop(context)
+                                    : Provider.of<WineryDetailsViewModel>(
+                                            context,
+                                            listen: false)
+                                        .callWineriesDetails(
+                                            tastingDetailsViewModel
+                                                .getTastingsDetailResponse
+                                                .data!
+                                                .getTastingById!
+                                                .data!
+                                                .wineryId)
+                                        .then((value) {
+                                        Navigator.of(context)
+                                            .pushNamed('/wineryDetails');
+                                      });
+
+                              },
+                              child: Card(
+                                  color: CustomColors.purple,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20.0, vertical: 20.0),
+                                    child: Center(
+                                        child: Icon(
+                                      Icons.calendar_today_outlined,
+                                      size: 15,
+                                      color: Colors.white,
+                                    )),
                                   )),
-                                )),
+                            ),
                           ],
                         ),
                       ],
@@ -151,14 +177,17 @@ class _TastingDetailsScreenState extends State<TastingDetailsScreen> {
                         SizedBox(
                           height: 211.h,
                           width: double.infinity,
-                          child: tastingDetailsViewModel.getWinesList.isNotEmpty?WinesHorizontalListWidget(
-                            listScrollable: true,
-                            winesList: tastingDetailsViewModel.getWinesList,
-                          ):const Center(
-                            child: NormalFontText1(
-                              data: 'Sorry Currently No Wines Found',
-                            ),
-                          ),
+                          child: tastingDetailsViewModel.getWinesList.isNotEmpty
+                              ? WinesHorizontalListWidget(
+                                  listScrollable: true,
+                                  winesList:
+                                      tastingDetailsViewModel.getWinesList,
+                                )
+                              : const Center(
+                                  child: NormalFontText1(
+                                    data: 'Sorry Currently No Wines Found',
+                                  ),
+                                ),
                         ),
                       ],
                     ),

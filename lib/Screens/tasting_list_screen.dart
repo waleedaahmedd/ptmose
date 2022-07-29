@@ -52,6 +52,7 @@ class _TastingListScreenState extends State<TastingListScreen> {
                     )
                   : Flexible(
                       child: TestingVerticalListWidget(
+                        comingFromWinery: false,
                         tastingList: locationViewModel.getTastingListByLocation,
                         listScrollable: true,
                       ),

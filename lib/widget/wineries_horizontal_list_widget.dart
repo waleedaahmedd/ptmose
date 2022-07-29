@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +32,8 @@ class WineriesHorizontalListWidget extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 //Navigator.of(context).pushNamed('/shop');
-                /* : Navigator.of(context).pushReplacementNamed('/shop');*/
+ : Navigator.of(context).pushReplacementNamed('/shop');
+
               },
               child: Card(
                 elevation: 10,
@@ -125,3 +127,4 @@ class WineriesHorizontalListWidget extends StatelessWidget {
     );
   }
 }
+*/

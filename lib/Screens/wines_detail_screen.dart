@@ -54,6 +54,12 @@ class _WinesDetailScreenState extends State<WinesDetailScreen> {
                       .getWineDetailResponse.data!.getWineById!.data!.wineName!,
                 ),
                 SizedBox(
+                  height: 5.h,
+                ),
+                GoogleFontText4(
+                  data: '\(${cartViewModel.getWineDetailResponse.data!.getWineById!.data!.wineries!.wineryName!}\)',
+                ),
+                SizedBox(
                   height: 10.h,
                 ),
                 NormalFontText5(

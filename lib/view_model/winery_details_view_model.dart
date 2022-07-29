@@ -11,6 +11,8 @@ class WineryDetailsViewModel with ChangeNotifier {
   final List<Tastings> _tastingList = [];
   final List<Wine> _winesList = [];
   WineriesDetailsResponse? _wineriesDetailsResponse;
+  bool _showWineriesShop = false;
+  bool _isWineryDetailScreenEnable = false;
 
   WineriesDetailsResponse get getWineriesDetailsResponse =>
       _wineriesDetailsResponse!;
@@ -18,6 +20,20 @@ class WineryDetailsViewModel with ChangeNotifier {
   List<Tastings> get getTastingList => _tastingList;
 
   List<Wine> get getWinesList => _winesList;
+
+  bool get getShowWineriesShop => _showWineriesShop;
+
+  bool get getIsWineryDetailScreenEnable => _isWineryDetailScreenEnable;
+
+  void setShowWineriesShop(bool value) {
+    _showWineriesShop = value;
+    notifyListeners();
+  }
+
+  void setIsWineryDetailScreenEnable(bool value) {
+    _isWineryDetailScreenEnable = value;
+    notifyListeners();
+  }
 
   void setWineriesDetailsResponse(WineriesDetailsResponse value) {
     _wineriesDetailsResponse = value;

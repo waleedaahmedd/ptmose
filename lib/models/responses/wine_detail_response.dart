@@ -4,11 +4,11 @@ class WineDetailResponse {
   WineDetailResponse({this.data});
 
   WineDetailResponse.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new WineDetailResponseData.fromJson(json['data']) : null;
+    data = json['data'] != null ? WineDetailResponseData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -23,14 +23,14 @@ class WineDetailResponseData {
 
   WineDetailResponseData.fromJson(Map<String, dynamic> json) {
     getWineById = json['getWineById'] != null
-        ? new GetWineById.fromJson(json['getWineById'])
+        ? GetWineById.fromJson(json['getWineById'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.getWineById != null) {
-      data['getWineById'] = this.getWineById!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (getWineById != null) {
+      data['getWineById'] = getWineById!.toJson();
     }
     return data;
   }
@@ -46,13 +46,13 @@ class GetWineById {
   GetWineById.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new GetWineByIdData.fromJson(json['data']) : null;
+    data = json['data'] != null ? GetWineByIdData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -61,6 +61,7 @@ class GetWineById {
 }
 
 class GetWineByIdData {
+  Wineries? wineries;
   int? id;
   String? wineName;
   String? wineType;
@@ -71,7 +72,8 @@ class GetWineByIdData {
   String? image;
 
   GetWineByIdData(
-      {this.id,
+      {this.wineries,
+        this.id,
         this.wineName,
         this.wineType,
         this.age,
@@ -81,6 +83,9 @@ class GetWineByIdData {
         this.image});
 
   GetWineByIdData.fromJson(Map<String, dynamic> json) {
+    wineries = json['Wineries'] != null
+        ? Wineries.fromJson(json['Wineries'])
+        : null;
     id = json['id'];
     wineName = json['wineName'];
     wineType = json['wineType'];
@@ -92,15 +97,34 @@ class GetWineByIdData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['wineName'] = this.wineName;
-    data['wineType'] = this.wineType;
-    data['age'] = this.age;
-    data['price'] = this.price;
-    data['tags'] = this.tags;
-    data['description'] = this.description;
-    data['image'] = this.image;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (wineries != null) {
+      data['Wineries'] = wineries!.toJson();
+    }
+    data['id'] = id;
+    data['wineName'] = wineName;
+    data['wineType'] = wineType;
+    data['age'] = age;
+    data['price'] = price;
+    data['tags'] = tags;
+    data['description'] = description;
+    data['image'] = image;
+    return data;
+  }
+}
+
+class Wineries {
+  String? wineryName;
+
+  Wineries({this.wineryName});
+
+  Wineries.fromJson(Map<String, dynamic> json) {
+    wineryName = json['wineryName'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['wineryName'] = wineryName;
     return data;
   }
 }

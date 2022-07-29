@@ -6,16 +6,29 @@ import 'package:ptmose/models/responses/tastings_response.dart';
 import '../utils/custom_colors.dart';
 import '../utils/custom_font_style.dart';
 import '../view_model/tasting_details_view_model.dart';
+import '../view_model/winery_details_view_model.dart';
 
 class TestingVerticalListWidget extends StatelessWidget {
-  const TestingVerticalListWidget({Key? key, required this.listScrollable, required this.tastingList}) : super(key: key);
+  const TestingVerticalListWidget(
+      {Key? key,
+      required this.listScrollable,
+      required this.tastingList,
+      required this.comingFromWinery})
+      : super(key: key);
   final bool listScrollable;
   final List<Tastings> tastingList;
+  final bool comingFromWinery;
 
   @override
   Widget build(BuildContext context) {
+    comingFromWinery
+        ? Provider.of<WineryDetailsViewModel>(context, listen: false)
+            .setIsWineryDetailScreenEnable(true)
+        : Provider.of<WineryDetailsViewModel>(context, listen: false)
+            .setIsWineryDetailScreenEnable(false);
     return ListView.builder(
-      physics: listScrollable == false? const NeverScrollableScrollPhysics() : null  ,
+      physics:
+          listScrollable == false ? const NeverScrollableScrollPhysics() : null,
       itemCount: tastingList.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
@@ -26,7 +39,7 @@ class TestingVerticalListWidget extends StatelessWidget {
               Provider.of<TastingDetailsViewModel>(context, listen: false)
                   .callTastingDetails(tastingList[index].id)
                   .then((value) =>
-                  Navigator.of(context).pushNamed('/tasting_details'));
+                      Navigator.of(context).pushNamed('/tasting_details'));
             },
             child: SizedBox(
               width: double.infinity,
@@ -58,7 +71,8 @@ class TestingVerticalListWidget extends StatelessWidget {
                             SizedBox(
                               height: 2.h,
                             ),
-                            GoogleFontText4(data: '${tastingList[index].tastingName}'),
+                            GoogleFontText4(
+                                data: '${tastingList[index].tastingName}'),
                             SizedBox(
                               height: 2.h,
                             ),
@@ -90,7 +104,8 @@ class TestingVerticalListWidget extends StatelessWidget {
                                   width: 10.w,
                                 ),
                                 NormalFontText4(
-                                    data: '${tastingList[index].startTime} - ${tastingList[index].endTime} PST'),
+                                    data:
+                                        '${tastingList[index].startTime} - ${tastingList[index].endTime} PST'),
                               ],
                             ),
                             SizedBox(
@@ -108,7 +123,8 @@ class TestingVerticalListWidget extends StatelessWidget {
                                 ),
                                 Flexible(
                                   child: NormalFontText4(
-                                      data: '${tastingList[index].locationName}'),
+                                      data:
+                                          '${tastingList[index].locationName}'),
                                 ),
                               ],
                             ),

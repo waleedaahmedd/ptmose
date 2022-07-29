@@ -10,6 +10,7 @@ import 'package:ptmose/view_model/locations_view_model.dart';
 
 import '../utils/custom_colors.dart';
 import '../view_model/home_view_model.dart';
+import '../view_model/winery_details_view_model.dart';
 import '../widget/app_bar_widget.dart';
 import '../widget/bottom_buttons_widget.dart';
 import '../widget/drawer_widget.dart';
@@ -48,9 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const LocationWidget(
-
-                    ),
+                    const LocationWidget(),
                     SizedBox(
                       height: 20.h,
                     ),
@@ -74,23 +73,29 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 10.h,
                     ),
                     //TODO: call List
-                    locationViewModel.getTastingList.isEmpty?
-                    const Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 20.0),
-                        child: NormalFontText1(
-                          data: 'Sorry No Tastings Are Found At This Location',
-                        ),
-                      ),
-                    ):
-                    SizedBox(
-                      height: 300.h,
-                      width: double.infinity,
-                      child: TastingHorizontalListWidget(
-                        tastingList: locationViewModel.getTastingList,
-                        listScrollable: true,
-                      ),
-                    ),
+                    locationViewModel.getTastingList.isEmpty
+                        ? const Center(
+                            child: Padding(
+                              padding: EdgeInsets.only(bottom: 20.0),
+                              child: NormalFontText1(
+                                data:
+                                    'Sorry No Tastings Are Found At This Location',
+                              ),
+                            ),
+                          )
+                        : SizedBox(
+                            height: 300.h,
+                            width: double.infinity,
+                            child: TastingHorizontalListWidget(
+                              onTapTastingDetails: () {
+                                Provider.of<WineryDetailsViewModel>(context,
+                                        listen: false)
+                                    .setIsWineryDetailScreenEnable(false);
+                              },
+                              tastingList: locationViewModel.getTastingList,
+                              listScrollable: true,
+                            ),
+                          ),
                     SizedBox(
                       height: 5.h,
                     ),
@@ -117,7 +122,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     locationViewModel.getWineriesList.isEmpty
                         ? const Center(
                             child: NormalFontText1(
-                              data: 'Sorry No Wineries Are Found At This Location',
+                              data:
+                                  'Sorry No Wineries Are Found At This Location',
                             ),
                           )
                         : WineriesVerticalListWidget(
@@ -131,7 +137,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            const BottomButtonsWidget(homeScreen: true,)
+            const BottomButtonsWidget(
+              homeScreen: true,
+            )
           ],
         ),
       );
@@ -144,6 +152,4 @@ class _HomeScreenState extends State<HomeScreen> {
           .callLocationsListApi(context);
     });
   }
-
-
 }

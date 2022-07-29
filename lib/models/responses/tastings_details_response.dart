@@ -65,6 +65,7 @@ class GetTastingById {
 
 class GetTastingByIdData {
   int? id;
+  int? wineryId;
   String? img;
   String? date;
   String? startTime;
@@ -78,6 +79,7 @@ class GetTastingByIdData {
 
   GetTastingByIdData(
       {this.id,
+        this.wineryId,
         this.img,
         this.date,
         this.startTime,
@@ -91,6 +93,7 @@ class GetTastingByIdData {
 
   GetTastingByIdData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    wineryId = json['wineryId'];
     img = json['img'];
     date = DateTimeFormatter.showDate(json['date']);
     startTime = DateTimeFormatter.showTime(json['startTime']);
@@ -116,6 +119,7 @@ class GetTastingByIdData {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['wineryId'] = wineryId;
     data['img'] = img;
     data['date'] = date;
     data['startTime'] = startTime;
