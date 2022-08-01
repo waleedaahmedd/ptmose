@@ -64,10 +64,15 @@ class DrawerWidget extends StatelessWidget {
                       data: Provider.of<AuthViewModel>(context, listen: false)
                           .getUserName,
                     ),
-                    const Icon(
-                      Icons.mode_edit_outlined,
-                      color: CustomColors.golden,
-                    )
+                    IconButton(
+                        color: CustomColors.golden,
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Provider.of<AuthViewModel>(context, listen: false).getGuestUser
+                              ? Navigator.of(context).pushNamed('/login'):
+                          Navigator.of(context).pushNamed('/edit_profile');
+                        },
+                        icon: const Icon(Icons.mode_edit_outlined))
                   ],
                 ),
               ],
@@ -168,7 +173,12 @@ class DrawerWidget extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 Navigator.pop(context);
-                //Navigator.pushNamed(context, '/shop');
+                Provider.of<AuthViewModel>(context, listen: false).oldPasswordController.clear();
+                Provider.of<AuthViewModel>(context, listen: false).passwordController.clear();
+                Provider.of<AuthViewModel>(context, listen: false).confirmPasswordController.clear();
+                Provider.of<AuthViewModel>(context, listen: false).getGuestUser
+                    ? Navigator.of(context).pushNamed('/login'):
+                Navigator.pushNamed(context, '/settings');
               },
               child: Row(children: [
                 Image.asset(

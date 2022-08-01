@@ -3,9 +3,13 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ptmose/models/requests/change_name_request.dart';
+import 'package:ptmose/models/requests/change_password_request.dart';
 import 'package:ptmose/models/responses/auth_response/login_response.dart';
 import 'package:ptmose/models/responses/auth_response/social_media_login_response.dart';
 import 'package:ptmose/models/responses/auth_response/user_data_response.dart';
+import 'package:ptmose/models/responses/change_name_response.dart';
+import 'package:ptmose/models/responses/change_password_response.dart';
 
 import '../Service/api_service.dart';
 import '../models/requests/auth_request/login_request.dart';
@@ -16,11 +20,13 @@ import '../utils/shared_pref .dart';
 
 class AuthViewModel with ChangeNotifier {
   TextEditingController emailController = TextEditingController();
+  TextEditingController oldPasswordController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   String _emailValidateMessage = '';
   String _passwordValidateMessage = '';
+  String _oldPasswordValidateMessage = '';
   String _nameValidateMessage = '';
   String _confirmPasswordValidateMessage = '';
   String _fcmToken = '';
@@ -28,6 +34,8 @@ class AuthViewModel with ChangeNotifier {
 
   LoginResponse? _loginResponse;
   SignUpResponse? _signUpResponse;
+  ChangePasswordResponse? _changePasswordResponse;
+  ChangeNameResponse? _changeNameResponse;
   SocialMediaLoginResponse? _socialMediaLoginResponse;
 
   UserDataResponse? _userDataResponse;
@@ -40,6 +48,8 @@ class AuthViewModel with ChangeNotifier {
   String get getEmailValidateMessage => _emailValidateMessage;
 
   String get getPasswordValidateMessage => _passwordValidateMessage;
+
+  String get getOldPasswordValidateMessage => _oldPasswordValidateMessage;
 
   String get getNameValidateMessage => _nameValidateMessage;
 
@@ -55,6 +65,11 @@ class AuthViewModel with ChangeNotifier {
   bool get getShowPassword => _showPassword;
 
   LoginResponse get getLoginResponse => _loginResponse!;
+
+  ChangePasswordResponse get getChangePasswordResponse =>
+      _changePasswordResponse!;
+
+  ChangeNameResponse get getChangeNameResponse => _changeNameResponse!;
 
   SignUpResponse get getSignUpResponse => _signUpResponse!;
 
@@ -83,6 +98,11 @@ class AuthViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void setOldPasswordValidateMessage(String value) {
+    _oldPasswordValidateMessage = value;
+    notifyListeners();
+  }
+
   void setNameValidateMessage(String value) {
     _nameValidateMessage = value;
     notifyListeners();
@@ -105,6 +125,16 @@ class AuthViewModel with ChangeNotifier {
 
   void setLoginResponse(LoginResponse value) {
     _loginResponse = value;
+    notifyListeners();
+  }
+
+  void setChangePasswordResponse(ChangePasswordResponse value) {
+    _changePasswordResponse = value;
+    notifyListeners();
+  }
+
+  void setChangeNameResponse(ChangeNameResponse value) {
+    _changeNameResponse = value;
     notifyListeners();
   }
 
@@ -174,6 +204,87 @@ class AuthViewModel with ChangeNotifier {
       return true;
     } else {
       return false;
+    }
+  }
+
+  changeNameValidation() {
+    nameController.text.isEmpty
+        ? setNameValidateMessage('Please Enter Full Name')
+        : setNameValidateMessage('');
+
+    if (_nameValidateMessage.isEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  changePasswordValidation() {
+    oldPasswordController.text.isEmpty
+        ? setPasswordValidateMessage('Please Enter Password')
+        : setPasswordValidateMessage('');
+
+    passwordController.text.isEmpty
+        ? setPasswordValidateMessage('Please Enter Password')
+        : setPasswordValidateMessage('');
+
+    confirmPasswordController.text.isEmpty ||
+            confirmPasswordController.text != passwordController.text
+        ? setConfirmPasswordValidateMessage('Passwords are not matched')
+        : setConfirmPasswordValidateMessage('');
+
+    if (_passwordValidateMessage.isEmpty &&
+        _oldPasswordValidateMessage.isEmpty &&
+        _confirmPasswordValidateMessage.isEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> callChangePasswordApi() async {
+    EasyLoading.show(status: 'Please Wait...');
+    ChangePasswordRequest changePasswordRequest = ChangePasswordRequest(
+        userId: _userDataResponse!.id!,
+        newPassword: passwordController.text,
+        currentPassword: oldPasswordController.text);
+    final response =
+        await changePasswordApi(changePasswordRequest: changePasswordRequest);
+    if (response != null) {
+      setChangePasswordResponse(response);
+      if(_changePasswordResponse!.data!.changePassword!.status! == true) {
+        EasyLoading.showSuccess(_changePasswordResponse!.data!.changePassword!.message!);
+      }
+      else{
+        EasyLoading.showError(_changePasswordResponse!.data!.changePassword!.message!);
+      }
+      return _changePasswordResponse!.data!.changePassword!.status!;
+    } else {
+      EasyLoading.showError('Something Went Wrong');
+      return _changePasswordResponse!.data!.changePassword!.status!;
+    }
+  }
+
+  Future<bool> callChangeNameApi() async {
+    EasyLoading.show(status: 'Please Wait...');
+    ChangeNameRequest changeNameRequest = ChangeNameRequest(
+        userId: _userDataResponse!.id!, name: nameController.text);
+    final response =
+    await changeNameApi(changeNameRequest: changeNameRequest);
+    if (response != null) {
+      setChangeNameResponse(response);
+      if(_changeNameResponse!.data!.updateProfile!.status! == true) {
+        EasyLoading.showSuccess(_changeNameResponse!.data!.updateProfile!.message!);
+      }
+      else{
+        EasyLoading.showError(_changeNameResponse!.data!.updateProfile!.message!);
+      }
+      return _changeNameResponse!.data!.updateProfile!.status!;
+
+    } else {
+      EasyLoading.showError('Something Went Wrong');
+      return _changeNameResponse!.data!.updateProfile!.status!;
+
     }
   }
 
