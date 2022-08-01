@@ -4,16 +4,19 @@ import 'dart:io';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:ptmose/models/requests/auth_request/sign_up_request.dart';
+import 'package:ptmose/models/requests/change_name_request.dart';
 import 'package:ptmose/models/requests/review_list_request.dart';
 import 'package:ptmose/models/requests/tastings_details_request.dart';
 import 'package:ptmose/models/requests/wineries_list_by_location_request.dart';
 import 'package:ptmose/models/responses/auth_response/sign_up_response.dart';
+import 'package:ptmose/models/responses/change_password_response.dart';
 import 'package:ptmose/models/responses/review_list_response.dart';
 import 'package:ptmose/models/responses/tastings_details_response.dart';
 import 'package:ptmose/models/responses/wineries_list_by_location_reaponse.dart';
 
 import '../models/orderItemModel.dart';
 import '../models/requests/auth_request/social_media_login_request.dart';
+import '../models/requests/change_password_request.dart';
 import '../models/requests/location_request.dart';
 import '../models/requests/auth_request/login_request.dart';
 import '../models/requests/reserve_tasting_request.dart';
@@ -27,6 +30,7 @@ import '../models/requests/wineries_details_request.dart';
 import '../models/requests/wines_list_request.dart';
 import '../models/responses/auth_response/login_response.dart';
 import '../models/responses/auth_response/social_media_login_response.dart';
+import '../models/responses/change_name_response.dart';
 import '../models/responses/locations_model.dart';
 import '../models/responses/reserve_tasting_response.dart';
 import '../models/responses/submit_order_response.dart';
@@ -301,7 +305,7 @@ Future<ReviewListResponse?> getReviews(
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
     ReviewListResponse reviewListResponse =
-    ReviewListResponse.fromJson(json.decode(responseData.body));
+        ReviewListResponse.fromJson(json.decode(responseData.body));
 
     return reviewListResponse;
   } else {
@@ -331,8 +335,8 @@ Future<WineriesListByLocationResponse?> getAllWineriesListByLocation(
 }
 
 Future<TastingListByLocationResponse?> getAllTastingListByLocation(
-{required TastingListByLocationRequest tastingListByLocationRequest}) async {
-
+    {required TastingListByLocationRequest
+        tastingListByLocationRequest}) async {
   var headers = {'Content-Type': 'application/json'};
   var request = http.Request('POST', Uri.parse(_baseURL));
   request.body = tastingListByLocationRequest.generateQuery();
@@ -345,6 +349,48 @@ Future<TastingListByLocationResponse?> getAllTastingListByLocation(
 
     return tastingListByLocationResponse;
   } else {
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
+Future<ChangePasswordResponse?> changePasswordApi(
+    {required ChangePasswordRequest changePasswordRequest}) async {
+  var request = http.Request('POST', Uri.parse(_baseURL));
+
+  request.body = changePasswordRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    ChangePasswordResponse changePasswordResponse =
+        ChangePasswordResponse.fromJson(json.decode(responseData.body));
+
+    return changePasswordResponse;
+  } else {
+    EasyLoading.showError('Something Went Wrong');
+
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
+Future<ChangeNameResponse?> changeNameApi(
+    {required ChangeNameRequest changeNameRequest}) async {
+  var request = http.Request('POST', Uri.parse(_baseURL));
+
+  request.body = changeNameRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    ChangeNameResponse changeNameResponse =
+        ChangeNameResponse.fromJson(json.decode(responseData.body));
+
+    return changeNameResponse;
+  } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }

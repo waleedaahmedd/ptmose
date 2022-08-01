@@ -13,20 +13,15 @@ class TestingVerticalListWidget extends StatelessWidget {
       {Key? key,
       required this.listScrollable,
       required this.tastingList,
-      required this.comingFromWinery})
+      required this.onTapTastingDetails})
       : super(key: key);
   final bool listScrollable;
   final List<Tastings> tastingList;
-  final bool comingFromWinery;
+  final Function onTapTastingDetails;
 
   @override
   Widget build(BuildContext context) {
-    comingFromWinery
-        ? Provider.of<WineryDetailsViewModel>(context, listen: false)
-            .setIsWineryDetailScreenEnable(true)
-        : Provider.of<WineryDetailsViewModel>(context, listen: false)
-            .setIsWineryDetailScreenEnable(false);
-    return ListView.builder(
+      return ListView.builder(
       physics:
           listScrollable == false ? const NeverScrollableScrollPhysics() : null,
       itemCount: tastingList.length,
@@ -36,6 +31,7 @@ class TestingVerticalListWidget extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 10.0),
           child: GestureDetector(
             onTap: () {
+              onTapTastingDetails();
               Provider.of<TastingDetailsViewModel>(context, listen: false)
                   .callTastingDetails(tastingList[index].id)
                   .then((value) =>

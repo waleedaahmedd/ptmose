@@ -167,7 +167,6 @@ class LoginScreen extends StatelessWidget {
                                               alignment: Alignment.centerRight,
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  //  authViewModel.signInWithGoogle();
                                                   authViewModel
                                                       .signInWithGoogle()
                                                       .then((value) {

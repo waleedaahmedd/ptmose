@@ -201,7 +201,7 @@ class LocationsViewModel with ChangeNotifier {
     if (googleMap!) {
       await MapLauncher.showDirections(
         mapType: MapType.google,
-        destination: Coords(37.417824, -95.682510),
+        destination: Coords(_selectedLocation!.lat!, _selectedLocation!.lng!),
       );
     }
   }

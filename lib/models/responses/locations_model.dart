@@ -71,8 +71,10 @@ class LocationData {
   String? img;
   String? createdAt;
   String? updatedAt;
+  double? lat;
+  double? lng;
 
-  LocationData({this.id, this.name, this.img, this.createdAt, this.updatedAt});
+  LocationData({this.id, this.name, this.img, this.createdAt, this.updatedAt, this.lat, this.lng});
 
   LocationData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -80,6 +82,8 @@ class LocationData {
     img = json['img'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    lat = json['lat'];
+    lng = json['lng'];
   }
 
   Map<String, dynamic> toJson() {
@@ -89,6 +93,8 @@ class LocationData {
     data['img'] = img;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
+    data['lat'] = lat;
+    data['lng'] = lng;
     return data;
   }
 }

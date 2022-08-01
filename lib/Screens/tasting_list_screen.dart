@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../utils/custom_font_style.dart';
 import '../view_model/locations_view_model.dart';
 import '../view_model/testing_list_view_model.dart';
+import '../view_model/winery_details_view_model.dart';
 import '../widget/app_bar_widget.dart';
 import '../widget/location_widget.dart';
 import '../widget/testing_vertical_list_widget.dart';
@@ -52,7 +53,11 @@ class _TastingListScreenState extends State<TastingListScreen> {
                     )
                   : Flexible(
                       child: TestingVerticalListWidget(
-                        comingFromWinery: false,
+                        onTapTastingDetails: () {
+                          Provider.of<WineryDetailsViewModel>(context,
+                              listen: false)
+                              .setIsWineryDetailScreenEnable(false);
+                        },
                         tastingList: locationViewModel.getTastingListByLocation,
                         listScrollable: true,
                       ),
