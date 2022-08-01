@@ -169,6 +169,7 @@ class LocationsViewModel with ChangeNotifier {
       EasyLoading.dismiss();
     }
     EasyLoading.dismiss();
+
   }
 
   Future<void> callWineriesAndTastingList(int? locationId) async {
