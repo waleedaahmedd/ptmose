@@ -116,7 +116,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                             initialRating: 0,
                             minRating: 0,
                             direction: Axis.horizontal,
-                            //allowHalfRating: true,
+                            allowHalfRating: true,
                             itemCount: 5,
                             itemPadding:
                                 const EdgeInsets.symmetric(horizontal: 1.0),

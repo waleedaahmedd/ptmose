@@ -17,28 +17,28 @@ class WineReviewViewModel with ChangeNotifier {
   SubmitReviewResponse? _submitReviewResponse;
 
   int? _reviewIndex;
-  num _fruitForward = 0;
-  num _berrys = 0;
-  num _fullBodied = 0;
-  num _thin = 0;
-  num _longFinish = 0;
-  num _bakance = 0;
-  num _complex = 0;
-  num _elegant = 0;
-  num _chewy = 0;
-  num _soft = 0;
-  num _silky = 0;
-  num _burn = 0;
-  num _jammy = 0;
-  num _bellPepper = 0;
-  num _spicy = 0;
-  num _toasty = 0;
-  num _oak = 0;
-  num _vegetable = 0;
-  num _minerality = 0;
-  num _rubber = 0;
-  num _smoky = 0;
-  num _ageOfWine = 0;
+  double _fruitForward = 0;
+  double _berrys = 0;
+  double _fullBodied = 0;
+  double _thin = 0;
+  double _longFinish = 0;
+  double _bakance = 0;
+  double _complex = 0;
+  double _elegant = 0;
+  double _chewy = 0;
+  double _soft = 0;
+  double _silky = 0;
+  double _burn = 0;
+  double _jammy = 0;
+  double _bellPepper = 0;
+  double _spicy = 0;
+  double _toasty = 0;
+  double _oak = 0;
+  double _vegetable = 0;
+  double _minerality = 0;
+  double _rubber = 0;
+  double _smoky = 0;
+  double _ageOfWine = 0;
 
   int get getReviewIndex => _reviewIndex!;
 
@@ -51,51 +51,51 @@ class WineReviewViewModel with ChangeNotifier {
 
   SubmitReviewResponse get getSubmitReviewResponse => _submitReviewResponse!;
 
-  num get getFruitForward => _fruitForward;
+  double get getFruitForward => _fruitForward;
 
-  num get getBerrys => _berrys;
+  double get getBerrys => _berrys;
 
-  num get getFullBodied => _fullBodied;
+  double get getFullBodied => _fullBodied;
 
-  num get getThin => _thin;
+  double get getThin => _thin;
 
-  num get getLongFinish => _longFinish;
+  double get getLongFinish => _longFinish;
 
-  num get getBakance => _bakance;
+  double get getBakance => _bakance;
 
-  num get getComplex => _complex;
+  double get getComplex => _complex;
 
-  num get getElegant => _elegant;
+  double get getElegant => _elegant;
 
-  num get getChewy => _chewy;
+  double get getChewy => _chewy;
 
-  num get getSoft => _soft;
+  double get getSoft => _soft;
 
-  num get getSilky => _silky;
+  double get getSilky => _silky;
 
-  num get getBurn => _burn;
+  double get getBurn => _burn;
 
-  num get getJammy => _jammy;
+  double get getJammy => _jammy;
 
-  num get getBellpepper => _bellPepper;
+  double get getBellpepper => _bellPepper;
 
-  num get getSpicy => _spicy;
+  double get getSpicy => _spicy;
 
-  num get getToasty => _toasty;
+  double get getToasty => _toasty;
 
-  num get getOak => _oak;
+  double get getOak => _oak;
 
-  num get getVegetable => _vegetable;
+  double get getVegetable => _vegetable;
 
-  num get getMinerality => _minerality;
+  double get getMinerality => _minerality;
 
-  num get getRubber => _rubber;
+  double get getRubber => _rubber;
 
-  num get getSmoky => _smoky;
+  double get getSmoky => _smoky;
 
-  num get getAgeOfWine => _ageOfWine;
+  double get getAgeOfWine => _ageOfWine;
 
-  void setAgeOfWine(num value) {
+  void setAgeOfWine(double value) {
     _ageOfWine = value;
     notifyListeners();
   }
@@ -108,107 +108,107 @@ class WineReviewViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void setSmoky(num value) {
+  void setSmoky(double value) {
     _smoky = value;
     notifyListeners();
   }
 
-  void setRubber(num value) {
+  void setRubber(double value) {
     _rubber = value;
     notifyListeners();
   }
 
-  void setMinerality(num value) {
+  void setMinerality(double value) {
     _minerality = value;
     notifyListeners();
   }
 
-  void setVegetable(num value) {
+  void setVegetable(double value) {
     _vegetable = value;
     notifyListeners();
   }
 
-  void setOak(num value) {
+  void setOak(double value) {
     _oak = value;
     notifyListeners();
   }
 
-  void setToasty(num value) {
+  void setToasty(double value) {
     _toasty = value;
     notifyListeners();
   }
 
-  void setSpicy(num value) {
+  void setSpicy(double value) {
     _spicy = value;
     notifyListeners();
   }
 
-  void setBellpepper(num value) {
+  void setBellpepper(double value) {
     _bellPepper = value;
     notifyListeners();
   }
 
-  void setJammy(num value) {
+  void setJammy(double value) {
     _jammy = value;
     notifyListeners();
   }
 
-  void setBurn(num value) {
+  void setBurn(double value) {
     _burn = value;
     notifyListeners();
   }
 
-  void setSilky(num value) {
+  void setSilky(double value) {
     _silky = value;
     notifyListeners();
   }
 
-  void setSoft(num value) {
+  void setSoft(double value) {
     _soft = value;
     notifyListeners();
   }
 
-  void setChewy(num value) {
+  void setChewy(double value) {
     _chewy = value;
     notifyListeners();
   }
 
-  void setElegant(num value) {
+  void setElegant(double value) {
     _elegant = value;
     notifyListeners();
   }
 
-  void setComplex(num value) {
+  void setComplex(double value) {
     _complex = value;
     notifyListeners();
   }
 
-  void setBakance(num value) {
+  void setBakance(double value) {
     _bakance = value;
     notifyListeners();
   }
 
-  void setLongFinish(num value) {
+  void setLongFinish(double value) {
     _longFinish = value;
     notifyListeners();
   }
 
-  void setThin(num value) {
+  void setThin(double value) {
     _thin = value;
     notifyListeners();
   }
 
-  void setFullBodied(num value) {
+  void setFullBodied(double value) {
     _fullBodied = value;
     notifyListeners();
   }
 
-  void setBerrys(num value) {
+  void setBerrys(double value) {
     _berrys = value;
     notifyListeners();
   }
 
-  void setFruitForward(num value) {
+  void setFruitForward(double value) {
     _fruitForward = value;
     notifyListeners();
   }

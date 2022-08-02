@@ -119,6 +119,8 @@ Future<LocationsModel?> getAllLocationsApi(
 
     return locationResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }
@@ -138,6 +140,8 @@ Future<WineriesAndTestingResponse?> getWineriesAndTastings(
 
     return wineriesAndTestingResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }
@@ -157,6 +161,8 @@ Future<WineriesDetailsResponse?> getWineryDetails(
 
     return wineriesDetailsResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }
@@ -176,6 +182,8 @@ Future<TastingsDetailResponse?> getTastingsDetails(
 
     return tastingsDetailResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }
@@ -195,6 +203,8 @@ Future<WineDetailResponse?> getWineDetails(
 
     return wineDetailResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }
@@ -214,6 +224,8 @@ Future<WinesListResponse?> getWinesList(
 
     return winesListResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }
@@ -233,6 +245,8 @@ Future<ReserveTastingResponse?> reserveTasting(
 
     return reserveTastingResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }
@@ -252,6 +266,8 @@ Future<SubmitReviewResponse?> submitReview(
 
     return submitReviewResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }
@@ -271,6 +287,8 @@ Future<SubmitOrderResponse?> submitOrder(
 
     return submitOrderResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }
@@ -290,6 +308,8 @@ Future<UserReservationResponse?> getReservations(
 
     return reservationResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }
@@ -309,6 +329,8 @@ Future<ReviewListResponse?> getReviews(
 
     return reviewListResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }
@@ -329,6 +351,8 @@ Future<WineriesListByLocationResponse?> getAllWineriesListByLocation(
 
     return wineriesListByLocationResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }
@@ -349,6 +373,8 @@ Future<TastingListByLocationResponse?> getAllTastingListByLocation(
 
     return tastingListByLocationResponse;
   } else {
+    EasyLoading.showError('Something Went Wrong');
+
     print(response.reasonPhrase);
     return null;
   }
