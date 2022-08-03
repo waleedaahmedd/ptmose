@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "60082216099-1i5plcdafbnab8v6v5v54cqiqa6i5j2b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ptmose",
+            "certificate_hash": "1b06206beb51f05678315b9dff3db7e0921b1284"
+          }
+        },
+        {
           "client_id": "60082216099-8jqjotsh6qvukdkdjmik6a45mumq3db9.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "60082216099-8jqjotsh6qvukdkdjmik6a45mumq3db9.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "60082216099-b89239gdoha7jril2eqvi7bg397nv5og.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ptmose"
+              }
             }
           ]
         }

@@ -772,6 +772,7 @@ class _WineReviewScreenState extends State<WineReviewScreen> {
                         height: 20.h,
                       ),
                       TextField(
+                        keyboardType: TextInputType.text,
                         maxLines: 10,
                         maxLength: 500,
                         controller: wineReviewViewModel.detailController,
