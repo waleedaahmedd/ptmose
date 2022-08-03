@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ptmose/models/requests/change_name_request.dart';
 import 'package:ptmose/models/requests/change_password_request.dart';
@@ -252,11 +253,12 @@ class AuthViewModel with ChangeNotifier {
         await changePasswordApi(changePasswordRequest: changePasswordRequest);
     if (response != null) {
       setChangePasswordResponse(response);
-      if(_changePasswordResponse!.data!.changePassword!.status! == true) {
-        EasyLoading.showSuccess(_changePasswordResponse!.data!.changePassword!.message!);
-      }
-      else{
-        EasyLoading.showError(_changePasswordResponse!.data!.changePassword!.message!);
+      if (_changePasswordResponse!.data!.changePassword!.status! == true) {
+        EasyLoading.showSuccess(
+            _changePasswordResponse!.data!.changePassword!.message!);
+      } else {
+        EasyLoading.showError(
+            _changePasswordResponse!.data!.changePassword!.message!);
       }
       return _changePasswordResponse!.data!.changePassword!.status!;
     } else {
@@ -269,22 +271,20 @@ class AuthViewModel with ChangeNotifier {
     EasyLoading.show(status: 'Please Wait...');
     ChangeNameRequest changeNameRequest = ChangeNameRequest(
         userId: _userDataResponse!.id!, name: nameController.text);
-    final response =
-    await changeNameApi(changeNameRequest: changeNameRequest);
+    final response = await changeNameApi(changeNameRequest: changeNameRequest);
     if (response != null) {
       setChangeNameResponse(response);
-      if(_changeNameResponse!.data!.updateProfile!.status! == true) {
-        EasyLoading.showSuccess(_changeNameResponse!.data!.updateProfile!.message!);
-      }
-      else{
-        EasyLoading.showError(_changeNameResponse!.data!.updateProfile!.message!);
+      if (_changeNameResponse!.data!.updateProfile!.status! == true) {
+        EasyLoading.showSuccess(
+            _changeNameResponse!.data!.updateProfile!.message!);
+      } else {
+        EasyLoading.showError(
+            _changeNameResponse!.data!.updateProfile!.message!);
       }
       return _changeNameResponse!.data!.updateProfile!.status!;
-
     } else {
       EasyLoading.showError('Something Went Wrong');
       return _changeNameResponse!.data!.updateProfile!.status!;
-
     }
   }
 
@@ -394,6 +394,38 @@ class AuthViewModel with ChangeNotifier {
             socialEmail: userDetails.user!.email!,
             socialProviderId: userDetails.user!.uid,
             socialRegistrationType: 'google',
+            socialName: userDetails.user!.displayName!);
+        return loginStatus;
+      } else {
+        EasyLoading.showError('Something Went Wrong');
+        return false;
+      }
+    } else {
+      EasyLoading.showError('Something Went Wrong');
+      return false;
+    }
+  }
+
+  Future<bool> signInWithFacebook() async {
+    EasyLoading.show(status: 'Please Wait...');
+
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // Create a credential from the access token
+    if (loginResult != null) {
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+      // Once signed in, return the UserCredential
+      final userDetails = await FirebaseAuth.instance
+          .signInWithCredential(facebookAuthCredential);
+      if (userDetails.user != null) {
+        await getUserToken();
+        final loginStatus = await callSocialMediaLoginApi(
+            socialEmail: userDetails.user!.email!,
+            socialProviderId: userDetails.user!.uid,
+            socialRegistrationType: 'facebook',
             socialName: userDetails.user!.displayName!);
         return loginStatus;
       } else {

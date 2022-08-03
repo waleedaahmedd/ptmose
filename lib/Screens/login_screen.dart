@@ -211,8 +211,36 @@ class LoginScreen extends StatelessWidget {
                                               alignment: Alignment.centerLeft,
                                               child: GestureDetector(
                                                 onTap: (){
-                                                  authViewModel.signOut();
-                                                },
+                                                  authViewModel
+                                                      .signInWithFacebook()
+                                                      .then((value) {
+                                                    if (value == true) {
+                                                      EasyLoading.showSuccess(
+                                                          authViewModel
+                                                              .getSocialMediaLoginResponse
+                                                              .data!
+                                                              .socialMediaLogin!
+                                                              .message!);
+                                                      authViewModel
+                                                          .setGuestUser(false);
+
+                                                      authViewModel
+                                                          .callUserName();
+                                                      Navigator.of(context)
+                                                          .pushNamedAndRemoveUntil(
+                                                          '/home',
+                                                          ModalRoute
+                                                              .withName(
+                                                              '/'));
+                                                    } else {
+                                                      EasyLoading.showError(
+                                                          authViewModel
+                                                              .getSocialMediaLoginResponse
+                                                              .data!
+                                                              .socialMediaLogin!
+                                                              .message!);
+                                                    }
+                                                  });                                                },
                                                 child: Image.asset(
                                                   'assets/images/connect_facebook.png',
                                                   height: 50.h,
