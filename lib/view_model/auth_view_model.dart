@@ -413,7 +413,7 @@ class AuthViewModel with ChangeNotifier {
     final LoginResult loginResult = await FacebookAuth.instance.login();
 
     // Create a credential from the access token
-    if (loginResult.message == true) {
+    if (loginResult.accessToken != null) {
       final OAuthCredential facebookAuthCredential =
           FacebookAuthProvider.credential(loginResult.accessToken!.token);
 

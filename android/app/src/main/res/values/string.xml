@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ptmose</string>
-    <string name="facebook_app_id">380667150684963</string>
-    <string name="fb_login_protocol_scheme">fb380667150684963</string>
-    <string name="facebook_client_token">0e81c71c979e20ca213f418514b4acb3</string>
+    <string name="facebook_app_id">382721350666966</string>
+    <string name="fb_login_protocol_scheme">fb382721350666966</string>
+    <string name="facebook_client_token">f33e369d8a999dc10bb15b013a0b2cf3</string>
 </resources>

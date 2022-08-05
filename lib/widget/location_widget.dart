@@ -74,8 +74,9 @@ class LocationWidget extends StatelessWidget {
                           ),
                           Image.network(
                             locationViewModel.getSelectedLocation.img!,
-                            /*height: 65,*/
-                            fit: BoxFit.fill,
+                            width: 110.w,
+                            height: 70.h,
+                            fit: BoxFit.cover,
                           )
                         ],
                       ),
@@ -127,8 +128,9 @@ class LocationWidget extends StatelessWidget {
                                     Image.network(
                                       locationViewModel
                                           .getLocationList[index].img!,
-                                      /*height: 65,*/
-                                      fit: BoxFit.fill,
+                                      width: 110.w,
+                                      height: 40.h,
+                                      fit: BoxFit.cover,
                                     )
                                   ],
                                 ),
