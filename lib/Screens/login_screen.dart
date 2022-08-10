@@ -122,19 +122,34 @@ class LoginScreen extends StatelessWidget {
                                             .callLoginApi()
                                             .then((value) {
                                           if (value == true) {
-                                            EasyLoading.showSuccess(
-                                                authViewModel
-                                                    .getLoginResponse
-                                                    .loginData!
-                                                    .loginUser!
-                                                    .message!);
-                                            authViewModel.setGuestUser(false);
+                                            if (authViewModel
+                                                .getUserDataResponse
+                                                .isVerified!) {
+                                              EasyLoading.showSuccess(
+                                                  authViewModel
+                                                      .getLoginResponse
+                                                      .loginData!
+                                                      .loginUser!
+                                                      .message!);
+                                              authViewModel.setGuestUser(false);
 
-                                            authViewModel.callUserName();
-                                            Navigator.of(context)
-                                                .pushNamedAndRemoveUntil(
-                                                    '/home',
-                                                    ModalRoute.withName('/'));
+                                              authViewModel.callUserName();
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil(
+                                                      '/home',
+                                                      ModalRoute.withName('/'));
+                                            } else {
+                                              EasyLoading.showSuccess(
+                                                  authViewModel
+                                                      .getLoginResponse
+                                                      .loginData!
+                                                      .loginUser!
+                                                      .message!);
+                                              authViewModel.setGuestUser(false);
+                                              authViewModel.callUserName();
+                                              Navigator.of(context)
+                                                  .pushNamed('/otp');
+                                            }
                                           } else {
                                             EasyLoading.showError(authViewModel
                                                 .getLoginResponse
@@ -210,7 +225,7 @@ class LoginScreen extends StatelessWidget {
                                           child: Align(
                                               alignment: Alignment.centerLeft,
                                               child: GestureDetector(
-                                                onTap: (){
+                                                onTap: () {
                                                   authViewModel
                                                       .signInWithFacebook()
                                                       .then((value) {
@@ -228,10 +243,10 @@ class LoginScreen extends StatelessWidget {
                                                           .callUserName();
                                                       Navigator.of(context)
                                                           .pushNamedAndRemoveUntil(
-                                                          '/home',
-                                                          ModalRoute
-                                                              .withName(
-                                                              '/'));
+                                                              '/home',
+                                                              ModalRoute
+                                                                  .withName(
+                                                                      '/'));
                                                     } else {
                                                       EasyLoading.showError(
                                                           authViewModel
@@ -240,7 +255,8 @@ class LoginScreen extends StatelessWidget {
                                                               .socialMediaLogin!
                                                               .message!);
                                                     }
-                                                  });                                                },
+                                                  });
+                                                },
                                                 child: Image.asset(
                                                   'assets/images/connect_facebook.png',
                                                   height: 50.h,

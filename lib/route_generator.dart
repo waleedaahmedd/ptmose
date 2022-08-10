@@ -4,6 +4,7 @@ import 'package:ptmose/Screens/login_screen.dart';
 import 'package:ptmose/Screens/my_reservation_screen.dart';
 import 'package:ptmose/Screens/my_review_detail_screen.dart';
 import 'package:ptmose/Screens/my_review_screen.dart';
+import 'package:ptmose/Screens/otp_Screen.dart';
 import 'package:ptmose/Screens/settings_screen.dart';
 import 'package:ptmose/Screens/splash_screen.dart';
 import 'package:ptmose/Screens/tasting_list_screen.dart';
@@ -72,6 +73,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const EditProfileScreen());
       case '/settings':
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
+      case '/otp':
+        return MaterialPageRoute(builder: (_) => const OtpScreen());
       default:
         return _errorRoute();
     }
