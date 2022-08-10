@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:ptmose/Screens/tasting_details_screen.dart';
 import 'package:ptmose/route_generator.dart';
@@ -20,6 +21,7 @@ import 'package:ptmose/view_model/wine_review_view_model.dart';
 import 'package:ptmose/view_model/wineriesListViewModel.dart';
 import 'package:ptmose/view_model/winery_details_view_model.dart';
 
+
 import 'Screens/splash_screen.dart';
 
 Future<void> _messageHandler(RemoteMessage message) async {
@@ -29,7 +31,8 @@ Future<void> _messageHandler(RemoteMessage message) async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
+  Stripe.publishableKey = 'pk_test_51LTnJPAPdUIPi6H3u6VxGm2Smekikg3bozpN5J9j6rgR2TKXPOh0W11rVnQKpzR4W8mJKtWW9JsvehtvOBo3XEZg00obHXGPz3';
+await Stripe.instance.applySettings();
 
   FirebaseMessaging.onBackgroundMessage(_messageHandler);
 

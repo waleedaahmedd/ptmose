@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../utils/custom_font_style.dart';
 import '../view_model/auth_view_model.dart';
 import '../widget/custom_button_1.dart';
+import '../widget/social_media_buttons_widget.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -118,9 +119,7 @@ class SignUpScreen extends StatelessWidget {
                             onPressed: () {
                               FocusManager.instance.primaryFocus?.unfocus();
                               if (authViewModel.signUpValidation() == true) {
-                                authViewModel
-                                    .callSignUpApi()
-                                    .then((value) {
+                                authViewModel.callSignUpApi().then((value) {
                                   if (value == true) {
                                     EasyLoading.showSuccess(authViewModel
                                         .getSignUpResponse
@@ -161,27 +160,7 @@ class SignUpScreen extends StatelessWidget {
                           SizedBox(
                             height: 10.h,
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                  child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Image.asset(
-                                        'assets/images/connect_google.png',
-                                        height: 50.h,
-                                      ))),
-                              SizedBox(
-                                width: 20.h,
-                              ),
-                              Expanded(
-                                  child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Image.asset(
-                                        'assets/images/connect_facebook.png',
-                                        height: 50.h,
-                                      ))),
-                            ],
-                          ),
+                          const SocialMediaButtonsWidgets(),
                           SizedBox(
                             height: 20.h,
                           ),

@@ -46,34 +46,21 @@ class _OtpScreenState extends State<OtpScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Padding(
-                                padding: EdgeInsets.only(bottom: 20.0),
-                                child: GoogleFontText1(
-                                  data: 'Email Verification',
-                                ),
+                              const GoogleFontText1(
+                                data: 'Email Verification',
                               ),
                               Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  TextField(
-                                    controller: authViewModel.emailController,
-                                    decoration: InputDecoration(
-                                        border: const OutlineInputBorder(),
-                                        suffixIcon: const Icon(
-                                          Icons.alternate_email,
-                                        ),
-                                        hintText: 'EMAIL ADDRESS',
-                                        errorText: authViewModel
-                                            .getEmailValidateMessage.isEmpty
-                                            ? null
-                                            : authViewModel
-                                            .getEmailValidateMessage),
+                                  NormalFontText8(
+                                    data: 'Please Enter OTP you receive at ${authViewModel.emailController.text} to Verify your Email Address',
                                   ),
                                   SizedBox(
-                                    height: 10.h,
+                                    height: 20.h,
                                   ),
                                   TextField(
                                     controller:
-                                    authViewModel.passwordController,
+                                        authViewModel.passwordController,
                                     obscureText: authViewModel.getShowPassword,
                                     decoration: InputDecoration(
                                         border: const OutlineInputBorder(),
@@ -86,13 +73,13 @@ class _OtpScreenState extends State<OtpScreen> {
                                             Icons.remove_red_eye,
                                           ),
                                         ),
-                                        hintText: 'PASSWORD',
+                                        hintText: 'ENTER OTP',
                                         errorText: authViewModel
-                                            .getPasswordValidateMessage
-                                            .isEmpty
+                                                .getPasswordValidateMessage
+                                                .isEmpty
                                             ? null
                                             : authViewModel
-                                            .getPasswordValidateMessage),
+                                                .getPasswordValidateMessage),
                                   ),
                                   Align(
                                       alignment: Alignment.centerRight,
@@ -105,7 +92,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                               .pushNamed('/forget_password');
                                         },
                                         child: const NormalFontText1(
-                                          data: 'FORGOT PASSWORD?',
+                                          data: 'RESEND OTP',
                                         ),
                                       )),
                                 ],
@@ -138,8 +125,8 @@ class _OtpScreenState extends State<OtpScreen> {
                                               authViewModel.callUserName();
                                               Navigator.of(context)
                                                   .pushNamedAndRemoveUntil(
-                                                  '/home',
-                                                  ModalRoute.withName('/'));
+                                                      '/home',
+                                                      ModalRoute.withName('/'));
                                             } else {
                                               EasyLoading.showSuccess(
                                                   authViewModel
@@ -166,7 +153,6 @@ class _OtpScreenState extends State<OtpScreen> {
                                         '/home', ModalRoute.withName('/'));*/
                                     },
                                   ),
-
                                 ],
                               ),
                             ],

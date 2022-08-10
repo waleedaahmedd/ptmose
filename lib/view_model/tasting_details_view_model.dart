@@ -54,7 +54,6 @@ class TastingDetailsViewModel with ChangeNotifier {
 
   Future <void> callReserveTasting(int? userId) async {
     EasyLoading.show(status: 'Please Wait...');
-    _winesList.clear();
     ReserveTastingRequest reserveTastingRequest =
     ReserveTastingRequest(getTastingsDetailResponse.data!.getTastingById!.data!.id!, userId!);
     final response = await reserveTasting(reserveTastingRequest: reserveTastingRequest);

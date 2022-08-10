@@ -1,15 +1,16 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:ptmose/models/requests/auth_request/sign_up_request.dart';
 import 'package:ptmose/models/requests/change_name_request.dart';
+import 'package:ptmose/models/requests/payment_request.dart';
 import 'package:ptmose/models/requests/review_list_request.dart';
 import 'package:ptmose/models/requests/tastings_details_request.dart';
 import 'package:ptmose/models/requests/wineries_list_by_location_request.dart';
 import 'package:ptmose/models/responses/auth_response/sign_up_response.dart';
 import 'package:ptmose/models/responses/change_password_response.dart';
+import 'package:ptmose/models/responses/payment_response.dart';
 import 'package:ptmose/models/responses/review_list_response.dart';
 import 'package:ptmose/models/responses/tastings_details_response.dart';
 import 'package:ptmose/models/responses/wineries_list_by_location_reaponse.dart';
@@ -414,6 +415,28 @@ Future<ChangeNameResponse?> changeNameApi(
         ChangeNameResponse.fromJson(json.decode(responseData.body));
 
     return changeNameResponse;
+  } else {
+    EasyLoading.showError('Something Went Wrong');
+
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
+
+Future<StripePaymentResponse?> paymentApi(
+    {required StripePaymentRequest stripePaymentRequest}) async {
+  var request = http.Request('POST', Uri.parse(_baseURL));
+
+  request.body = stripePaymentRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    StripePaymentResponse stripePaymentResponse =
+    StripePaymentResponse.fromJson(json.decode(responseData.body));
+
+    return stripePaymentResponse;
   } else {
     EasyLoading.showError('Something Went Wrong');
 

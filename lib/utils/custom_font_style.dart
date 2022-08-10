@@ -39,11 +39,8 @@ class GoogleFontText2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style:  TextStyle(
-        color: Colors.white,
-        fontFamily: 'MontaguSlab',
-          fontSize: 12.sp
-      ),
+      style: TextStyle(
+          color: Colors.white, fontFamily: 'MontaguSlab', fontSize: 12.sp),
     );
   }
 }
@@ -138,7 +135,7 @@ class GoogleFontText6 extends StatelessWidget {
 }
 
 //normal fonts
-//normal font, color purple, size 15, bold
+//normal font, color purple, size 14, bold
 class NormalFontText1 extends StatelessWidget {
   final String data;
 
@@ -172,7 +169,7 @@ class NormalFontText2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style:  TextStyle(color: CustomColors.purple, fontSize: 12.sp),
+      style: TextStyle(color: CustomColors.purple, fontSize: 12.sp),
     );
   }
 }
@@ -190,7 +187,8 @@ class NormalFontText3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style:  TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 12.sp),
+      style: TextStyle(
+          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12.sp),
     );
   }
 }
@@ -206,12 +204,10 @@ class NormalFontText4 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      data,
-      style:  TextStyle(color: Colors.grey,fontSize: 12.sp),
-      overflow: TextOverflow.ellipsis,
-      maxLines: 3
-    );
+    return Text(data,
+        style: TextStyle(color: Colors.grey, fontSize: 12.sp),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 3);
   }
 }
 
@@ -228,8 +224,10 @@ class NormalFontText5 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style:  TextStyle(
-          color: CustomColors.purple, fontWeight: FontWeight.w800,fontSize: 12.sp),
+      style: TextStyle(
+          color: CustomColors.purple,
+          fontWeight: FontWeight.w800,
+          fontSize: 12.sp),
     );
   }
 }
@@ -247,11 +245,10 @@ class NormalFontText6 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style:  TextStyle(
-        color: CustomColors.golden,
-        fontWeight: FontWeight.bold,
-          fontSize: 12.sp
-      ),
+      style: TextStyle(
+          color: CustomColors.golden,
+          fontWeight: FontWeight.bold,
+          fontSize: 12.sp),
     );
   }
 }
@@ -269,7 +266,29 @@ class NormalFontText7 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
-      style:  TextStyle(color: Colors.white, fontSize: 12.sp),
+      style: TextStyle(color: Colors.white, fontSize: 12.sp),
+    );
+  }
+}
+
+//normal font, color purple, size 16, bold
+class NormalFontText8 extends StatelessWidget {
+  final String data;
+
+  const NormalFontText8({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      data,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+          color: CustomColors.purple,
+          fontWeight: FontWeight.w500,
+          fontSize: 16.sp),
     );
   }
 }
