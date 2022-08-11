@@ -121,16 +121,28 @@ class SignUpScreen extends StatelessWidget {
                               if (authViewModel.signUpValidation() == true) {
                                 authViewModel.callSignUpApi().then((value) {
                                   if (value == true) {
-                                    EasyLoading.showSuccess(authViewModel
-                                        .getSignUpResponse
-                                        .signUpData!
-                                        .createUser!
-                                        .message!);
-                                    authViewModel.setGuestUser(false);
-                                    authViewModel.callUserName();
-                                    Navigator.of(context)
-                                        .pushNamedAndRemoveUntil(
-                                            '/home', ModalRoute.withName('/'));
+                                    if (authViewModel
+                                        .getUserDataResponse.isVerified!) {
+                                      EasyLoading.showSuccess(authViewModel
+                                          .getSignUpResponse
+                                          .signUpData!
+                                          .createUser!
+                                          .message!);
+                                      authViewModel.setGuestUser(false);
+                                      authViewModel.callUserName();
+                                      Navigator.of(context)
+                                          .pushNamedAndRemoveUntil('/home',
+                                              ModalRoute.withName('/'));
+                                    } else {
+                                      EasyLoading.showSuccess(authViewModel
+                                          .getLoginResponse
+                                          .loginData!
+                                          .loginUser!
+                                          .message!);
+                                      authViewModel.setGuestUser(false);
+                                      authViewModel.callUserName();
+                                      Navigator.of(context).pushNamed('/otp');
+                                    }
                                   } else {
                                     EasyLoading.showError(authViewModel
                                         .getSignUpResponse

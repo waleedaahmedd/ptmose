@@ -4,9 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ptmose/models/requests/auth_request/otp_verification_request.dart';
+import 'package:ptmose/models/requests/auth_request/resend_otp_request.dart';
 import 'package:ptmose/models/requests/change_name_request.dart';
 import 'package:ptmose/models/requests/change_password_request.dart';
 import 'package:ptmose/models/responses/auth_response/login_response.dart';
+import 'package:ptmose/models/responses/auth_response/otp_verification_response.dart';
+import 'package:ptmose/models/responses/auth_response/resend_otp_response.dart';
 import 'package:ptmose/models/responses/auth_response/social_media_login_response.dart';
 import 'package:ptmose/models/responses/auth_response/user_data_response.dart';
 import 'package:ptmose/models/responses/change_name_response.dart';
@@ -23,6 +27,7 @@ class AuthViewModel with ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController oldPasswordController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController otpController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   String _emailValidateMessage = '';
@@ -38,6 +43,8 @@ class AuthViewModel with ChangeNotifier {
   ChangePasswordResponse? _changePasswordResponse;
   ChangeNameResponse? _changeNameResponse;
   SocialMediaLoginResponse? _socialMediaLoginResponse;
+  OtpVerificationResponse? _otpVerificationResponse;
+  ResendOtpResponse? _resendOtpResponse;
 
   UserDataResponse? _userDataResponse;
   SharedPref sharedPref = SharedPref();
@@ -66,6 +73,11 @@ class AuthViewModel with ChangeNotifier {
   bool get getShowPassword => _showPassword;
 
   LoginResponse get getLoginResponse => _loginResponse!;
+
+  OtpVerificationResponse get getOtpVerificationResponse =>
+      _otpVerificationResponse!;
+
+  ResendOtpResponse get getResendOtpResponse => _resendOtpResponse!;
 
   ChangePasswordResponse get getChangePasswordResponse =>
       _changePasswordResponse!;
@@ -126,6 +138,16 @@ class AuthViewModel with ChangeNotifier {
 
   void setLoginResponse(LoginResponse value) {
     _loginResponse = value;
+    notifyListeners();
+  }
+
+  void setOtpVerificationResponse(OtpVerificationResponse value) {
+    _otpVerificationResponse = value;
+    notifyListeners();
+  }
+
+  void setResendOtpResponse(ResendOtpResponse value) {
+    _resendOtpResponse = value;
     notifyListeners();
   }
 
@@ -451,6 +473,39 @@ class AuthViewModel with ChangeNotifier {
     await auth.signOut();
     await GoogleSignIn().signOut();
     await FacebookAuth.instance.logOut();
+  }
+
+  Future<bool> callOtpVerification() async {
+    EasyLoading.show(status: 'Please Wait...');
+    OtpVerificationRequest otpVerificationRequest = OtpVerificationRequest(
+      email: emailController.text,
+      otp: otpController.text,
+    );
+    final response = await otpVerificationApi(
+        otpVerificationRequest: otpVerificationRequest);
+    if (response != null) {
+      setOtpVerificationResponse(response);
+      if (getOtpVerificationResponse.data!.verifyOtp!.data != null) {
+        setUserDataResponse(getOtpVerificationResponse.data!.verifyOtp!.data!);
+        sharedPref.save(
+            'userData', getOtpVerificationResponse.data!.verifyOtp!.data);
+      }
+      return getOtpVerificationResponse.data!.verifyOtp!.status!;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> callResendOtp() async {
+    EasyLoading.show(status: 'Sending Otp to your Email');
+    ResendOtpRequest resendOtpRequest =
+        ResendOtpRequest(email: emailController.text);
+    final response = await resendOtpApi(resendOtpRequest: resendOtpRequest);
+    if (response != null) {
+      return getResendOtpResponse.data!.resendOtp!.status!;
+    } else {
+      return false;
+    }
   }
 
 /* void checkforIosPermission() async{

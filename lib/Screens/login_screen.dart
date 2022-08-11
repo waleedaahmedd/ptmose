@@ -132,7 +132,6 @@ class LoginScreen extends StatelessWidget {
                                                       .loginUser!
                                                       .message!);
                                               authViewModel.setGuestUser(false);
-
                                               authViewModel.callUserName();
                                               Navigator.of(context)
                                                   .pushNamedAndRemoveUntil(

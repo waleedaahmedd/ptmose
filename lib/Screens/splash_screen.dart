@@ -31,7 +31,6 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
 
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
@@ -51,14 +50,11 @@ class _SplashState extends State<Splash> {
     Future.delayed(const Duration(seconds: 9), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       if (prefs.containsKey('userData')) {
-        UserDataResponse user = UserDataResponse.fromJson(await sharedPref.read("userData"));
-        Provider.of<AuthViewModel>(context, listen: false).setUserDataResponse(user);
-        Provider.of<AuthViewModel>(context, listen: false).callUserName();
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/home', ModalRoute.withName('/'));
+        UserDataResponse user =
+            UserDataResponse.fromJson(await sharedPref.read("userData"));
+        routeScreens(user);
       } else {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/login', ModalRoute.withName('/'));
+        navigateToLogin();
       }
     });
   }
@@ -105,5 +101,23 @@ class _SplashState extends State<Splash> {
         ),
       ),
     );
+  }
+
+  void routeScreens(UserDataResponse user) {
+    Provider.of<AuthViewModel>(context, listen: false)
+        .setUserDataResponse(user);
+    Provider.of<AuthViewModel>(context, listen: false).callUserName();
+    Provider.of<AuthViewModel>(context, listen: false)
+            .getUserDataResponse
+            .isVerified!
+        ? Navigator.of(context)
+            .pushNamedAndRemoveUntil('/home', ModalRoute.withName('/'))
+        : Navigator.of(context)
+            .pushNamedAndRemoveUntil('/login', ModalRoute.withName('/'));
+  }
+
+  void navigateToLogin() {
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/login', ModalRoute.withName('/'));
   }
 }
