@@ -377,7 +377,6 @@ class AuthViewModel with ChangeNotifier {
         sharedPref.save('userData',
             _signUpResponse!.signUpData!.createUser!.userDataResponse!);
       }
-
       return _signUpResponse!.signUpData!.createUser!.status!;
     } else {
       return false;
@@ -502,6 +501,7 @@ class AuthViewModel with ChangeNotifier {
         ResendOtpRequest(email: emailController.text);
     final response = await resendOtpApi(resendOtpRequest: resendOtpRequest);
     if (response != null) {
+      setResendOtpResponse(response);
       return getResendOtpResponse.data!.resendOtp!.status!;
     } else {
       return false;

@@ -135,9 +135,9 @@ class SignUpScreen extends StatelessWidget {
                                               ModalRoute.withName('/'));
                                     } else {
                                       EasyLoading.showSuccess(authViewModel
-                                          .getLoginResponse
-                                          .loginData!
-                                          .loginUser!
+                                          .getSignUpResponse
+                                          .signUpData!
+                                          .createUser!
                                           .message!);
                                       authViewModel.setGuestUser(false);
                                       authViewModel.callUserName();
