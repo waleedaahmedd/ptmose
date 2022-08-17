@@ -209,7 +209,7 @@ class CartViewModel with ChangeNotifier {
         merchantDisplayName: 'PTMOSE',
         // Customer params
         customerId: getStripePaymentResponse.data!.createPaymentIntent!.data!.stripeCustomerId,
-        customerEphemeralKeySecret: getStripePaymentResponse.data!.createPaymentIntent!.data!.paymentIntentId,
+        //customerEphemeralKeySecret: getStripePaymentResponse.data!.createPaymentIntent!.data!.paymentIntentId,
         // Extra params
         applePay: const PaymentSheetApplePay(
           merchantCountryCode: 'DE',

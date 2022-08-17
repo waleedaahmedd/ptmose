@@ -21,7 +21,6 @@ import 'package:ptmose/view_model/wine_review_view_model.dart';
 import 'package:ptmose/view_model/wineriesListViewModel.dart';
 import 'package:ptmose/view_model/winery_details_view_model.dart';
 
-
 import 'Screens/splash_screen.dart';
 
 Future<void> _messageHandler(RemoteMessage message) async {
@@ -30,12 +29,14 @@ Future<void> _messageHandler(RemoteMessage message) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey =
+      'pk_live_51LSNPfCndWQaKhCFwmAoP1peW9RbeugMlTWfjeihDNP5190ZCjH1fRk80hyz6ZASBjeBy8EjaPWTFArH3e8Z3m9r003MTVZNWS';
+  Stripe.merchantIdentifier = 'acct_1LSNPfCndWQaKhCF';
+  await Stripe.instance.applySettings();
+
   await Firebase.initializeApp();
-  Stripe.publishableKey = 'pk_live_51LSNPfCndWQaKhCFwmAoP1peW9RbeugMlTWfjeihDNP5190ZCjH1fRk80hyz6ZASBjeBy8EjaPWTFArH3e8Z3m9r003MTVZNWS';
-await Stripe.instance.applySettings();
 
   FirebaseMessaging.onBackgroundMessage(_messageHandler);
-
 
   configLoading();
 
