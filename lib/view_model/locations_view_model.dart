@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:map_launcher/map_launcher.dart';
@@ -136,7 +138,7 @@ class LocationsViewModel with ChangeNotifier {
   Future<void> callWineriesListByLocation(int? locationId) async {
     _wineriesListByLocation.clear();
     WineriesListByLocationRequest wineriesListByLocationRequest =
-        WineriesListByLocationRequest(locationId!);
+    WineriesListByLocationRequest(locationId!);
     final response = await getAllWineriesListByLocation(
         wineriesListByLocationRequest: wineriesListByLocationRequest);
     if (response != null) {
@@ -155,7 +157,7 @@ class LocationsViewModel with ChangeNotifier {
   Future<void> callTastingListByLocation(int? locationId) async {
     _tastingListByLocation.clear();
     TastingListByLocationRequest tastingListByLocationRequest =
-        TastingListByLocationRequest(locationId!);
+    TastingListByLocationRequest(locationId!);
     final response = await getAllTastingListByLocation(
         tastingListByLocationRequest: tastingListByLocationRequest);
     if (response != null) {
@@ -177,7 +179,7 @@ class LocationsViewModel with ChangeNotifier {
     _wineriesList.clear();
     _tastingList.clear();
     WineriesAndTastingsRequest wineriesAndLocationRequest =
-        WineriesAndTastingsRequest(locationId!);
+    WineriesAndTastingsRequest(locationId!);
     final response = await getWineriesAndTastings(
         wineriesAndLocationRequest: wineriesAndLocationRequest);
     if (response != null) {
@@ -198,12 +200,23 @@ class LocationsViewModel with ChangeNotifier {
   }
 
   Future<void> showLocation() async {
-    final googleMap = await MapLauncher.isMapAvailable(MapType.google);
-    if (googleMap!) {
-      await MapLauncher.showDirections(
-        mapType: MapType.google,
-        destination: Coords(_selectedLocation!.lat!, _selectedLocation!.lng!),
-      );
+    if (Platform.isAndroid) {
+      final googleMap = await MapLauncher.isMapAvailable(MapType.google);
+      if (googleMap!) {
+        await MapLauncher.showDirections(
+          mapType: MapType.google,
+          destination: Coords(_selectedLocation!.lat!, _selectedLocation!.lng!),
+        );
+      }
+    }
+    else if (Platform.isIOS) {
+      final appleMap = await MapLauncher.isMapAvailable(MapType.apple);
+      if (appleMap!) {
+        await MapLauncher.showDirections(
+          mapType: MapType.apple,
+          destination: Coords(_selectedLocation!.lat!, _selectedLocation!.lng!),
+        );
+      }
     }
   }
 }
