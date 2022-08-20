@@ -5,11 +5,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
-import 'package:ptmose/Screens/tasting_details_screen.dart';
 import 'package:ptmose/route_generator.dart';
 import 'package:ptmose/utils/custom_colors.dart';
 import 'package:ptmose/view_model/cart_view_model.dart';
-import 'package:ptmose/view_model/forget_password_view_model.dart';
 import 'package:ptmose/view_model/home_view_model.dart';
 import 'package:ptmose/view_model/auth_view_model.dart';
 import 'package:ptmose/view_model/locations_view_model.dart';
@@ -44,9 +42,6 @@ Future<void> main() async {
     providers: [
       ChangeNotifierProvider(
         create: (_) => AuthViewModel(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => ForgotPasswordViewModel(),
       ),
       ChangeNotifierProvider(
         create: (_) => HomeViewModel(),

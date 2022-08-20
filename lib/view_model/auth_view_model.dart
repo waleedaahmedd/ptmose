@@ -4,13 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ptmose/models/requests/auth_request/forget_password_request.dart';
 import 'package:ptmose/models/requests/auth_request/otp_verification_request.dart';
 import 'package:ptmose/models/requests/auth_request/resend_otp_request.dart';
 import 'package:ptmose/models/requests/change_name_request.dart';
 import 'package:ptmose/models/requests/change_password_request.dart';
+import 'package:ptmose/models/responses/auth_response/forget_password_response.dart';
 import 'package:ptmose/models/responses/auth_response/login_response.dart';
 import 'package:ptmose/models/responses/auth_response/otp_verification_response.dart';
 import 'package:ptmose/models/responses/auth_response/resend_otp_response.dart';
+import 'package:ptmose/models/responses/auth_response/reset_password_response.dart';
 import 'package:ptmose/models/responses/auth_response/social_media_login_response.dart';
 import 'package:ptmose/models/responses/auth_response/user_data_response.dart';
 import 'package:ptmose/models/responses/change_name_response.dart';
@@ -45,6 +48,8 @@ class AuthViewModel with ChangeNotifier {
   SocialMediaLoginResponse? _socialMediaLoginResponse;
   OtpVerificationResponse? _otpVerificationResponse;
   ResendOtpResponse? _resendOtpResponse;
+  ForgetPasswordResponse? _forgetPasswordResponse;
+  ResetPasswordResponse? _resetPasswordResponse;
 
   UserDataResponse? _userDataResponse;
   SharedPref sharedPref = SharedPref();
@@ -73,6 +78,10 @@ class AuthViewModel with ChangeNotifier {
   bool get getShowPassword => _showPassword;
 
   LoginResponse get getLoginResponse => _loginResponse!;
+
+  ResetPasswordResponse get getResetPasswordResponse => _resetPasswordResponse!;
+
+  ForgetPasswordResponse get getForgetPasswordResponse => _forgetPasswordResponse!;
 
   OtpVerificationResponse get getOtpVerificationResponse =>
       _otpVerificationResponse!;
@@ -138,6 +147,16 @@ class AuthViewModel with ChangeNotifier {
 
   void setLoginResponse(LoginResponse value) {
     _loginResponse = value;
+    notifyListeners();
+  }
+
+  void setResetPasswordResponse(ResetPasswordResponse value) {
+    _resetPasswordResponse = value;
+    notifyListeners();
+  }
+
+  void setForgetPasswordResponse(ForgetPasswordResponse value) {
+    _forgetPasswordResponse = value;
     notifyListeners();
   }
 
@@ -503,6 +522,19 @@ class AuthViewModel with ChangeNotifier {
     if (response != null) {
       setResendOtpResponse(response);
       return getResendOtpResponse.data!.resendOtp!.status!;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> callForgetPassword() async {
+    EasyLoading.show(status: 'Sending Otp to your Email');
+    ForgetPasswordRequest forgetPasswordRequest =
+    ForgetPasswordRequest(email: emailController.text);
+    final response = await forgetPasswordApi(forgetPasswordRequest: forgetPasswordRequest);
+    if (response != null) {
+      setForgetPasswordResponse(response);
+      return getForgetPasswordResponse.data!.forgotPassword!.status!;
     } else {
       return false;
     }

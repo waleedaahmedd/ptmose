@@ -33,7 +33,7 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   void dispose() {
     // TODO: implement dispose
-
+    countdownTimer!.cancel();
     super.dispose();
   }
 

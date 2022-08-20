@@ -2,16 +2,20 @@ import 'dart:convert';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
+import 'package:ptmose/models/requests/auth_request/forget_password_request.dart';
 import 'package:ptmose/models/requests/auth_request/otp_verification_request.dart';
 import 'package:ptmose/models/requests/auth_request/resend_otp_request.dart';
+import 'package:ptmose/models/requests/auth_request/reset_password_request.dart';
 import 'package:ptmose/models/requests/auth_request/sign_up_request.dart';
 import 'package:ptmose/models/requests/change_name_request.dart';
 import 'package:ptmose/models/requests/payment_request.dart';
 import 'package:ptmose/models/requests/review_list_request.dart';
 import 'package:ptmose/models/requests/tastings_details_request.dart';
 import 'package:ptmose/models/requests/wineries_list_by_location_request.dart';
+import 'package:ptmose/models/responses/auth_response/forget_password_response.dart';
 import 'package:ptmose/models/responses/auth_response/otp_verification_response.dart';
 import 'package:ptmose/models/responses/auth_response/resend_otp_response.dart';
+import 'package:ptmose/models/responses/auth_response/reset_password_response.dart';
 import 'package:ptmose/models/responses/auth_response/sign_up_response.dart';
 import 'package:ptmose/models/responses/change_password_response.dart';
 import 'package:ptmose/models/responses/payment_response.dart';
@@ -479,6 +483,44 @@ Future<ResendOtpResponse?> resendOtpApi(
     ResendOtpResponse resendOtpResponse =
         ResendOtpResponse.fromJson(json.decode(responseData.body));
     return resendOtpResponse;
+  } else {
+    EasyLoading.showError('Something Went Wrong');
+
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
+Future<ForgetPasswordResponse?> forgetPasswordApi(
+    {required ForgetPasswordRequest forgetPasswordRequest}) async {
+  var request = http.Request('POST', Uri.parse(_baseURL));
+  request.body = forgetPasswordRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    ForgetPasswordResponse forgetPasswordResponse =
+    ForgetPasswordResponse.fromJson(json.decode(responseData.body));
+    return forgetPasswordResponse;
+  } else {
+    EasyLoading.showError('Something Went Wrong');
+
+    print(response.reasonPhrase);
+    return null;
+  }
+}
+
+Future<ResetPasswordResponse?> resetPasswordApi(
+    {required ResetPasswordRequest resetPasswordRequest}) async {
+  var request = http.Request('POST', Uri.parse(_baseURL));
+  request.body = resetPasswordRequest.generateQuery();
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    final responseData = await http.Response.fromStream(response);
+    ResetPasswordResponse resetPasswordResponse =
+    ResetPasswordResponse.fromJson(json.decode(responseData.body));
+    return resetPasswordResponse;
   } else {
     EasyLoading.showError('Something Went Wrong');
 
