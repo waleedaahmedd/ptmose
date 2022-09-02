@@ -200,11 +200,11 @@ class _OtpScreenState extends State<OtpScreen> {
                                 children: [
                                   CustomButton1(
                                     text: 'SUBMIT',
-                                    onPressed: () {
+                                    onPressed: ()  {
                                       FocusManager.instance.primaryFocus
                                           ?.unfocus();
-                                      if (authViewModel.logInValidation() ==
-                                          true) {
+                                      final validation =  authViewModel.otpValidation();
+                                      if (validation) {
                                         authViewModel
                                             .callOtpVerification()
                                             .then((value) {
@@ -215,12 +215,19 @@ class _OtpScreenState extends State<OtpScreen> {
                                                     .data!
                                                     .verifyOtp!
                                                     .message!);
-                                            authViewModel.setGuestUser(false);
-                                            authViewModel.callUserName();
-                                            Navigator.of(context)
-                                                .pushNamedAndRemoveUntil(
-                                                    '/home',
-                                                    ModalRoute.withName('/'));
+                                            if (authViewModel.getShowForgotPasswordScreen) {
+                                              Navigator.of(context)
+                                                  .pushNamed('/forgot_password');
+                                            }
+                                            else{
+                                              authViewModel.setGuestUser(false);
+                                              authViewModel.callUserName();
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil(
+                                                  '/home',
+                                                  ModalRoute.withName('/'));
+                                            }
+
                                           } else {
                                             EasyLoading.showError(authViewModel
                                                 .getOtpVerificationResponse

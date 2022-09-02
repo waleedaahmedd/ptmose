@@ -8,8 +8,8 @@ import 'package:ptmose/view_model/auth_view_model.dart';
 import '../utils/custom_font_style.dart';
 import '../widget/custom_button_1.dart';
 
-class ForgetPasswordScreen extends StatelessWidget {
-  ForgetPasswordScreen({Key? key}) : super(key: key);
+class ConfirmEmailScreen extends StatelessWidget {
+  ConfirmEmailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,18 +69,18 @@ class ForgetPasswordScreen extends StatelessWidget {
                                     FocusManager.instance.primaryFocus
                                         ?.unfocus();
                                     authViewModel
-                                        .callForgetPassword()
+                                        .callForgetPasswordEmail()
                                         .then((value) {
                                       if (value) {
                                         Navigator.of(context).pushNamed('/otp');
                                         EasyLoading.showSuccess(authViewModel
-                                            .getForgetPasswordResponse
+                                            .getForgetPasswordEmailResponse
                                             .data!
                                             .forgotPassword!
                                             .message!);
                                       } else {
                                         EasyLoading.showSuccess(authViewModel
-                                            .getForgetPasswordResponse
+                                            .getForgetPasswordEmailResponse
                                             .data!
                                             .forgotPassword!
                                             .message!);

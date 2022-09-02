@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
-import 'package:ptmose/models/requests/auth_request/forget_password_request.dart';
+import 'package:ptmose/models/requests/auth_request/forget_password_email_request.dart';
 import 'package:ptmose/models/requests/auth_request/otp_verification_request.dart';
 import 'package:ptmose/models/requests/auth_request/resend_otp_request.dart';
 import 'package:ptmose/models/requests/auth_request/reset_password_request.dart';
@@ -12,7 +12,7 @@ import 'package:ptmose/models/requests/payment_request.dart';
 import 'package:ptmose/models/requests/review_list_request.dart';
 import 'package:ptmose/models/requests/tastings_details_request.dart';
 import 'package:ptmose/models/requests/wineries_list_by_location_request.dart';
-import 'package:ptmose/models/responses/auth_response/forget_password_response.dart';
+import 'package:ptmose/models/responses/auth_response/forget_password_email_response.dart';
 import 'package:ptmose/models/responses/auth_response/otp_verification_response.dart';
 import 'package:ptmose/models/responses/auth_response/resend_otp_response.dart';
 import 'package:ptmose/models/responses/auth_response/reset_password_response.dart';
@@ -491,17 +491,17 @@ Future<ResendOtpResponse?> resendOtpApi(
   }
 }
 
-Future<ForgetPasswordResponse?> forgetPasswordApi(
-    {required ForgetPasswordRequest forgetPasswordRequest}) async {
+Future<ForgetPasswordEmailResponse?> forgetPasswordEmailApi(
+    {required ForgetPasswordEmailRequest forgetPasswordEmailRequest}) async {
   var request = http.Request('POST', Uri.parse(_baseURL));
-  request.body = forgetPasswordRequest.generateQuery();
+  request.body = forgetPasswordEmailRequest.generateQuery();
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();
   if (response.statusCode == 200) {
     final responseData = await http.Response.fromStream(response);
-    ForgetPasswordResponse forgetPasswordResponse =
-    ForgetPasswordResponse.fromJson(json.decode(responseData.body));
-    return forgetPasswordResponse;
+    ForgetPasswordEmailResponse forgetPasswordEmailResponse =
+    ForgetPasswordEmailResponse.fromJson(json.decode(responseData.body));
+    return forgetPasswordEmailResponse;
   } else {
     EasyLoading.showError('Something Went Wrong');
 

@@ -118,11 +118,14 @@ class SignUpScreen extends StatelessWidget {
                             text: 'REGISTER',
                             onPressed: () {
                               FocusManager.instance.primaryFocus?.unfocus();
-                              if (authViewModel.signUpValidation() == true) {
+                              authViewModel.setShowForgotPasswordScreen(false);
+                              if (authViewModel.signUpValidation()) {
                                 authViewModel.callSignUpApi().then((value) {
-                                  if (value == true) {
+                                  if (value) {
                                     if (authViewModel
                                         .getUserDataResponse.isVerified!) {
+                                      authViewModel.passwordController.clear();
+                                      authViewModel.confirmPasswordController.clear();
                                       EasyLoading.showSuccess(authViewModel
                                           .getSignUpResponse
                                           .signUpData!
