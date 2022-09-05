@@ -4,12 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:ptmose/models/requests/auth_request/forget_password_request.dart';
+import 'package:ptmose/models/requests/auth_request/forget_password_email_request.dart';
 import 'package:ptmose/models/requests/auth_request/otp_verification_request.dart';
 import 'package:ptmose/models/requests/auth_request/resend_otp_request.dart';
+import 'package:ptmose/models/requests/auth_request/reset_password_request.dart';
 import 'package:ptmose/models/requests/change_name_request.dart';
 import 'package:ptmose/models/requests/change_password_request.dart';
-import 'package:ptmose/models/responses/auth_response/forget_password_response.dart';
+import 'package:ptmose/models/responses/auth_response/forget_password_email_response.dart';
 import 'package:ptmose/models/responses/auth_response/login_response.dart';
 import 'package:ptmose/models/responses/auth_response/otp_verification_response.dart';
 import 'package:ptmose/models/responses/auth_response/resend_otp_response.dart';
@@ -27,6 +28,11 @@ import '../models/responses/auth_response/sign_up_response.dart';
 import '../utils/shared_pref .dart';
 
 class AuthViewModel with ChangeNotifier {
+  RegExp regex =
+      RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+          r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+          r"{0,253}[a-zA-Z0-9])?)*$");
+
   TextEditingController emailController = TextEditingController();
   TextEditingController oldPasswordController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -39,6 +45,7 @@ class AuthViewModel with ChangeNotifier {
   String _nameValidateMessage = '';
   String _confirmPasswordValidateMessage = '';
   String _fcmToken = '';
+  bool _showForgotPasswordScreen = false;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   LoginResponse? _loginResponse;
@@ -48,7 +55,7 @@ class AuthViewModel with ChangeNotifier {
   SocialMediaLoginResponse? _socialMediaLoginResponse;
   OtpVerificationResponse? _otpVerificationResponse;
   ResendOtpResponse? _resendOtpResponse;
-  ForgetPasswordResponse? _forgetPasswordResponse;
+  ForgetPasswordEmailResponse? _forgetPasswordResponse;
   ResetPasswordResponse? _resetPasswordResponse;
 
   UserDataResponse? _userDataResponse;
@@ -57,6 +64,8 @@ class AuthViewModel with ChangeNotifier {
   bool _guestUser = false;
 
   String get getFcmToken => _fcmToken;
+
+  bool get getShowForgotPasswordScreen => _showForgotPasswordScreen;
 
   String get getEmailValidateMessage => _emailValidateMessage;
 
@@ -81,7 +90,8 @@ class AuthViewModel with ChangeNotifier {
 
   ResetPasswordResponse get getResetPasswordResponse => _resetPasswordResponse!;
 
-  ForgetPasswordResponse get getForgetPasswordResponse => _forgetPasswordResponse!;
+  ForgetPasswordEmailResponse get getForgetPasswordEmailResponse =>
+      _forgetPasswordResponse!;
 
   OtpVerificationResponse get getOtpVerificationResponse =>
       _otpVerificationResponse!;
@@ -102,6 +112,11 @@ class AuthViewModel with ChangeNotifier {
 
   void setFcmToken(String value) {
     _fcmToken = value;
+    notifyListeners();
+  }
+
+  void setShowForgotPasswordScreen(bool value) {
+    _showForgotPasswordScreen = value;
     notifyListeners();
   }
 
@@ -129,7 +144,13 @@ class AuthViewModel with ChangeNotifier {
     _nameValidateMessage = value;
     notifyListeners();
   }
-
+  clearValidationMessages(){
+    setConfirmPasswordValidateMessage('');
+    setEmailValidateMessage('');
+    setPasswordValidateMessage('');
+    setOldPasswordValidateMessage('');
+    setNameValidateMessage('');
+  }
   void setShowPassword(bool value) {
     _showPassword = value;
     notifyListeners();
@@ -155,7 +176,7 @@ class AuthViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void setForgetPasswordResponse(ForgetPasswordResponse value) {
+  void setForgetPasswordEmailResponse(ForgetPasswordEmailResponse value) {
     _forgetPasswordResponse = value;
     notifyListeners();
   }
@@ -195,12 +216,9 @@ class AuthViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  logInValidation() {
-    RegExp regex =
-        RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-            r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-            r"{0,253}[a-zA-Z0-9])?)*$");
 
+
+  logInValidation() {
     emailController.text.isEmpty || !regex.hasMatch(emailController.text)
         ? setEmailValidateMessage('Please enter Valid Email Address')
         : setEmailValidateMessage('');
@@ -216,12 +234,15 @@ class AuthViewModel with ChangeNotifier {
     }
   }
 
-  signUpValidation() {
-    RegExp regex =
-        RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-            r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-            r"{0,253}[a-zA-Z0-9])?)*$");
+  bool otpValidation() {
+    if (emailController.text.isEmpty && otpController.text.isEmpty) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
+  signUpValidation() {
     emailController.text.isEmpty || !regex.hasMatch(emailController.text)
         ? setEmailValidateMessage('Please enter Valid Email Address')
         : setEmailValidateMessage('');
@@ -242,6 +263,24 @@ class AuthViewModel with ChangeNotifier {
     if (_emailValidateMessage.isEmpty &&
         _passwordValidateMessage.isEmpty &&
         _nameValidateMessage.isEmpty &&
+        _confirmPasswordValidateMessage.isEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  resetPasswordValidation() {
+    passwordController.text.isEmpty
+        ? setPasswordValidateMessage('Please Enter Password')
+        : setPasswordValidateMessage('');
+
+    confirmPasswordController.text.isEmpty ||
+            confirmPasswordController.text != passwordController.text
+        ? setConfirmPasswordValidateMessage('Passwords are not matched')
+        : setConfirmPasswordValidateMessage('');
+
+    if (_passwordValidateMessage.isEmpty &&
         _confirmPasswordValidateMessage.isEmpty) {
       return true;
     } else {
@@ -527,19 +566,33 @@ class AuthViewModel with ChangeNotifier {
     }
   }
 
-  Future<bool> callForgetPassword() async {
+  Future<bool> callForgetPasswordEmail() async {
     EasyLoading.show(status: 'Sending Otp to your Email');
-    ForgetPasswordRequest forgetPasswordRequest =
-    ForgetPasswordRequest(email: emailController.text);
-    final response = await forgetPasswordApi(forgetPasswordRequest: forgetPasswordRequest);
+    ForgetPasswordEmailRequest forgetPasswordEmailRequest =
+        ForgetPasswordEmailRequest(email: emailController.text);
+    final response = await forgetPasswordEmailApi(
+        forgetPasswordEmailRequest: forgetPasswordEmailRequest);
     if (response != null) {
-      setForgetPasswordResponse(response);
-      return getForgetPasswordResponse.data!.forgotPassword!.status!;
+      setForgetPasswordEmailResponse(response);
+      return getForgetPasswordEmailResponse.data!.forgotPassword!.status!;
     } else {
       return false;
     }
   }
 
+  Future<bool> callResetPassword() async {
+    EasyLoading.show(status: 'Please Wait...');
+    ResetPasswordRequest resetPasswordRequest = ResetPasswordRequest(
+        email: emailController.text, newPassword: passwordController.text);
+    final response =
+        await resetPasswordApi(resetPasswordRequest: resetPasswordRequest);
+    if (response != null) {
+      setResetPasswordResponse(response);
+      return getResetPasswordResponse.data!.resetPassword!.status!;
+    } else {
+      return false;
+    }
+  }
 /* void checkforIosPermission() async{
     await _firebaseMessaging.requestNotificationPermissions(
         IosNotificationSettings(sound: true, badge: true, alert: true));

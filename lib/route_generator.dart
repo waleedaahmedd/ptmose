@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ptmose/Screens/edit_profile_screen.dart';
+import 'package:ptmose/Screens/forgot_password_screen.dart';
 import 'package:ptmose/Screens/login_screen.dart';
 import 'package:ptmose/Screens/my_reservation_screen.dart';
 import 'package:ptmose/Screens/my_review_detail_screen.dart';
@@ -11,7 +12,7 @@ import 'package:ptmose/Screens/tasting_list_screen.dart';
 
 import 'Screens/about_screen.dart';
 import 'Screens/cart_screen.dart';
-import 'Screens/forget_password_screen.dart';
+import 'Screens/confirm_email_screen.dart';
 import 'Screens/home_screen.dart';
 import 'Screens/review_submition_screen.dart';
 import 'Screens/shop_screen.dart';
@@ -31,8 +32,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const Splash());
       case '/login':
         return MaterialPageRoute(builder: (_) => const LoginScreen());
-      case '/forget_password':
-        return MaterialPageRoute(builder: (_) => ForgetPasswordScreen());
+      case '/confirm_email':
+        return MaterialPageRoute(builder: (_) => ConfirmEmailScreen());
       case '/sign_up':
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
       case '/home':
@@ -75,6 +76,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
       case '/otp':
         return MaterialPageRoute(builder: (_) => const OtpScreen());
+      case '/forgot_password':
+        return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       default:
         return _errorRoute();
     }

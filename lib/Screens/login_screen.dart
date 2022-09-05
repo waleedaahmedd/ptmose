@@ -99,8 +99,10 @@ class LoginScreen extends StatelessWidget {
                                           padding: EdgeInsets.zero,
                                         ),
                                         onPressed: () {
+                                          authViewModel
+                                              .setShowForgotPasswordScreen(true);
                                           Navigator.of(context)
-                                              .pushNamed('/forget_password');
+                                              .pushNamed('/confirm_email');
                                         },
                                         child: const NormalFontText1(
                                           data: 'FORGOT PASSWORD?',
@@ -116,6 +118,8 @@ class LoginScreen extends StatelessWidget {
                                     onPressed: () {
                                       FocusManager.instance.primaryFocus
                                           ?.unfocus();
+                                      authViewModel
+                                          .setShowForgotPasswordScreen(false);
                                       if (authViewModel.logInValidation() ==
                                           true) {
                                         authViewModel
@@ -185,6 +189,8 @@ class LoginScreen extends StatelessWidget {
                                                       .signInWithGoogle()
                                                       .then((value) {
                                                     if (value == true) {
+                                                      authViewModel.passwordController.clear();
+                                                      authViewModel.confirmPasswordController.clear();
                                                       EasyLoading.showSuccess(
                                                           authViewModel
                                                               .getSocialMediaLoginResponse
@@ -292,6 +298,7 @@ class LoginScreen extends StatelessWidget {
                                       padding: EdgeInsets.zero,
                                     ),
                                     onPressed: () {
+                                      authViewModel.clearValidationMessages();
                                       Navigator.of(context)
                                           .pushNamed('/sign_up');
                                     },

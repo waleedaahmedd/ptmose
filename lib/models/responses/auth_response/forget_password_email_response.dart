@@ -1,9 +1,9 @@
-class ForgetPasswordResponse {
+class ForgetPasswordEmailResponse {
   ForgetPasswordResponseData? data;
 
-  ForgetPasswordResponse({this.data});
+  ForgetPasswordEmailResponse({this.data});
 
-  ForgetPasswordResponse.fromJson(Map<String, dynamic> json) {
+  ForgetPasswordEmailResponse.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? ForgetPasswordResponseData.fromJson(json['data']) : null;
   }
 

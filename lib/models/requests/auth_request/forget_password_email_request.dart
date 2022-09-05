@@ -1,7 +1,7 @@
-class ForgetPasswordRequest {
+class ForgetPasswordEmailRequest {
   final String email;
 
-  ForgetPasswordRequest({required this.email});
+  ForgetPasswordEmailRequest({required this.email});
 
   generateQuery() {
     String query =
