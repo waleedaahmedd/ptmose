@@ -2,24 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.60082216099-b89239gdoha7jril2eqvi7bg397nv5og</string>
-				<string>fb382721350666966</string>
-			</array>
-		</dict>
-	</array>
-	<key>FacebookAppID</key>
-	<string>382721350666966</string>
-	<key>FacebookClientToken</key>
-	<string>f33e369d8a999dc10bb15b013a0b2cf3</string>
-	<key>FacebookDisplayName</key>
-	<string>ptmose</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -37,11 +19,29 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.60082216099-b89239gdoha7jril2eqvi7bg397nv5og</string>
+				<string>fb382721350666966</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>382721350666966</string>
+	<key>FacebookClientToken</key>
+	<string>f33e369d8a999dc10bb15b013a0b2cf3</string>
+	<key>FacebookDisplayName</key>
+	<string>ptmose</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>comgooglemaps</string>
