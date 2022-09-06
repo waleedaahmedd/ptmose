@@ -54,7 +54,6 @@ class SocialMediaButtonsWidgets extends StatelessWidget {
                     child: Image.asset(
                       'assets/images/connect_google.png',
                       height: 50.h,
-
                     ),
                   ))),
           SizedBox(
