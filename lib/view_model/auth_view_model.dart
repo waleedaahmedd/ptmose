@@ -1,3 +1,9 @@
+import 'dart:convert';
+import 'dart:math';
+import 'package:crypto/crypto.dart';
+
+
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,6 +25,7 @@ import 'package:ptmose/models/responses/auth_response/social_media_login_respons
 import 'package:ptmose/models/responses/auth_response/user_data_response.dart';
 import 'package:ptmose/models/responses/change_name_response.dart';
 import 'package:ptmose/models/responses/change_password_response.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../Service/api_service.dart';
 import '../models/requests/auth_request/login_request.dart';
@@ -32,6 +39,7 @@ class AuthViewModel with ChangeNotifier {
       RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
           r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
           r"{0,253}[a-zA-Z0-9])?)*$");
+
 
   TextEditingController emailController = TextEditingController();
   TextEditingController oldPasswordController = TextEditingController();
@@ -483,6 +491,69 @@ class AuthViewModel with ChangeNotifier {
       EasyLoading.showError('Something Went Wrong');
       return false;
     }
+  }
+
+  String sha256ofString(String input) {
+    final bytes = utf8.encode(input);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
+  }
+
+  String generateNonce([int length = 32]) {
+    final charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = Random.secure();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+        .join();
+  }
+
+  Future<bool> signInWithApple() async {
+    EasyLoading.show(status: 'Please Wait...');
+    // Trigger the authentication flow
+//    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+
+      // Obtain the auth details from the request
+
+    final rawNonce = generateNonce();
+    final nonce = sha256ofString(rawNonce);
+
+    try{
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: nonce,
+
+      );
+      // Create an `OAuthCredential` from the credential returned by Apple.
+      final oauthCredential = OAuthProvider("apple.com").credential(
+        idToken: appleCredential.identityToken,
+        rawNonce: rawNonce,
+      );
+
+      final userDetails =
+      await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+
+      if (userDetails.user != null) {
+        await getUserToken();
+        final loginStatus = await callSocialMediaLoginApi(
+            socialEmail: userDetails.user!.email!,
+            socialProviderId: userDetails.user!.uid,
+            socialRegistrationType: 'apple',
+            socialName: userDetails.user!.displayName == null? 'UnKnown' : userDetails.user!.displayName!);
+        return loginStatus;
+      } else {
+        EasyLoading.showError('Something Went Wrong');
+        return false;
+      }
+    }catch(e){
+      EasyLoading.showError('Something Went Wrong');
+      return false;
+    }
+
+
   }
 
   Future<bool> signInWithFacebook() async {

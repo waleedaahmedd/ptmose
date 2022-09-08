@@ -8,6 +8,7 @@ import 'package:ptmose/view_model/auth_view_model.dart';
 import '../utils/shared_pref .dart';
 import '../utils/custom_font_style.dart';
 import '../widget/custom_button_1.dart';
+import '../widget/social_media_buttons_widget.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -178,97 +179,7 @@ class LoginScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 10.h,
                                   ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                          child: Align(
-                                              alignment: Alignment.centerRight,
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  authViewModel
-                                                      .signInWithGoogle()
-                                                      .then((value) {
-                                                    if (value == true) {
-                                                      authViewModel.passwordController.clear();
-                                                      authViewModel.confirmPasswordController.clear();
-                                                      EasyLoading.showSuccess(
-                                                          authViewModel
-                                                              .getSocialMediaLoginResponse
-                                                              .data!
-                                                              .socialMediaLogin!
-                                                              .message!);
-                                                      authViewModel
-                                                          .setGuestUser(false);
-
-                                                      authViewModel
-                                                          .callUserName();
-                                                      Navigator.of(context)
-                                                          .pushNamedAndRemoveUntil(
-                                                              '/home',
-                                                              ModalRoute
-                                                                  .withName(
-                                                                      '/'));
-                                                    } else {
-                                                      EasyLoading.showError(
-                                                          authViewModel
-                                                              .getSocialMediaLoginResponse
-                                                              .data!
-                                                              .socialMediaLogin!
-                                                              .message!);
-                                                    }
-                                                  });
-                                                },
-                                                child: Image.asset(
-                                                  'assets/images/connect_google.png',
-                                                  height: 50.h,
-                                                ),
-                                              ))),
-                                      SizedBox(
-                                        width: 20.h,
-                                      ),
-                                      Expanded(
-                                          child: Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  authViewModel
-                                                      .signInWithFacebook()
-                                                      .then((value) {
-                                                    if (value == true) {
-                                                      EasyLoading.showSuccess(
-                                                          authViewModel
-                                                              .getSocialMediaLoginResponse
-                                                              .data!
-                                                              .socialMediaLogin!
-                                                              .message!);
-                                                      authViewModel
-                                                          .setGuestUser(false);
-
-                                                      authViewModel
-                                                          .callUserName();
-                                                      Navigator.of(context)
-                                                          .pushNamedAndRemoveUntil(
-                                                              '/home',
-                                                              ModalRoute
-                                                                  .withName(
-                                                                      '/'));
-                                                    } else {
-                                                      EasyLoading.showError(
-                                                          authViewModel
-                                                              .getSocialMediaLoginResponse
-                                                              .data!
-                                                              .socialMediaLogin!
-                                                              .message!);
-                                                    }
-                                                  });
-                                                },
-                                                child: Image.asset(
-                                                  'assets/images/connect_facebook.png',
-                                                  height: 50.h,
-                                                ),
-                                              ))),
-                                    ],
-                                  ),
+                                  const SocialMediaButtonsWidgets(),
                                   SizedBox(
                                     height: 10.h,
                                   ),
