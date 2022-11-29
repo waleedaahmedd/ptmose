@@ -200,12 +200,12 @@ class _OtpScreenState extends State<OtpScreen> {
                                 children: [
                                   CustomButton1(
                                     text: 'SUBMIT',
-                                    onPressed: ()  {
+                                    onPressed: ()  async {
                                       FocusManager.instance.primaryFocus
                                           ?.unfocus();
                                       final validation =  authViewModel.otpValidation();
                                       if (validation) {
-                                        authViewModel
+                                       await authViewModel
                                             .callOtpVerification()
                                             .then((value) {
                                           if (value == true) {

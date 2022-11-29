@@ -91,7 +91,9 @@ class SettingsScreen extends StatelessWidget {
                             ? null
                             : authViewModel.getConfirmPasswordValidateMessage),
               ),
-              const Spacer(),
+              SizedBox(
+                height: 20.h,
+              ),
               CustomButton1(
                 text: 'SUBMIT',
                 onPressed: () {
@@ -100,13 +102,59 @@ class SettingsScreen extends StatelessWidget {
                     authViewModel.callChangePasswordApi().then((value) {
                       if (value == true) {
                         authViewModel.passwordController.clear();
-                        authViewModel.emailController.text = authViewModel.getUserDataResponse.email!;
+                        authViewModel.emailController.text =
+                            authViewModel.getUserDataResponse.email!;
                         authViewModel.signOut();
                         Navigator.of(context).pushNamedAndRemoveUntil(
                             '/login', ModalRoute.withName('/'));
                       }
                     });
                   }
+                },
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              const GoogleFontText5(
+                data: 'Delete Your Account',
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              const NormalFontText2(
+                data:
+                    'If you confirm that you want to delete your account, we will process your request within 30 days.\nOnce your account is deleted, we won\'t be able to restore your data anymore. \nFrom this point onwards, you don\'t need to do anything else. Once your account is deleted, we will send you a confirmation email.',
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              CustomButton1(
+                text: 'DELETE NOW',
+                onPressed: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Delete Account'),
+                      content: const Text(
+                          'Do you really want to delete your account?'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Provider.of<AuthViewModel>(context, listen: false)
+                                .signOut();
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                '/login', ModalRoute.withName('/'));
+                          },
+                          child: const Text('Yes'),
+                        ),
+                      ],
+                    ),
+                  );
                 },
               ),
             ],

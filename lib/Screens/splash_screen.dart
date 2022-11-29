@@ -71,7 +71,7 @@ class _SplashState extends State<Splash> {
   _getVideoBackground() {
     return AnimatedOpacity(
       opacity: _visible ? 1.0 : 0.0,
-      duration: Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 1000),
       child: VideoPlayer(_controller),
     );
   }
